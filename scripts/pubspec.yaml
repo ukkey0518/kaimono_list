@@ -5,6 +5,7 @@ environment: { sdk: ^3.4.3 }
 
 dependencies:
   collection: ^1.19.0
+  recase: ^4.1.0
 
 dev_dependencies:
   very_good_analysis: ^6.0.0
