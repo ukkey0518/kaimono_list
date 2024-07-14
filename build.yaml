@@ -5,11 +5,3 @@ targets:
         options:
           include_if_null: false
           explicit_to_json: true
-      source_gen|combining_builder:
-        options:
-          build_extensions:
-            '^lib/{{dir}}/{{file}}.dart': 'lib/{{dir}}/generated/{{file}}.g.dart'
-      freezed:
-        options:
-          build_extensions:
-            '^lib/{{dir}}/{{file}}.dart': 'lib/{{dir}}/generated/{{file}}.freezed.dart'
