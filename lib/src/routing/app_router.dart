@@ -13,11 +13,10 @@ part 'app_router.g.dart';
 )
 GoRouter appRouter(AppRouterRef ref) {
   const rootLocation = '/';
-  const initialLocation = '/';
   final authRepository = ref.read(authRepositoryProvider);
 
   return GoRouter(
-    initialLocation: initialLocation,
+    initialLocation: rootLocation,
     debugLogDiagnostics: true,
     refreshListenable: RouterRefreshStreamNotifier(
       authRepository.authStateChanges,
@@ -39,22 +38,18 @@ GoRouter appRouter(AppRouterRef ref) {
       if (!signedIn && !matchedLocation.startsWith(signInLocation())) {
         return signInLocation(
           // ログイン後にリダイレクトするため元のURIを保持
-          // - 初期ページの場合は保存しない
+          // - Rootの場合は保存しない
           matchedLocation == rootLocation ? null : state.uri,
         );
       }
 
       /// ログインしている状態でログイン画面にアクセスしようとした場合、元のURIにリダイレクトする
-      /// - 元のURIがない場合は初期ページにリダイレクトする
+      /// - 元のURIがない場合はRootにリダイレクトする
       if (signedIn && matchedLocation.startsWith(signInLocation())) {
         final from = state.uri.queryParameters['from'] ?? '';
         return from.isNotEmpty ? Uri.decodeComponent(from) : rootLocation;
       }
 
-      /// Rootにアクセスした場合、初期画面にリダイレクトする
-      if (matchedLocation == rootLocation) {
-        return initialLocation;
-      }
       return null;
     },
   );
