@@ -39,10 +39,15 @@ RouteBase get $signInRoute => GoRouteData.$route(
     );
 
 extension $SignInRouteExtension on SignInRoute {
-  static SignInRoute _fromState(GoRouterState state) => const SignInRoute();
+  static SignInRoute _fromState(GoRouterState state) => SignInRoute(
+        from: state.uri.queryParameters['from'],
+      );
 
   String get location => GoRouteData.$location(
         '/sign-in',
+        queryParams: {
+          if (from != null) 'from': from,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

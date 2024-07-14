@@ -21,7 +21,11 @@ class ItemListRoute extends GoRouteData {
   path: '/sign-in',
 )
 class SignInRoute extends GoRouteData {
-  const SignInRoute();
+  const SignInRoute({
+    this.from,
+  });
+
+  final String? from;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
