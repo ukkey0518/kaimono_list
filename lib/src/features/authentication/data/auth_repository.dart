@@ -11,7 +11,7 @@ class AuthRepository {
   final FirebaseAuth _auth;
 
   /// Creates a new user with the provided email and password.
-  Future<void> createUserWithEmailAndPassword({
+  Future<void> registerWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
