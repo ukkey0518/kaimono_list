@@ -11,10 +11,10 @@ class AuthRepository {
   final FirebaseAuth _auth;
 
   /// Creates a new user with the provided email and password.
-  Future<void> createUserWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -22,10 +22,10 @@ class AuthRepository {
   }
 
   /// Signs in with the provided email and password.
-  Future<void> signInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
