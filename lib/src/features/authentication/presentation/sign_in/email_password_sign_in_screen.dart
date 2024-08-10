@@ -10,6 +10,7 @@ import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 import 'package:kaimono_list/src/utils/extensions/global_key_extensions.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 import 'package:kaimono_list/src/utils/hooks/use_form_key.dart';
+import 'package:kaimono_list/src/utils/snackbar.dart';
 
 class EmailPasswordSignInScreen extends HookConsumerWidget {
   const EmailPasswordSignInScreen({super.key});
@@ -23,10 +24,10 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
 
     ref.listen(
       emailPasswordSignInControllerProvider,
-      (_, state) => state.showDialogOnError(context),
+      (_, state) => state.showSnackbarOnError(context),
     );
 
-    Future<void> signIn() async {
+    Future<void> submit() async {
       // Validate all fields in the form and scroll to the first invalid field.
       final isValid = await formKey.validateAndScrollToInvalidField();
       if (!isValid) {
@@ -44,7 +45,9 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
         return;
       }
 
-      // TODO: show sucess snackbar
+      if (context.mounted) {
+        await AppSnackbar.showSuccess(context, 'ログイン成功'.hardcoded);
+      }
     }
 
     return Scaffold(
@@ -71,7 +74,7 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
               ),
               const Gap(Sizes.p16),
               ElevatedButton(
-                onPressed: signIn,
+                onPressed: submit,
                 child: Text(
                   type.value == EmailPasswordSignInType.signIn
                       ? 'Sign In'.hardcoded
