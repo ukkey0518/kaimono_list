@@ -4,15 +4,15 @@ import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/constants/app_sizes.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
-class ErrorDialog extends StatelessWidget {
-  const ErrorDialog._({
+class AppErrorDialog extends StatelessWidget {
+  const AppErrorDialog._({
     required this.error,
   });
 
   static Future<void> show(BuildContext context, dynamic error) {
     return showDialog<void>(
       context: context,
-      builder: (context) => ErrorDialog._(error: error),
+      builder: (context) => AppErrorDialog._(error: error),
     );
   }
 
