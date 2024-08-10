@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kaimono_list/src/common_widgets/progress_indicator.dart';
 import 'package:kaimono_list/src/constants/app_sizes.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_type.dart';
@@ -87,11 +88,13 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
                   const Gap(Sizes.p24),
                   ElevatedButton(
                     onPressed: isLoading ? null : submit,
-                    child: Text(
-                      type.value == EmailPasswordSignInType.signIn
-                          ? 'Sign In'.hardcoded
-                          : 'Register'.hardcoded,
-                    ),
+                    child: isLoading
+                        ? const AppLoadingIndicator()
+                        : Text(
+                            type.value == EmailPasswordSignInType.signIn
+                                ? 'Sign In'.hardcoded
+                                : 'Register'.hardcoded,
+                          ),
                   ),
                   const Gap(Sizes.p8),
                   TextButton(
