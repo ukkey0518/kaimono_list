@@ -27,6 +27,12 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
       (_, state) => state.showSnackbarOnError(context),
     );
 
+    void toggleType() {
+      type.value = type.value == EmailPasswordSignInType.signIn
+          ? EmailPasswordSignInType.register
+          : EmailPasswordSignInType.signIn;
+    }
+
     Future<void> submit() async {
       // Validate all fields in the form and scroll to the first invalid field.
       final isValid = await formKey.validateAndScrollToInvalidField();
@@ -78,7 +84,7 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
                     controller: passwordController,
                     enabled: !isLoading,
                   ),
-                  const Gap(Sizes.p16),
+                  const Gap(Sizes.p24),
                   ElevatedButton(
                     onPressed: isLoading ? null : submit,
                     child: Text(
@@ -89,14 +95,7 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
                   ),
                   const Gap(Sizes.p8),
                   TextButton(
-                    onPressed: isLoading
-                        ? null
-                        : () {
-                            type.value =
-                                type.value == EmailPasswordSignInType.signIn
-                                    ? EmailPasswordSignInType.register
-                                    : EmailPasswordSignInType.signIn;
-                          },
+                    onPressed: isLoading ? null : toggleType,
                     child: Text(
                       type.value == EmailPasswordSignInType.signIn
                           ? 'Create an account'.hardcoded
