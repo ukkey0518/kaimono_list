@@ -55,46 +55,57 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
         key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.p16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                type.value == EmailPasswordSignInType.signIn
-                    ? 'Sign In'.hardcoded
-                    : 'Register'.hardcoded,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const Gap(Sizes.p8),
-              _EmailFormField(
-                controller: emailController,
-              ),
-              const Gap(Sizes.p8),
-              _PasswordFormField(
-                controller: passwordController,
-              ),
-              const Gap(Sizes.p16),
-              ElevatedButton(
-                onPressed: submit,
-                child: Text(
-                  type.value == EmailPasswordSignInType.signIn
-                      ? 'Sign In'.hardcoded
-                      : 'Register'.hardcoded,
-                ),
-              ),
-              const Gap(Sizes.p8),
-              TextButton(
-                onPressed: () {
-                  type.value = type.value == EmailPasswordSignInType.signIn
-                      ? EmailPasswordSignInType.register
-                      : EmailPasswordSignInType.signIn;
-                },
-                child: Text(
-                  type.value == EmailPasswordSignInType.signIn
-                      ? 'Create an account'.hardcoded
-                      : 'Sign in instead'.hardcoded,
-                ),
-              ),
-            ],
+          child: Consumer(
+            builder: (context, ref, _) {
+              final isLoading =
+                  ref.watch(emailPasswordSignInControllerProvider).isLoading;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    type.value == EmailPasswordSignInType.signIn
+                        ? 'Sign In'.hardcoded
+                        : 'Register'.hardcoded,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  const Gap(Sizes.p8),
+                  _EmailFormField(
+                    controller: emailController,
+                    enabled: !isLoading,
+                  ),
+                  const Gap(Sizes.p8),
+                  _PasswordFormField(
+                    controller: passwordController,
+                    enabled: !isLoading,
+                  ),
+                  const Gap(Sizes.p16),
+                  ElevatedButton(
+                    onPressed: isLoading ? null : submit,
+                    child: Text(
+                      type.value == EmailPasswordSignInType.signIn
+                          ? 'Sign In'.hardcoded
+                          : 'Register'.hardcoded,
+                    ),
+                  ),
+                  const Gap(Sizes.p8),
+                  TextButton(
+                    onPressed: isLoading
+                        ? null
+                        : () {
+                            type.value =
+                                type.value == EmailPasswordSignInType.signIn
+                                    ? EmailPasswordSignInType.register
+                                    : EmailPasswordSignInType.signIn;
+                          },
+                    child: Text(
+                      type.value == EmailPasswordSignInType.signIn
+                          ? 'Create an account'.hardcoded
+                          : 'Sign in instead'.hardcoded,
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -105,9 +116,11 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
 class _EmailFormField extends StatelessWidget {
   const _EmailFormField({
     required this.controller,
+    required this.enabled,
   });
 
   final TextEditingController controller;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +128,7 @@ class _EmailFormField extends StatelessWidget {
       controller: controller,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
+      enabled: enabled,
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
           errorText: 'わすれとるで'.hardcoded,
@@ -134,9 +148,11 @@ class _EmailFormField extends StatelessWidget {
 class _PasswordFormField extends HookWidget {
   const _PasswordFormField({
     required this.controller,
+    required this.enabled,
   });
 
   final TextEditingController controller;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -147,6 +163,7 @@ class _PasswordFormField extends HookWidget {
       obscureText: isObscure.value,
       autocorrect: false,
       textInputAction: TextInputAction.done,
+      enabled: enabled,
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
           errorText: 'わすれとるで'.hardcoded,
