@@ -23,7 +23,7 @@ const firestoreCreatedAt = JsonKey(
 /// Json key for Firestore updated at timestamp.
 const firestoreUpdatedAt = JsonKey(
   name: 'updatedAt',
-  includeIfNull: true,
+  includeIfNull: false,
   fromJson: FirestoreFieldConverter.nullableTimestampToDateTime,
   toJson: FirestoreFieldConverter.updatedAtToJson,
 );
