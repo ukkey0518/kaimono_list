@@ -195,7 +195,13 @@ class ItemListTile extends HookWidget {
       ),
       controller: controller,
       focusNode: focusNode,
-      onSubmitted: onSubmitted,
+      onSubmitted: (name) {
+        if (name.isEmpty) {
+          controller.text = item.name;
+          return;
+        }
+        onSubmitted(name);
+      },
     );
   }
 }
@@ -218,13 +224,13 @@ class ItemAddTile extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       hintText: 'かうもの'.hardcoded,
-      onSubmitted: controller.text.isEmpty
-          ? null
-          : (name) {
-              onSubmitted.call(name);
-              controller.clear();
-              focusNode.requestFocus();
-            },
+      onSubmitted: (name) {
+        if (name.isNotEmpty) {
+          onSubmitted.call(name);
+          controller.clear();
+          focusNode.requestFocus();
+        }
+      },
     );
   }
 }
