@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intersperse/intersperse.dart';
 import 'package:kaimono_list/src/common_widgets/progress_indicator.dart';
+import 'package:kaimono_list/src/constants/app_sizes.dart';
 import 'package:kaimono_list/src/features/item/data/item_repository.dart';
 import 'package:kaimono_list/src/features/item/domain/item.dart';
 import 'package:kaimono_list/src/features/item/presentation/item_list/item_delete_confirm_dialog.dart';
 import 'package:kaimono_list/src/features/item/presentation/item_list/item_list_controller.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
+import 'package:kaimono_list/src/utils/un_focus_all.dart';
 
 class ItemListScreen extends HookConsumerWidget {
   const ItemListScreen({super.key});
@@ -29,29 +32,32 @@ class ItemListScreen extends HookConsumerWidget {
           .deleteAllPurchasedItems();
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('かいものリスト'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: deleteAllPurchasedItems,
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ItemListView(
-              onAddItem: (itemName) => ref
-                  .read(itemListControllerProvider.notifier)
-                  .addItem(itemName),
-              onUpdateItem: (item) => ref
-                  .read(itemListControllerProvider.notifier)
-                  .updateItem(item),
+    return GestureDetector(
+      onTap: unFocusAll,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('かいものリスト'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: deleteAllPurchasedItems,
             ),
-          ),
-        ],
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ItemListView(
+                onAddItem: (itemName) => ref
+                    .read(itemListControllerProvider.notifier)
+                    .addItem(itemName),
+                onUpdateItem: (item) => ref
+                    .read(itemListControllerProvider.notifier)
+                    .updateItem(item),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -80,7 +86,7 @@ class ItemListView extends ConsumerWidget {
     final items = itemsAsyncValue.value ?? [];
 
     return ListView(
-      children: [
+      children: <Widget>[
         for (final item in items)
           ItemListTile(
             item: item,
@@ -98,7 +104,13 @@ class ItemListView extends ConsumerWidget {
         ItemAddTile(
           onSubmitted: onAddItem,
         ),
-      ],
+      ]
+          .intersperse(
+            const Divider(
+              height: 1,
+            ),
+          )
+          .toList(),
     );
   }
 }
@@ -122,7 +134,10 @@ class ItemTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: leading,
+      leading: SizedBox(
+        width: Sizes.p48,
+        child: leading,
+      ),
       title: TextField(
         controller: controller,
         focusNode: focusNode,
