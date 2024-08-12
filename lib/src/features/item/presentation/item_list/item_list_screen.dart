@@ -229,10 +229,11 @@ class ItemListTile extends HookWidget {
       autofocus: true,
       enabled: isEditing.value,
       onSubmitted: (name) {
-        if (controller.text.isEmpty) {
+        if (name.isEmpty) {
           controller.text = item.name;
+          return;
         }
-        onSubmitted(controller.text);
+        onSubmitted(name);
       },
     );
 
