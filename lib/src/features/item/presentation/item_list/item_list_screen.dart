@@ -108,7 +108,9 @@ class ItemListView extends HookConsumerWidget {
     return ListView.separated(
       controller: scrollController,
       itemCount: items.length,
-      separatorBuilder: (_, __) => const Divider(),
+      separatorBuilder: (_, __) => const Divider(
+        height: 1,
+      ),
       itemBuilder: (_, index) {
         final item = items[index];
         return ItemListTile(
@@ -133,18 +135,12 @@ class ItemListView extends HookConsumerWidget {
 class ItemTile extends StatelessWidget {
   const ItemTile({
     required this.leading,
-    required this.controller,
-    required this.onSubmitted,
+    required this.child,
     super.key,
-    this.focusNode,
-    this.hintText,
   });
 
   final Widget leading;
-  final TextEditingController controller;
-  final FocusNode? focusNode;
-  final ValueChanged<String>? onSubmitted;
-  final String? hintText;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -153,13 +149,13 @@ class ItemTile extends StatelessWidget {
         width: Sizes.p48,
         child: leading,
       ),
-      title: TextField(
-        controller: controller,
-        focusNode: focusNode,
-        onSubmitted: onSubmitted,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: InputBorder.none,
+      title: SizedBox(
+        height: kMinInteractiveDimension,
+        child: Center(
+          child: SizedBox(
+            width: double.infinity,
+            child: child,
+          ),
         ),
       ),
     );
@@ -182,10 +178,11 @@ class ItemListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isEditing = useState(false);
+    final focusNode = useFocusNode();
     final controller = useTextEditingController(
       text: item.name,
     );
-    final focusNode = useFocusNode();
 
     useEffect(
       () {
@@ -195,24 +192,66 @@ class ItemListTile extends HookWidget {
       [item.name],
     );
 
+    useEffect(
+      () {
+        void listener() {
+          if (!focusNode.hasFocus) {
+            controller.text = item.name;
+            isEditing.value = false;
+          }
+        }
+
+        focusNode.addListener(listener);
+        return () => focusNode.removeListener(listener);
+      },
+      [],
+    );
+
+    final text = GestureDetector(
+      onLongPress: () => isEditing.value = true,
+      behavior: HitTestBehavior.translucent,
+      child: Text(
+        item.name,
+        style: item.isPurchased
+            ? const TextStyle(
+                decoration: TextDecoration.lineThrough,
+              )
+            : null,
+      ),
+    );
+
+    final textField = TextField(
+      controller: controller,
+      focusNode: focusNode,
+      decoration: const InputDecoration(
+        border: InputBorder.none,
+      ),
+      autofocus: true,
+      enabled: isEditing.value,
+      onSubmitted: (name) {
+        if (controller.text.isEmpty) {
+          controller.text = item.name;
+        }
+        onSubmitted(controller.text);
+      },
+    );
+
     return Dismissible(
       key: ValueKey(item.id),
       onDismissed: (_) => onDismissed(),
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: Sizes.p16),
+        child: const Icon(Icons.delete, color: Colors.white),
+      ),
       behavior: HitTestBehavior.translucent,
       child: ItemTile(
         leading: Checkbox(
           value: item.isPurchased,
           onChanged: (_) => onToggle(),
         ),
-        controller: controller,
-        focusNode: focusNode,
-        onSubmitted: (name) {
-          if (name.isEmpty) {
-            controller.text = item.name;
-            return;
-          }
-          onSubmitted(name);
-        },
+        child: isEditing.value ? textField : text,
       ),
     );
   }
@@ -233,16 +272,21 @@ class ItemAddTile extends HookWidget {
 
     return ItemTile(
       leading: const Icon(Icons.add),
-      controller: controller,
-      focusNode: focusNode,
-      hintText: 'かうもの'.hardcoded,
-      onSubmitted: (name) {
-        if (name.isNotEmpty) {
-          onSubmitted.call(name);
-          controller.clear();
-          focusNode.requestFocus();
-        }
-      },
+      child: TextField(
+        controller: controller,
+        focusNode: focusNode,
+        onSubmitted: (name) {
+          if (name.isNotEmpty) {
+            onSubmitted.call(name);
+            controller.clear();
+            focusNode.requestFocus();
+          }
+        },
+        decoration: InputDecoration(
+          hintText: 'かうもの'.hardcoded,
+          border: InputBorder.none,
+        ),
+      ),
     );
   }
 }
