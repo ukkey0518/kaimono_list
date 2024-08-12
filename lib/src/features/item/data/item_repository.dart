@@ -45,6 +45,10 @@ class ItemRepository {
     );
   }
 
+  Future<void> deleteItem(String id) async {
+    await itemRef(id).delete();
+  }
+
   Future<void> deleteAllPurchasedItems() async {
     final batch = _firestore.batch();
     final purchasedItems = await itemsRef()
