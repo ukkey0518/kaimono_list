@@ -10,6 +10,7 @@ class App extends ConsumerWidget {
     final appRouter = ref.watch(appRouterProvider);
 
     return MaterialApp.router(
+      title: 'かいものリスト',
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
