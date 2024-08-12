@@ -47,28 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC6Bv-Vb6p5RmGOIR0mC8KyI9Obq4Q31DI',
-    appId: '1:324573076676:web:d28ff343a4cf9fe78a3d91',
-    messagingSenderId: '324573076676',
-    projectId: 'ukihome-sample',
-    authDomain: 'ukihome-sample.firebaseapp.com',
-    storageBucket: 'ukihome-sample.appspot.com',
+    apiKey: 'AIzaSyBdhKKIUvOj6dvhi-_kLGNDlvIwRsE7rOE',
+    appId: '1:578807791493:web:5ec4412c29806277b50eec',
+    messagingSenderId: '578807791493',
+    projectId: 'kaimono-list-7174f',
+    authDomain: 'kaimono-list-7174f.firebaseapp.com',
+    storageBucket: 'kaimono-list-7174f.appspot.com',
+    measurementId: 'G-LGC6PNVN6G',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBpQJTAv_9RxwqhS-aRPyYqM03cJTAEBZU',
-    appId: '1:324573076676:android:6f07586987c59a198a3d91',
-    messagingSenderId: '324573076676',
-    projectId: 'ukihome-sample',
-    storageBucket: 'ukihome-sample.appspot.com',
+    apiKey: 'AIzaSyC3Uv-4Nf2WU9TZSLA27h8HSrN5KSjALcg',
+    appId: '1:578807791493:android:eec99f6816dab9bab50eec',
+    messagingSenderId: '578807791493',
+    projectId: 'kaimono-list-7174f',
+    storageBucket: 'kaimono-list-7174f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDqKfKm6C0dBdYQ8CWblmC8zGO-WdV5Vfg',
-    appId: '1:324573076676:ios:9f33884d981bdc308a3d91',
-    messagingSenderId: '324573076676',
-    projectId: 'ukihome-sample',
-    storageBucket: 'ukihome-sample.appspot.com',
+    apiKey: 'AIzaSyAVzxr9RtqdUtsIHoD4lf8409WTgliHZyQ',
+    appId: '1:578807791493:ios:7e51c675bf185419b50eec',
+    messagingSenderId: '578807791493',
+    projectId: 'kaimono-list-7174f',
+    storageBucket: 'kaimono-list-7174f.appspot.com',
     iosBundleId: 'com.ukihome.kaimonoList',
   );
+
 }

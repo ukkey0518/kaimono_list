@@ -1,40 +1,21 @@
 {
   "project_info": {
-    "project_number": "324573076676",
-    "project_id": "ukihome-sample",
-    "storage_bucket": "ukihome-sample.appspot.com"
+    "project_number": "578807791493",
+    "project_id": "kaimono-list-7174f",
+    "storage_bucket": "kaimono-list-7174f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:324573076676:android:71f3f9d5e6ea5b7f8a3d91",
+        "mobilesdk_app_id": "1:578807791493:android:eec99f6816dab9bab50eec",
         "android_client_info": {
-          "package_name": "com.examsple.sample_chat_app"
+          "package_name": "com.ukihome.kaimono_li"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBpQJTAv_9RxwqhS-aRPyYqM03cJTAEBZU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:324573076676:android:6f07586987c59a198a3d91",
-        "android_client_info": {
-          "package_name": "com.ukihome.kaimono_list"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBpQJTAv_9RxwqhS-aRPyYqM03cJTAEBZU"
+          "current_key": "AIzaSyC3Uv-4Nf2WU9TZSLA27h8HSrN5KSjALcg"
         }
       ],
       "services": {
