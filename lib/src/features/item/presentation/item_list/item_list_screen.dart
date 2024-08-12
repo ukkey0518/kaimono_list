@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intersperse/intersperse.dart';
 import 'package:kaimono_list/src/common_widgets/progress_indicator.dart';
 import 'package:kaimono_list/src/constants/app_sizes.dart';
 import 'package:kaimono_list/src/features/item/data/item_repository.dart';
@@ -17,10 +16,22 @@ class ItemListScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final addTileKey = useMemoized(GlobalKey.new);
+    final scrollController = useScrollController();
+
     ref.listen(
       itemListControllerProvider,
       (_, state) => state.showSnackbarOnError(context),
     );
+
+    Future<void> addNewItem(String name) async {
+      await ref.read(itemListControllerProvider.notifier).addItem(name);
+      await scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeInOut,
+      );
+    }
 
     Future<void> deleteAllPurchasedItems() async {
       final isConfirmed = await ItemDeleteConfirmDialog.show(context);
@@ -44,33 +55,38 @@ class ItemListScreen extends HookConsumerWidget {
             ),
           ],
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: ItemListView(
-                onAddItem: (itemName) => ref
-                    .read(itemListControllerProvider.notifier)
-                    .addItem(itemName),
-                onUpdateItem: (item) => ref
-                    .read(itemListControllerProvider.notifier)
-                    .updateItem(item),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: ItemListView(
+                  scrollController: scrollController,
+                  onUpdateItem: (item) => ref
+                      .read(itemListControllerProvider.notifier)
+                      .updateItem(item),
+                ),
               ),
-            ),
-          ],
+              const Divider(height: 1),
+              ItemAddTile(
+                key: addTileKey,
+                onSubmitted: addNewItem,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class ItemListView extends ConsumerWidget {
+class ItemListView extends HookConsumerWidget {
   const ItemListView({
-    required this.onAddItem,
+    required this.scrollController,
     required this.onUpdateItem,
     super.key,
   });
 
-  final ValueChanged<String> onAddItem;
+  final ScrollController scrollController;
   final ValueChanged<Item> onUpdateItem;
 
   @override
@@ -85,32 +101,26 @@ class ItemListView extends ConsumerWidget {
 
     final items = itemsAsyncValue.value ?? [];
 
-    return ListView(
-      children: <Widget>[
-        for (final item in items)
-          ItemListTile(
-            item: item,
-            onToggle: () => onUpdateItem(
-              item.copyWith(
-                isPurchased: !item.isPurchased,
-              ),
-            ),
-            onSubmitted: (name) => onUpdateItem(
-              item.copyWith(
-                name: name,
-              ),
+    return ListView.separated(
+      controller: scrollController,
+      itemCount: items.length,
+      separatorBuilder: (_, __) => const Divider(),
+      itemBuilder: (_, index) {
+        final item = items[index];
+        return ItemListTile(
+          item: item,
+          onToggle: () => onUpdateItem(
+            item.copyWith(
+              isPurchased: !item.isPurchased,
             ),
           ),
-        ItemAddTile(
-          onSubmitted: onAddItem,
-        ),
-      ]
-          .intersperse(
-            const Divider(
-              height: 1,
+          onSubmitted: (name) => onUpdateItem(
+            item.copyWith(
+              name: name,
             ),
-          )
-          .toList(),
+          ),
+        );
+      },
     );
   }
 }
@@ -202,8 +212,8 @@ class ItemAddTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = useTextEditingController();
     final focusNode = useFocusNode();
+    final controller = useTextEditingController();
 
     return ItemTile(
       leading: const Icon(Icons.add),
