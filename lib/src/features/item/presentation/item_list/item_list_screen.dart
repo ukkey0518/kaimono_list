@@ -211,7 +211,7 @@ class ItemListTile extends HookWidget {
       onLongPress: () => isEditing.value = true,
       behavior: HitTestBehavior.translucent,
       child: Text(
-        item.name,
+        controller.text,
         style: item.isPurchased
             ? const TextStyle(
                 decoration: TextDecoration.lineThrough,
