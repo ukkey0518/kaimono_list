@@ -1,35 +1,51 @@
 {
-    "firestore": {
-        "rules": "firestore.rules",
-        "indexes": "firestore.indexes.json"
-    },
-    "flutter": {
-        "platforms": {
-            "android": {
-                "default": {
-                    "projectId": "kaimono-list-7174f",
-                    "appId": "1:578807791493:android:eec99f6816dab9bab50eec",
-                    "fileOutput": "android/app/google-services.json"
-                }
-            },
-            "ios": {
-                "default": {
-                    "projectId": "kaimono-list-7174f",
-                    "appId": "1:578807791493:ios:7e51c675bf185419b50eec",
-                    "uploadDebugSymbols": false,
-                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
-                }
-            },
-            "dart": {
-                "lib/firebase_options.dart": {
-                    "projectId": "kaimono-list-7174f",
-                    "configurations": {
-                        "android": "1:578807791493:android:eec99f6816dab9bab50eec",
-                        "ios": "1:578807791493:ios:7e51c675bf185419b50eec",
-                        "web": "1:578807791493:web:5ec4412c29806277b50eec"
-                    }
-                }
-            }
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "kaimono-list-7174f",
+          "appId": "1:578807791493:android:eec99f6816dab9bab50eec",
+          "fileOutput": "android/app/google-services.json"
         }
+      },
+      "ios": {
+        "default": {
+          "projectId": "kaimono-list-7174f",
+          "appId": "1:578807791493:ios:7e51c675bf185419b50eec",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "kaimono-list-7174f",
+          "configurations": {
+            "android": "1:578807791493:android:eec99f6816dab9bab50eec",
+            "ios": "1:578807791493:ios:7e51c675bf185419b50eec",
+            "web": "1:578807791493:web:5ec4412c29806277b50eec"
+          }
+        }
+      }
     }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
 }
