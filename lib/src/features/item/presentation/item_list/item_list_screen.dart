@@ -138,7 +138,7 @@ class ItemTile extends StatelessWidget {
   final Widget leading;
   final TextEditingController controller;
   final FocusNode? focusNode;
-  final ValueChanged<String> onSubmitted;
+  final ValueChanged<String>? onSubmitted;
   final String? hintText;
 
   @override
@@ -151,9 +151,7 @@ class ItemTile extends StatelessWidget {
       title: TextField(
         controller: controller,
         focusNode: focusNode,
-        onSubmitted: (_) {
-          onSubmitted.call(controller.text);
-        },
+        onSubmitted: onSubmitted,
         decoration: InputDecoration(
           hintText: hintText,
           border: InputBorder.none,
@@ -220,11 +218,13 @@ class ItemAddTile extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       hintText: 'かうもの'.hardcoded,
-      onSubmitted: (name) {
-        onSubmitted.call(name);
-        controller.clear();
-        focusNode.requestFocus();
-      },
+      onSubmitted: controller.text.isEmpty
+          ? null
+          : (name) {
+              onSubmitted.call(name);
+              controller.clear();
+              focusNode.requestFocus();
+            },
     );
   }
 }
