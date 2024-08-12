@@ -167,7 +167,6 @@ class ItemListTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('ItemListTile build: ${item.name}');
     final controller = useTextEditingController(
       text: item.name,
     );
