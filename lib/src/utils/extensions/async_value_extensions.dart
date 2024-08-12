@@ -17,6 +17,7 @@ extension AsyncValueUI<T> on AsyncValue<T> {
     switch (this) {
       case AsyncError(:final error):
         if (context.mounted) {
+          debugPrint('$error');
           AppSnackbar.showError(context, error);
         }
     }
