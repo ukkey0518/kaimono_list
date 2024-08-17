@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kaimono_list/src/constants/app_sizes.dart';
+import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class AppErrorDialog extends StatelessWidget {

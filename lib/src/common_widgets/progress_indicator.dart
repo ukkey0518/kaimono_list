@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kaimono_list/src/constants/app_sizes.dart';
+import 'package:kaimono_list/src/constants/sizes.dart';
 
 class AppLoadingIndicator extends StatelessWidget {
   const AppLoadingIndicator({

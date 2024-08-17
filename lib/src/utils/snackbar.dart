@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:kaimono_list/src/constants/app_sizes.dart';
+import 'package:kaimono_list/src/constants/sizes.dart';
 
 final class AppSnackbar {
   const AppSnackbar._();

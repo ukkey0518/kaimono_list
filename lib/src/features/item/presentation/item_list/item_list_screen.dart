@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/common_widgets/progress_indicator.dart';
-import 'package:kaimono_list/src/constants/app_sizes.dart';
+import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/item/data/item_repository.dart';
 import 'package:kaimono_list/src/features/item/domain/item.dart';
 import 'package:kaimono_list/src/features/item/presentation/item_list/item_delete_confirm_dialog.dart';
