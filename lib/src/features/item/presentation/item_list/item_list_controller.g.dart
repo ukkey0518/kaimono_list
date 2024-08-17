@@ -7,7 +7,7 @@ part of 'item_list_controller.dart';
 // **************************************************************************
 
 String _$itemListControllerHash() =>
-    r'd925965467af44b2cf4f4ece6e31b60d4139baac';
+    r'86ba68bf8826d48eacd87116ff0c46dda875bf27';
 
 /// See also [ItemListController].
 @ProviderFor(ItemListController)

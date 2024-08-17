@@ -13,7 +13,6 @@
 			"    @firestoreUpdatedAt DateTime? updatedAt,",
 			"  }) = _$1;",
 			"",
-			"  // Json > $1",
 			"  factory $1.fromJson(Map<String, dynamic> json) => _$$1FromJson(json);",
 			"",
 			"  const $1._();",

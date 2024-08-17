@@ -15,7 +15,6 @@ class Item with _$Item {
     @firestoreUpdatedAt DateTime? updatedAt,
   }) = _Item;
 
-  // Json > Item
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
   const Item._();
