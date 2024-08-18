@@ -1,9 +1,9 @@
 import * as admin from 'firebase-admin'
 import { isNil } from 'lodash'
-import { AppFirestoreModel } from './app_firestore_model'
+import { FirestoreModel } from '../models/firestore_model'
 
-export abstract class AppFirestoreModelRepository<T extends AppFirestoreModel> {
-  constructor(private firestore: admin.firestore.Firestore) {}
+export abstract class FirestoreModelRepository<T extends FirestoreModel> {
+  private firestore = admin.firestore()
 
   //
   // --- Paths ---
