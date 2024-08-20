@@ -1,5 +1,5 @@
-import { FirestoreModelRepository } from '../firestore_model_repository'
-import { UserProfile } from './user_profile'
+import { FirestoreModelRepository } from './firestore_model_repository'
+import { UserProfile } from '../models/user_profile'
 
 export class UserProfileRepository extends FirestoreModelRepository<UserProfile> {
   collectionPath(): string {
