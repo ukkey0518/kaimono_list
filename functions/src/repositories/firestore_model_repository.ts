@@ -3,10 +3,12 @@ import { isNil, isUndefined } from 'lodash'
 import { FirestoreModel } from '../models/firestore_model'
 import { FirestoreRepository } from './firestore_repository'
 import assert = require('assert')
+import { FirestoreReference } from './firestore_reference'
 
-export abstract class FirestoreModelRepository<
-  T extends FirestoreModel,
-> extends FirestoreRepository {
+export abstract class FirestoreModelRepository<T extends FirestoreModel>
+  extends FirestoreRepository
+  implements FirestoreReference<T>
+{
   //
   // --- Paths ---
   //
@@ -212,7 +214,7 @@ export abstract class FirestoreModelRepository<
     }
     return batch
   }
-  
+
   //
   // --- UPDATE ---
   //
