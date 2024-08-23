@@ -1,11 +1,25 @@
 import * as admin from 'firebase-admin'
+import * as functions from 'firebase-functions'
 import { AppState } from './app_state'
-import { onCreateAuthUser } from './controllers/on_create_auth_user_controller'
+import { onCreateAuthUserHandler } from './handlers/on_create_auth_user_handler'
 
-export const appState = new AppState(admin.initializeApp())
+const appState = new AppState(admin.initializeApp())
 
-export { auth }
+//
+// Functions
+//
+
+const onCreateAuthUser = functions
+  .region('asia-northeast1')
+  .auth.user()
+  .onCreate(async (user, context) => await onCreateAuthUserHandler(appState, context, user.uid))
+
+// ----------------------------------------------------------------------------
 
 const auth = {
-  onCreateAuthUser,
+  triggers: {
+    onCreateAuthUser,
+  },
 }
+
+export { auth }

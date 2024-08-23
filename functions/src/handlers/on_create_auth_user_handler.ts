@@ -1,5 +1,10 @@
+import * as functions from 'firebase-functions'
 import { AppState } from '../app_state'
 
-export async function onCreateAuthUserHandler(appState: AppState, id: string): Promise<void> {
-  await appState.userService.createEmptyUserProfile(id)
+export async function onCreateAuthUserHandler(
+  appState: AppState,
+  context: functions.EventContext,
+  userId: string
+): Promise<void> {
+  await appState.userService.createEmptyUserProfile(userId)
 }
