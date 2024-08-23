@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin'
+import { EntityData } from '../models/entity'
 
-export interface FirestoreReference<T extends admin.firestore.DocumentData> {
+export interface FirestoreReference<D extends EntityData> {
   // Path to the collection in Firestore.
   collectionPath(): string
 
@@ -8,8 +9,8 @@ export interface FirestoreReference<T extends admin.firestore.DocumentData> {
   documentPath(id: string): string
 
   // Reference to the collection in Firestore.
-  collectionRef(): admin.firestore.CollectionReference<T>
+  collectionRef(): admin.firestore.CollectionReference<D>
 
   // Reference to the document in Firestore.
-  documentRef(id?: string): admin.firestore.DocumentReference<T>
+  documentRef(id?: string): admin.firestore.DocumentReference<D>
 }
