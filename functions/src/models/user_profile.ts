@@ -1,5 +1,7 @@
-import { FirestoreModel } from './firestore_model'
+import { Entity } from './entity'
 
-export interface UserProfile extends FirestoreModel {
+export interface UserProfile extends Entity<UserProfileData> {}
+
+export interface UserProfileData {
   name?: string
 }
