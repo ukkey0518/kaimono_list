@@ -158,8 +158,6 @@ export abstract class FirestoreModelRepository<D extends EntityData, E extends E
   // --- SET ---
   //
 
-  async set(id: string, data: D): Promise<void>
-  async set(id: string, data: D, options: admin.firestore.SetOptions): Promise<void>
   async set(id: string, data: D, options?: admin.firestore.SetOptions): Promise<void> {
     if (options) {
       await this.documentRef(id).set(data, options)
@@ -168,17 +166,6 @@ export abstract class FirestoreModelRepository<D extends EntityData, E extends E
     }
   }
 
-  setWithTransaction(
-    transaction: admin.firestore.Transaction,
-    id: string,
-    data: D
-  ): admin.firestore.Transaction
-  setWithTransaction(
-    transaction: admin.firestore.Transaction,
-    id: string,
-    data: D,
-    options: admin.firestore.SetOptions
-  ): admin.firestore.Transaction
   setWithTransaction(
     transaction: admin.firestore.Transaction,
     id: string,
@@ -193,13 +180,6 @@ export abstract class FirestoreModelRepository<D extends EntityData, E extends E
     return transaction
   }
 
-  setWithBatch(batch: admin.firestore.WriteBatch, id: string, data: D): admin.firestore.WriteBatch
-  setWithBatch(
-    batch: admin.firestore.WriteBatch,
-    id: string,
-    data: D,
-    options: admin.firestore.SetOptions
-  ): admin.firestore.WriteBatch
   setWithBatch(
     batch: admin.firestore.WriteBatch,
     id: string,
