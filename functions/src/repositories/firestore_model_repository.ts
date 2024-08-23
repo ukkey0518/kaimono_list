@@ -1,11 +1,9 @@
 import * as admin from 'firebase-admin'
-import { isNil, isUndefined } from 'lodash'
-import { FirestoreModel } from '../models/firestore_model'
-import { FirestoreRepository } from './firestore_repository'
-import assert = require('assert')
+import { isNil } from 'lodash'
 import { FirestoreReference } from './firestore_reference'
+import { FirestoreRepository } from './firestore_repository'
 
-export abstract class FirestoreModelRepository<T extends FirestoreModel>
+export abstract class FirestoreModelRepository<T extends admin.firestore.DocumentData>
   extends FirestoreRepository
   implements FirestoreReference<T>
 {
@@ -40,15 +38,8 @@ export abstract class FirestoreModelRepository<T extends FirestoreModel>
   //
 
   dataConverter: admin.firestore.FirestoreDataConverter<T> = {
-    fromFirestore: ds =>
-      ({
-        id: ds.id,
-        ...ds.data(),
-      }) as T,
-    toFirestore: data => {
-      delete data.id
-      return data
-    },
+    fromFirestore: ds => ds.data() as T,
+    toFirestore: data => data,
   }
 
   //
@@ -90,7 +81,6 @@ export abstract class FirestoreModelRepository<T extends FirestoreModel>
   //
 
   async add(data: T): Promise<string> {
-    assert(isUndefined(data.id), 'id must be undefined')
     const ref = await this.collectionRef().add(data)
     return ref.id
   }
@@ -102,7 +92,6 @@ export abstract class FirestoreModelRepository<T extends FirestoreModel>
     transaction: admin.firestore.Transaction
     id: string
   }> {
-    assert(isUndefined(data.id), 'id must be undefined')
     const ref = this.documentRef()
     transaction.set(ref, data)
     return {
@@ -118,7 +107,6 @@ export abstract class FirestoreModelRepository<T extends FirestoreModel>
     batch: admin.firestore.WriteBatch
     id: string
   }> {
-    assert(isUndefined(data.id), 'id must be undefined')
     const ref = this.documentRef()
     batch.set(ref, data)
     return {
@@ -131,26 +119,25 @@ export abstract class FirestoreModelRepository<T extends FirestoreModel>
   // --- CREATE ---
   //
 
-  async create(data: T): Promise<void> {
-    assert(data.id, 'id is required')
-    await this.documentRef(data.id).create(data)
+  async create(id: string, data: T): Promise<void> {
+    await this.documentRef(id).create(data)
   }
 
   async createWithTransaction(
     transaction: admin.firestore.Transaction,
+    id: string,
     data: T
   ): Promise<admin.firestore.Transaction> {
-    assert(data.id, 'id is required')
-    transaction.create(this.documentRef(data.id), data)
+    transaction.create(this.documentRef(id), data)
     return transaction
   }
 
   async createWithBatch(
     batch: admin.firestore.WriteBatch,
+    id: string,
     data: T
   ): Promise<admin.firestore.WriteBatch> {
-    assert(data.id, 'id is required')
-    batch.create(this.documentRef(data.id), data)
+    batch.create(this.documentRef(id), data)
     return batch
   }
 
@@ -158,59 +145,62 @@ export abstract class FirestoreModelRepository<T extends FirestoreModel>
   // --- SET ---
   //
 
-  async set(data: T): Promise<void>
-  async set(data: T, options: admin.firestore.SetOptions): Promise<void>
-  async set(data: T, options?: admin.firestore.SetOptions): Promise<void> {
-    assert(data.id, 'id is required')
+  async set(id: string, data: T): Promise<void>
+  async set(id: string, data: T, options: admin.firestore.SetOptions): Promise<void>
+  async set(id: string, data: T, options?: admin.firestore.SetOptions): Promise<void> {
     if (options) {
-      await this.documentRef(data.id).set(data, options)
+      await this.documentRef(id).set(data, options)
     } else {
-      await this.documentRef(data.id).set(data)
+      await this.documentRef(id).set(data)
     }
   }
 
   async setWithTransaction(
     transaction: admin.firestore.Transaction,
+    id: string,
     data: T
   ): Promise<admin.firestore.Transaction>
   async setWithTransaction(
     transaction: admin.firestore.Transaction,
+    id: string,
     data: T,
     options: admin.firestore.SetOptions
   ): Promise<admin.firestore.Transaction>
   async setWithTransaction(
     transaction: admin.firestore.Transaction,
+    id: string,
     data: T,
     options?: admin.firestore.SetOptions
   ): Promise<admin.firestore.Transaction> {
-    assert(data.id, 'id is required')
     if (options) {
-      transaction.set(this.documentRef(data.id), data, options)
+      transaction.set(this.documentRef(id), data, options)
     } else {
-      transaction.set(this.documentRef(data.id), data)
+      transaction.set(this.documentRef(id), data)
     }
     return transaction
   }
 
   async setWithBatch(
     batch: admin.firestore.WriteBatch,
+    id: string,
     data: T
   ): Promise<admin.firestore.WriteBatch>
   async setWithBatch(
     batch: admin.firestore.WriteBatch,
+    id: string,
     data: T,
     options: admin.firestore.SetOptions
   ): Promise<admin.firestore.WriteBatch>
   async setWithBatch(
     batch: admin.firestore.WriteBatch,
+    id: string,
     data: T,
     options?: admin.firestore.SetOptions
   ): Promise<admin.firestore.WriteBatch> {
-    assert(data.id, 'id is required')
     if (options) {
-      batch.set(this.documentRef(data.id), data, options)
+      batch.set(this.documentRef(id), data, options)
     } else {
-      batch.set(this.documentRef(data.id), data)
+      batch.set(this.documentRef(id), data)
     }
     return batch
   }
@@ -219,25 +209,25 @@ export abstract class FirestoreModelRepository<T extends FirestoreModel>
   // --- UPDATE ---
   //
 
-  async update(id: string, data: object): Promise<void> {
+  async update(id: string, data: Partial<T>): Promise<void> {
     await this.documentRef(id).update(data)
   }
 
   async updateWithTransaction(
     transaction: admin.firestore.Transaction,
     id: string,
-    data: object
+    data: Partial<T>
   ): Promise<admin.firestore.Transaction> {
-    transaction.update(this.documentRef(id), data)
+    transaction.update(this.documentRef(id), data as admin.firestore.UpdateData<T>)
     return transaction
   }
 
   async updateWithBatch(
     batch: admin.firestore.WriteBatch,
     id: string,
-    data: object
+    data: Partial<T>
   ): Promise<admin.firestore.WriteBatch> {
-    batch.update(this.documentRef(id), data)
+    batch.update(this.documentRef(id), data as admin.firestore.UpdateData<T>)
     return batch
   }
 

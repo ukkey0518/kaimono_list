@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-export interface FirestoreReference<T> {
+export interface FirestoreReference<T extends admin.firestore.DocumentData> {
   // Path to the collection in Firestore.
   collectionPath(): string
 
