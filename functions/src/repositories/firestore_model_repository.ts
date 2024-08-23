@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 import { isNil } from 'lodash'
+import { Entity } from '../models/entity'
 import { FirestoreReference } from './firestore_reference'
 import { FirestoreRepository } from './firestore_repository'
 
@@ -46,17 +47,29 @@ export abstract class FirestoreModelRepository<T extends admin.firestore.Documen
   // --- GET ---
   //
 
-  async get(id: string): Promise<T | undefined> {
+  async get(id: string): Promise<Entity<T> | undefined> {
     const ds = await this.documentRef(id).get()
-    return ds.data()
+    if (!ds.exists) {
+      return undefined
+    }
+    return {
+      id: ds.id,
+      ...(ds.data() as T),
+    }
   }
 
   async getWithTransaction(
     transaction: admin.firestore.Transaction,
     id: string
-  ): Promise<T | undefined> {
+  ): Promise<Entity<T> | undefined> {
     const ds = await transaction.get(this.documentRef(id))
-    return ds.data()
+    if (!ds.exists) {
+      return undefined
+    }
+    return {
+      id: ds.id,
+      ...(ds.data() as T),
+    }
   }
 
   //
