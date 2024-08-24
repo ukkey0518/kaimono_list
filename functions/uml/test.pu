@@ -1,0 +1,75 @@
+@startuml test
+
+interface EntityData {}
+
+interface Entity<T extends { [field: string]: any }> {
+    + id: string
+}
+
+interface UserProfileData {
+    + name?: string
+}
+EntityData <|-- UserProfileData
+
+interface UserProfile{
+    + id: string
+    + name?: string
+}
+Entity <|-- UserProfile
+UserProfileData <|- UserProfile
+
+abstract class FirestoreRepository {
+    # firestore: firestore.Firestore
+}
+
+interface FirestoreReference<D extends EntityData> {
+    + collectionPath(): string
+    + documentPath(): string
+    + collectionRef(): firestore.CollectionReference<D>
+    + documentRef(): firestore.DocumentReference<D>
+}
+
+abstract class FirestoreModelRepository<D extends EntityData, E extends Entity<D>>  {
+    - dataConverter: firestore.FirestoreDataConverter<D>
+
+    {abstract} + collectionPath(): string
+    + documentPath(): string
+    + collectionRef(): firestore.CollectionReference<D>
+    + documentRef(): firestore.DocumentReference<D>
+
+    + get(id: string): Promise<E | undefined>
+    + getWithTransaction(transaction: firestore.Transaction, id: string): Promise<E | undefined>
+
+    + isExists(id: string): Promise<boolean>
+    + isExistsWithTransaction(transaction: firestore.Transaction, id: string): Promise<boolean>
+
+    + add(data: D): Promise<string>
+    + addWithTransaction(transaction: firestore.Transaction, data: D): {transaction: firestore.Transaction, id: string}
+    + addWithBatch(batch: firestore.WriteBatch, data: D): {batch: firestore.WriteBatch, id: string}
+
+    + create(id: string, data: D): Promise<void>
+    + createWithTransaction(transaction: firestore.Transaction, id: string, data: D): firestore.Transaction
+    + createWithBatch(batch: firestore.WriteBatch, id: string, data: D): firestore.WriteBatch
+
+    + set(id: string, data: D, options?: firestore.SetOptions): Promise<void>
+    + setWithTransaction(transaction: firestore.Transaction, id: string, data: D, options?: firestore.SetOptions): firestore.Transaction
+    + setWithBatch(batch: firestore.WriteBatch, id: string, data: D, options?: firestore.SetOptions): firestore.WriteBatch
+
+    + update(id: string, data: D): Promise<void>
+    + updateWithTransaction(transaction: firestore.Transaction, id: string, data: D): firestore.Transaction
+    + updateWithBatch(batch: firestore.WriteBatch, id: string, data: D): firestore.WriteBatch
+
+    + delete(id: string): Promise<void>
+    + deleteWithTransaction(transaction: firestore.Transaction, id: string): firestore.Transaction
+    + deleteWithBatch(batch: firestore.WriteBatch, id: string): firestore.WriteBatch
+}
+FirestoreRepository <|-- FirestoreModelRepository
+FirestoreReference <|.. FirestoreModelRepository
+
+class UserProfileRepository {
+    + collectionPath(): string
+}
+FirestoreModelRepository <|-- UserProfileRepository : <UserProfileData, UserProfile>
+
+
+@enduml
