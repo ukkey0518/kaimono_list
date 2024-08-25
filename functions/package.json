@@ -6,11 +6,11 @@
     "fmt": "prettier --write 'src/**/*.ts'",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && firebase emulators:start --only functions",
-    "shell": "npm run build && firebase functions:shell",
+    "serve": "npm run build && npx firebase emulators:start --only functions",
+    "shell": "npm run build && npx firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "deploy": "npx firebase deploy --only functions:${name}",
+    "logs": "npx firebase functions:log"
   },
   "engines": {
     "node": "20"
@@ -20,6 +20,7 @@
     "assert": "^2.1.0",
     "firebase-admin": "^12.3.1",
     "firebase-functions": "^5.0.1",
+    "firebase-tools": "^13.15.4",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
