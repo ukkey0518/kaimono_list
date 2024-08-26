@@ -36,10 +36,20 @@ export default [
     },
   },
   {
-    files: ['**/*.ts'],
+    files: ['src/**/*.ts'],
     rules: {
       '@typescript-eslint/no-namespace': 'off',
       'no-inner-declarations': 'off',
     },
   },
+  {
+    files: ['__tests__/**/*.ts'],
+    env: {
+      jest: true,
+    },
+    rules: {
+      '@typescript-eslint/no-namespace': 'off',
+      'no-inner-declarations': 'off',
+    },
+  }
 ]

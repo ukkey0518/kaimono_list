@@ -12,7 +12,12 @@
   },
   "compileOnSave": true,
   "include": [
-    "src",
+    "src/**/*.ts",
+    "__tests__/**/*.ts",
     "eslint.config.mjs",
+    "jest.config.js"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
