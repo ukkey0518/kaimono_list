@@ -1,10 +1,13 @@
 import * as admin from 'firebase-admin'
 import { isNil } from 'lodash'
-import { Entity, EntityData } from '../models/entity'
+import { Entity } from '../models/entity'
 import { FirestoreReference } from './firestore_reference'
 import { FirestoreRepository } from './firestore_repository'
 
-export abstract class FirestoreModelRepository<D extends EntityData, E extends Entity<D>>
+export abstract class FirestoreModelRepository<
+    D extends admin.firestore.DocumentData,
+    E extends Entity<D>,
+  >
   extends FirestoreRepository
   implements FirestoreReference<D>
 {

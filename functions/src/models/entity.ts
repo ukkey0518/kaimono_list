@@ -1,5 +1,3 @@
-export type EntityData = { [field: string]: unknown }
-
-export type Entity<T extends EntityData> = {
+export type Entity<T> = {
   id: string
 } & T

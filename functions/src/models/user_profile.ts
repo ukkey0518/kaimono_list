@@ -1,7 +1,7 @@
-import { Entity, EntityData } from './entity'
+import { Entity } from './entity'
 
 export type UserProfile = Entity<UserProfileData>
 
-export interface UserProfileData extends EntityData {
+export interface UserProfileData {
   name?: string
 }
