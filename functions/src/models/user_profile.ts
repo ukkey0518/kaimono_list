@@ -4,5 +4,7 @@ export type UserProfile = Entity<UserProfileData>
 
 export interface UserProfileData {
   name: string
-  isDeleted?: boolean
+  status: UserStatus
 }
+
+export type UserStatus = 'active' | 'deleted'

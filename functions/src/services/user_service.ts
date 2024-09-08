@@ -37,8 +37,21 @@ export class UserService {
     const userName = await this.generateDefaultUserName()
     await this.userProfileRepository.create(userId, {
       name: userName,
+      status: 'active',
     })
     logger.debug(`New user profile created for user ID: ${userId}`)
     return true
+  }
+
+  /**
+   * Sets the status of a user to 'deleted'.
+   * This is a soft delete operation, and the user profile is not removed from the database.
+   *
+   * @param {string} userId - The unique identifier of the user whose status is being updated to 'deleted'.
+   */
+  async setUserStatusToDeleted(userId: string): Promise<void> {
+    await this.userProfileRepository.update(userId, {
+      status: 'deleted',
+    })
   }
 }
