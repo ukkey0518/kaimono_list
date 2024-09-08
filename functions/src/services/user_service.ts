@@ -52,9 +52,9 @@ export class UserService {
       }
     }
 
-    const userName = await this.generateDefaultUserName()
+    const defaultUserName = await this.generateDefaultUserName()
     await this.userProfileRepository.create(userId, {
-      name: userName,
+      name: defaultUserName,
       status: 'active',
     })
     logger.debug(`New user profile created for user ID: ${userId}`)
