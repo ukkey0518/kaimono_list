@@ -14,8 +14,11 @@ class ShoppingListsScreen extends ConsumerWidget {
       (_, state) => state.showSnackbarOnError(context),
     );
 
-    return const Scaffold(
-      body: _Body(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Shopping Lists'),
+      ),
+      body: const _Body(),
     );
   }
 }
@@ -35,10 +38,12 @@ class _Body extends ConsumerWidget {
       );
     }
 
+    final userShoppingLists = userShoppingListsAsyncValue.value ?? [];
+
     return ListView.builder(
-      itemCount: userShoppingListsAsyncValue.value!.length,
+      itemCount: userShoppingLists.length,
       itemBuilder: (context, index) {
-        final userShoppingList = userShoppingListsAsyncValue.value![index];
+        final userShoppingList = userShoppingLists[index];
         return ListTile(
           title: Text(userShoppingList.name),
         );
