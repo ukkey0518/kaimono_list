@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/item/domain/user_shopping_list_setting.dart';
 import 'package:kaimono_list/src/utils/extensions/firestore_extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -54,7 +55,7 @@ class UserShoppingListSettingRepository {
 
   /// Reorders user shopping lists according to a specified order,
   /// ensuring consistency and preventing mismatched operations.
-  Future<void> reorderUserShoppingLists(
+  Future<void> setUserShoppingListsOrder(
     String userId,
     List<String> sortedUserShoppingListIds,
   ) async {
@@ -103,15 +104,20 @@ UserShoppingListSettingRepository userShoppingListSettingRepository(
 
 @Riverpod(
   dependencies: [
+    authStateChangesStream,
     userShoppingListSettingRepository,
   ],
 )
 Stream<List<UserShoppingList>> userShoppingListsStream(
   UserShoppingListsStreamRef ref,
-  String userId,
 ) {
-  final userShoppingListSettingRepository =
-      ref.read(userShoppingListSettingRepositoryProvider);
+  final user = ref.watch(authStateChangesStreamProvider).value;
+  if (user == null) {
+    return Stream.value([]);
+  }
 
-  return userShoppingListSettingRepository.watchUserShoppingLists(userId);
+  final userShoppingListSettingRepository =
+      ref.watch(userShoppingListSettingRepositoryProvider);
+
+  return userShoppingListSettingRepository.watchUserShoppingLists(user.id);
 }
