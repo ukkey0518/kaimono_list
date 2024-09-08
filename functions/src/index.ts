@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
 import { AppState } from './app_state'
-import { onCreateAuthUserHandler } from './handlers/on_create_auth_user_handler'
-import { onDeleteAuthUserHandler } from './handlers/on_delete_auth_user_handler'
+import { onCreateAuthUserHandler } from './handlers/auth/triggers/on_create_auth_user_handler'
+import { onDeleteAuthUserHandler } from './handlers/auth/triggers/on_delete_auth_user_handler'
 
 const appState = new AppState(admin.initializeApp())
 

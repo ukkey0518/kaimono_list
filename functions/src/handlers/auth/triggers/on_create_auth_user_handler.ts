@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import { AppState } from '../app_state'
+import { AppState } from '../../../app_state'
 
 export async function onCreateAuthUserHandler(
   appState: AppState,
