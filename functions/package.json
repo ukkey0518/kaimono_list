@@ -6,7 +6,7 @@
     "fmt": "prettier --write 'src/**/*.ts'",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && npx firebase emulators:start --only functions",
+    "serve": "npm run build && npx firebase emulators:start",
     "shell": "npm run build && npx firebase functions:shell",
     "start": "npm run shell",
     "deploy": "npx firebase deploy --only functions:${name}",
