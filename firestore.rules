@@ -9,5 +9,10 @@ service cloud.firestore {
       // 読み取り・書き込み: 本人のみ
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+
+    match /user_shopping_list_settings/{userId} {
+      // 読み取り・書き込み: 本人のみ
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
   }
 }
