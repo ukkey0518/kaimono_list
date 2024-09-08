@@ -6,7 +6,7 @@
     "fmt": "prettier --write 'src/**/*.ts'",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "npm run build && npx firebase emulators:start",
+    "serve": "npx firebase emulators:start",
     "shell": "npm run build && npx firebase functions:shell",
     "start": "npm run shell",
     "deploy": "npx firebase deploy --only functions:${name}",
@@ -16,7 +16,7 @@
   "engines": {
     "node": "20"
   },
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "dependencies": {
     "assert": "^2.1.0",
     "firebase-admin": "^12.4.0",
