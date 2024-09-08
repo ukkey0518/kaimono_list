@@ -12,7 +12,7 @@ export class AppState {
 
   private _transactionRepository?: TransactionRepository
   get transactionRepository(): TransactionRepository {
-    if (!this.transactionRepository) {
+    if (!this._transactionRepository) {
       this._transactionRepository = new TransactionRepository(this.app.firestore())
     }
     return this._transactionRepository!
@@ -20,7 +20,7 @@ export class AppState {
 
   private _userProfileRepository?: UserProfileRepository
   get userProfileRepository(): UserProfileRepository {
-    if (!this.userProfileRepository) {
+    if (!this._userProfileRepository) {
       this._userProfileRepository = new UserProfileRepository(this.app.firestore())
     }
     return this._userProfileRepository!
@@ -32,7 +32,7 @@ export class AppState {
 
   private _userService?: UserService
   get userService(): UserService {
-    if (!this.userService) {
+    if (!this._userService) {
       this._userService = new UserService(this.userProfileRepository)
     }
     return this._userService!
