@@ -7,17 +7,18 @@ part of 'app_routes.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $itemListRoute,
+      $shoppingListsRoute,
       $signInRoute,
     ];
 
-RouteBase get $itemListRoute => GoRouteData.$route(
+RouteBase get $shoppingListsRoute => GoRouteData.$route(
       path: '/',
-      factory: $ItemListRouteExtension._fromState,
+      factory: $ShoppingListsRouteExtension._fromState,
     );
 
-extension $ItemListRouteExtension on ItemListRoute {
-  static ItemListRoute _fromState(GoRouterState state) => const ItemListRoute();
+extension $ShoppingListsRouteExtension on ShoppingListsRoute {
+  static ShoppingListsRoute _fromState(GoRouterState state) =>
+      const ShoppingListsRoute();
 
   String get location => GoRouteData.$location(
         '/',
