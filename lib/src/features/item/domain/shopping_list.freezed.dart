@@ -28,8 +28,12 @@ mixin _$ShoppingList {
   @firestoreUpdatedAt
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this ShoppingList to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ShoppingList
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ShoppingListCopyWith<ShoppingList> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +61,8 @@ class _$ShoppingListCopyWithImpl<$Res, $Val extends ShoppingList>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ShoppingList
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -109,6 +115,8 @@ class __$$ShoppingListImplCopyWithImpl<$Res>
       _$ShoppingListImpl _value, $Res Function(_$ShoppingListImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShoppingList
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -182,11 +190,13 @@ class _$ShoppingListImpl extends _ShoppingList {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name, id, createdAt, updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShoppingList
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShoppingListImplCopyWith<_$ShoppingListImpl> get copyWith =>
@@ -222,8 +232,11 @@ abstract class _ShoppingList extends ShoppingList {
   @override
   @firestoreUpdatedAt
   DateTime? get updatedAt;
+
+  /// Create a copy of ShoppingList
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShoppingListImplCopyWith<_$ShoppingListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
