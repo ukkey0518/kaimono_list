@@ -1,6 +1,6 @@
+import * as logger from 'firebase-functions/logger'
 import { UserProfileRepository } from '../repositories/user_profile_repository'
 import { generateRandomUsername } from '../utils/user_name_generator'
-import * as logger from 'firebase-functions/logger'
 
 export class UserService {
   constructor(private userProfileRepository: UserProfileRepository) {}
