@@ -25,6 +25,10 @@ mixin _$UserShoppingListSetting {
       throw _privateConstructorUsedError;
   @firestoreId
   String? get id => throw _privateConstructorUsedError;
+  @firestoreCreatedAt
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @firestoreUpdatedAt
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this UserShoppingListSetting to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,7 +47,10 @@ abstract class $UserShoppingListSettingCopyWith<$Res> {
       _$UserShoppingListSettingCopyWithImpl<$Res, UserShoppingListSetting>;
   @useResult
   $Res call(
-      {List<UserShoppingList> userShoppingLists, @firestoreId String? id});
+      {List<UserShoppingList> userShoppingLists,
+      @firestoreId String? id,
+      @firestoreCreatedAt DateTime? createdAt,
+      @firestoreUpdatedAt DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -64,6 +71,8 @@ class _$UserShoppingListSettingCopyWithImpl<$Res,
   $Res call({
     Object? userShoppingLists = null,
     Object? id = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       userShoppingLists: null == userShoppingLists
@@ -74,6 +83,14 @@ class _$UserShoppingListSettingCopyWithImpl<$Res,
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -88,7 +105,10 @@ abstract class _$$UserShoppingListSettingImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<UserShoppingList> userShoppingLists, @firestoreId String? id});
+      {List<UserShoppingList> userShoppingLists,
+      @firestoreId String? id,
+      @firestoreCreatedAt DateTime? createdAt,
+      @firestoreUpdatedAt DateTime? updatedAt});
 }
 
 /// @nodoc
@@ -108,6 +128,8 @@ class __$$UserShoppingListSettingImplCopyWithImpl<$Res>
   $Res call({
     Object? userShoppingLists = null,
     Object? id = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_$UserShoppingListSettingImpl(
       userShoppingLists: null == userShoppingLists
@@ -118,6 +140,14 @@ class __$$UserShoppingListSettingImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -128,7 +158,9 @@ class __$$UserShoppingListSettingImplCopyWithImpl<$Res>
 class _$UserShoppingListSettingImpl extends _UserShoppingListSetting {
   const _$UserShoppingListSettingImpl(
       {required final List<UserShoppingList> userShoppingLists,
-      @firestoreId this.id})
+      @firestoreId this.id,
+      @firestoreCreatedAt this.createdAt,
+      @firestoreUpdatedAt this.updatedAt})
       : _userShoppingLists = userShoppingLists,
         super._();
 
@@ -147,10 +179,16 @@ class _$UserShoppingListSettingImpl extends _UserShoppingListSetting {
   @override
   @firestoreId
   final String? id;
+  @override
+  @firestoreCreatedAt
+  final DateTime? createdAt;
+  @override
+  @firestoreUpdatedAt
+  final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'UserShoppingListSetting(userShoppingLists: $userShoppingLists, id: $id)';
+    return 'UserShoppingListSetting(userShoppingLists: $userShoppingLists, id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -160,13 +198,21 @@ class _$UserShoppingListSettingImpl extends _UserShoppingListSetting {
             other is _$UserShoppingListSettingImpl &&
             const DeepCollectionEquality()
                 .equals(other._userShoppingLists, _userShoppingLists) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_userShoppingLists), id);
+      runtimeType,
+      const DeepCollectionEquality().hash(_userShoppingLists),
+      id,
+      createdAt,
+      updatedAt);
 
   /// Create a copy of UserShoppingListSetting
   /// with the given fields replaced by the non-null parameter values.
@@ -187,8 +233,11 @@ class _$UserShoppingListSettingImpl extends _UserShoppingListSetting {
 
 abstract class _UserShoppingListSetting extends UserShoppingListSetting {
   const factory _UserShoppingListSetting(
-      {required final List<UserShoppingList> userShoppingLists,
-      @firestoreId final String? id}) = _$UserShoppingListSettingImpl;
+          {required final List<UserShoppingList> userShoppingLists,
+          @firestoreId final String? id,
+          @firestoreCreatedAt final DateTime? createdAt,
+          @firestoreUpdatedAt final DateTime? updatedAt}) =
+      _$UserShoppingListSettingImpl;
   const _UserShoppingListSetting._() : super._();
 
   factory _UserShoppingListSetting.fromJson(Map<String, dynamic> json) =
@@ -199,6 +248,12 @@ abstract class _UserShoppingListSetting extends UserShoppingListSetting {
   @override
   @firestoreId
   String? get id;
+  @override
+  @firestoreCreatedAt
+  DateTime? get createdAt;
+  @override
+  @firestoreUpdatedAt
+  DateTime? get updatedAt;
 
   /// Create a copy of UserShoppingListSetting
   /// with the given fields replaced by the non-null parameter values.

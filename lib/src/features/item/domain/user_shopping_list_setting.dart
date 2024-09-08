@@ -10,6 +10,8 @@ class UserShoppingListSetting with _$UserShoppingListSetting {
   const factory UserShoppingListSetting({
     required List<UserShoppingList> userShoppingLists,
     @firestoreId String? id,
+    @firestoreCreatedAt DateTime? createdAt,
+    @firestoreUpdatedAt DateTime? updatedAt,
   }) = _UserShoppingListSetting;
 
   factory UserShoppingListSetting.fromJson(Map<String, dynamic> json) =>

@@ -13,14 +13,31 @@ _$UserShoppingListSettingImpl _$$UserShoppingListSettingImplFromJson(
           .map((e) => UserShoppingList.fromJson(e as Map<String, dynamic>))
           .toList(),
       id: json['id'] as String?,
+      createdAt: FirestoreFieldConverter.nullableTimestampToDateTime(
+          json['createdAt']),
+      updatedAt: FirestoreFieldConverter.nullableTimestampToDateTime(
+          json['updatedAt']),
     );
 
 Map<String, dynamic> _$$UserShoppingListSettingImplToJson(
-        _$UserShoppingListSettingImpl instance) =>
-    <String, dynamic>{
-      'userShoppingLists':
-          instance.userShoppingLists.map((e) => e.toJson()).toList(),
-    };
+    _$UserShoppingListSettingImpl instance) {
+  final val = <String, dynamic>{
+    'userShoppingLists':
+        instance.userShoppingLists.map((e) => e.toJson()).toList(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'createdAt', FirestoreFieldConverter.createdAtToJson(instance.createdAt));
+  writeNotNull(
+      'updatedAt', FirestoreFieldConverter.updatedAtToJson(instance.updatedAt));
+  return val;
+}
 
 _$UserShoppingListImpl _$$UserShoppingListImplFromJson(
         Map<String, dynamic> json) =>
