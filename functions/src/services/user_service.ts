@@ -23,17 +23,35 @@ export class UserService {
   }
 
   /**
-   * Creates a new user profile with a default username if the profile does not already exist for the given user ID.
+   * Checks if a user profile exists and either reactivates it or creates a new one with an active status.
    *
-   * @param {string} userId - The unique identifier of the user for whom the profile is being created.
-   * @returns {Promise<boolean>} - A Promise that resolves to `true` if a new profile is successfully created,
-   * and `false` if a profile already exists for the given `userId`.
+   * @param {string} userId - The unique identifier of the user for whom the profile is to be created or reactivated.
+   * @returns {Promise<boolean>} - A Promise that resolves to a boolean indicating the result:
+   * `true` if the profile was successfully created or reactivated, and `false` if the profile already exists and is active.
    */
-  async createNewUserProfile(userId: string): Promise<boolean> {
-    if (await this.userProfileRepository.isExists(userId)) {
-      logger.debug(`User profile already exists for user ID: ${userId}`)
-      return false
+  async createOrReactivateUserProfile(userId: string): Promise<boolean> {
+    const existingProfile = await this.userProfileRepository.get(userId)
+    if (existingProfile) {
+      switch (existingProfile.status) {
+        case 'active':
+          logger.warn(`User profile already exists and is active for user ID: ${userId}`)
+          // TODO: Send an alert to the system administrator
+          return false
+        case 'deleted':
+          await this.userProfileRepository.update(userId, {
+            status: 'active',
+          })
+          logger.debug(`User profile reactivated for user ID: ${userId}`)
+          return true
+        default:
+          logger.error(
+            `Unexpected user profile status: ${existingProfile.status} for user ID: ${userId}`
+          )
+          // TODO: Send an alert to the system administrator
+          return false
+      }
     }
+
     const userName = await this.generateDefaultUserName()
     await this.userProfileRepository.create(userId, {
       name: userName,

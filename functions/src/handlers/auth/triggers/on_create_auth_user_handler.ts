@@ -6,5 +6,5 @@ export async function onCreateAuthUserHandler(
   context: functions.EventContext,
   userId: string
 ): Promise<void> {
-  await appState.userService.createNewUserProfile(userId)
+  await appState.userService.createOrReactivateUserProfile(userId)
 }
