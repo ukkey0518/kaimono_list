@@ -43,6 +43,7 @@ class _Body extends ConsumerWidget {
 
     if (userShoppingLists.isEmpty) {
       return EmptyShoppingListPage(
+        // TODO: Implement onAddShoppingList
         onAddShoppingList: () {},
       );
     }
