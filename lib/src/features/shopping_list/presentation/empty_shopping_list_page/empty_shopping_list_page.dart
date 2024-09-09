@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/empty_shopping_list_page/components/add_shopping_list_button.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/empty_shopping_list_page/components/empty_shopping_list_placeholder.dart';
+import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class EmptyShoppingListPage extends StatelessWidget {
   const EmptyShoppingListPage({
@@ -18,8 +18,10 @@ class EmptyShoppingListPage extends StatelessWidget {
         children: [
           const EmptyShoppingListPlaceholder(),
           const SizedBox(height: 32),
-          AddShoppingListButton(
-            onAddShoppingList: onAddShoppingList,
+          ElevatedButton.icon(
+            onPressed: onAddShoppingList,
+            icon: const Icon(Icons.add),
+            label: Text('New List'.hardcoded),
           ),
         ],
       ),
