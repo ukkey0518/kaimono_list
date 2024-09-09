@@ -11,7 +11,7 @@ class EmptyShoppingListPlaceholder extends StatelessWidget {
       children: [
         const Icon(
           Icons.shopping_cart_outlined,
-          // TODO: Define a constant for the size
+          // TODO(Ukkey): Define a constant for the size
           size: 100,
           color: Colors.grey,
         ),

@@ -64,7 +64,7 @@ class UserShoppingListSettingRepository {
       final setting = settingDS.data();
 
       if (setting == null) {
-        // TODO: Throw UserShoppingListSettingNotFoundException
+        // TODO(Ukkey): Throw UserShoppingListSettingNotFoundException
         throw Exception('UserShoppingListSetting not found');
       }
 
@@ -74,7 +74,7 @@ class UserShoppingListSettingRepository {
       final currentIds = setting.userShoppingLists.map((e) => e.id).toSet();
       final newIds = sortedUserShoppingListIds.toSet();
       if (!setEquals(currentIds, newIds)) {
-        // TODO: Throw UserShoppingListSettingIdsMismatchException
+        // TODO(Ukkey): Throw UserShoppingListSettingIdsMismatchException
         throw Exception('The order of the shopping lists is the same');
       }
 
