@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/item/data/user_shopping_list_setting_repository.dart';
+import 'package:kaimono_list/src/features/item/presentation/empty_shopping_list_page/empty_shopping_list_page.dart';
 import 'package:kaimono_list/src/features/item/presentation/shopping_lists/user_shopping_lists_controller.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 
@@ -39,6 +40,12 @@ class _Body extends ConsumerWidget {
     }
 
     final userShoppingLists = userShoppingListsAsyncValue.value ?? [];
+
+    if (userShoppingLists.isEmpty) {
+      return EmptyShoppingListPage(
+        onAddShoppingList: () {},
+      );
+    }
 
     return ListView.builder(
       itemCount: userShoppingLists.length,
