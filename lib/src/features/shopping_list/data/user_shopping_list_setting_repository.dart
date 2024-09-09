@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
-import 'package:kaimono_list/src/features/item/domain/user_shopping_list_setting.dart';
+import 'package:kaimono_list/src/features/shopping_list/domain/user_shopping_list_setting.dart';
 import 'package:kaimono_list/src/utils/extensions/firestore_extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

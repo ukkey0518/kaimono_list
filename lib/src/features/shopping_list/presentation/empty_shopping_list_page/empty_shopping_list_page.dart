@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kaimono_list/src/features/item/presentation/empty_shopping_list_page/components/add_shopping_list_button.dart';
-import 'package:kaimono_list/src/features/item/presentation/empty_shopping_list_page/components/empty_shopping_list_placeholder.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/empty_shopping_list_page/components/add_shopping_list_button.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/empty_shopping_list_page/components/empty_shopping_list_placeholder.dart';
 
 class EmptyShoppingListPage extends StatelessWidget {
   const EmptyShoppingListPage({
