@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kaimono_list/src/features/item/domain/shopping_list.dart';
+import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/add_shopping_list/add_shopping_list_dialog.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_lists/components/shopping_lists_body.dart';
 

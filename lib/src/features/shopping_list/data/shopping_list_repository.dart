@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kaimono_list/src/features/item/domain/shopping_list.dart';
+import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 import 'package:kaimono_list/src/utils/extensions/firestore_extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

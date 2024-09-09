@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kaimono_list/src/features/item/domain/shopping_list.dart';
+import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 
 class AddShoppingListDialog extends HookWidget {
   const AddShoppingListDialog({super.key});
