@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/user_shopping_list_setting_repository.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/empty_shopping_list_page/empty_shopping_list_page.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/empty_shopping_list/empty_shopping_list_page.dart';
 
-class ShoppingListsScreen extends ConsumerWidget {
-  const ShoppingListsScreen({super.key});
+class ShoppingListsBody extends ConsumerWidget {
+  const ShoppingListsBody({
+    required this.onAddShoppingList,
+    super.key,
+  });
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Shopping Lists'),
-      ),
-      body: const _Body(),
-    );
-  }
-}
-
-class _Body extends ConsumerWidget {
-  const _Body();
+  final VoidCallback? onAddShoppingList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,8 +27,7 @@ class _Body extends ConsumerWidget {
 
     if (userShoppingLists.isEmpty) {
       return EmptyShoppingListPage(
-        // TODO: Implement onAddShoppingList
-        onAddShoppingList: () {},
+        onAddShoppingList: onAddShoppingList,
       );
     }
 

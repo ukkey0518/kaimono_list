@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_lists_screen.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_lists/shopping_lists_screen.dart';
 
 part 'app_routes.g.dart';
 
