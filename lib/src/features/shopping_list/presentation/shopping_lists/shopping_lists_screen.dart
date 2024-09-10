@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/common_widgets/loading_widget.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/add_shopping_list_dialog.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/edit_shopping_list_dialog.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_controller.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_lists/components/shopping_lists_body.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
@@ -20,7 +20,7 @@ class ShoppingListsScreen extends ConsumerWidget {
     Future<void> showAddShoppingListDialog() async {
       final newShoppingList = await showDialog<ShoppingList?>(
         context: context,
-        builder: (context) => const AddShoppingListDialog(),
+        builder: (context) => const EditShoppingListDialog(),
       );
       if (newShoppingList == null) {
         return;

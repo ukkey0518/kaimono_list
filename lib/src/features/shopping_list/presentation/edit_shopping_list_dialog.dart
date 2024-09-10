@@ -4,8 +4,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 
-class AddShoppingListDialog extends HookWidget {
-  const AddShoppingListDialog({super.key});
+class EditShoppingListDialog extends HookWidget {
+  const EditShoppingListDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
