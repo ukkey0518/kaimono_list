@@ -13,8 +13,7 @@ service cloud.firestore {
     }
 
     match /user_profiles/{userId} {
-      // 読み取り・書き込み: 本人のみ
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if isOwner(userId);
     }
 
     match /user_shopping_list_settings/{userId} {
@@ -27,8 +26,7 @@ service cloud.firestore {
       // 読み取り: 本人と共有者のみ
       // TODO(Ukkey): ルールの実装
 
-      // 作成: ログインユーザーのみ
-      allow create: if request.auth != null;
+      allow create: if isAuthenticated();
 
       // 更新・削除: 作成者のみ
       // TODO(Ukkey): ルールの実装
