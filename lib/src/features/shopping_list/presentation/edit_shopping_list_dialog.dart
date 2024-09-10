@@ -5,20 +5,31 @@ import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 
 class EditShoppingListDialog extends HookWidget {
-  const EditShoppingListDialog({super.key});
+  const EditShoppingListDialog({
+    super.key,
+    this.initialShoppingList,
+  });
+
+  final ShoppingList? initialShoppingList;
 
   @override
   Widget build(BuildContext context) {
     final formKey = useMemoized(GlobalKey<FormState>.new);
-    final nameController = useTextEditingController();
+
+    final nameController = useTextEditingController(
+      text: initialShoppingList?.name ?? '',
+    );
 
     void submit() {
       if (!formKey.currentState!.validate()) {
         return;
       }
-      final newShoppingList = ShoppingList(
-        name: nameController.text.trim(),
-      );
+      final newShoppingList = initialShoppingList?.copyWith(
+            name: nameController.text.trim(),
+          ) ??
+          ShoppingList(
+            name: nameController.text.trim(),
+          );
       context.pop(newShoppingList);
     }
 
