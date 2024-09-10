@@ -2,6 +2,15 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if the user is the owner of the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
 
     match /user_profiles/{userId} {
       // 読み取り・書き込み: 本人のみ
@@ -9,8 +18,9 @@ service cloud.firestore {
     }
 
     match /user_shopping_list_settings/{userId} {
-      // 読み取り・書き込み: 本人のみ
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, update: if isOwner(userId);
+
+      // NOTE: Create & Delete are done by AdminSDK
     }
 
     match /shopping_lists/{shoppindListId} {
