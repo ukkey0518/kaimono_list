@@ -7,7 +7,7 @@ part of 'shopping_list_controller.dart';
 // **************************************************************************
 
 String _$shoppingListControllerHash() =>
-    r'1d68a33599253952640da8231b34d13c2d628010';
+    r'41c140f5d7623c9a761ca49f5ceec29602cf6a56';
 
 /// See also [ShoppingListController].
 @ProviderFor(ShoppingListController)
@@ -18,8 +18,11 @@ final shoppingListControllerProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$shoppingListControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[shoppingListRepositoryProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    shoppingListRepositoryProvider,
+    ...?shoppingListRepositoryProvider.allTransitiveDependencies
+  },
 );
 
 typedef _$ShoppingListController = AutoDisposeAsyncNotifier<void>;

@@ -4,7 +4,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shopping_list_controller.g.dart';
 
-@riverpod
+@Riverpod(
+  dependencies: [
+    shoppingListRepository,
+  ],
+)
 class ShoppingListController extends _$ShoppingListController {
   @override
   FutureOr<void> build() => null;
