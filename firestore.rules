@@ -2,9 +2,7 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /items/{itemID} {
-      allow read, write: if true
-    }
+
     match /user_profiles/{userId} {
       // 読み取り・書き込み: 本人のみ
       allow read, write: if request.auth != null && request.auth.uid == userId;
@@ -13,6 +11,17 @@ service cloud.firestore {
     match /user_shopping_list_settings/{userId} {
       // 読み取り・書き込み: 本人のみ
       allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /shopping_lists/{shoppindListId} {
+      // 読み取り: 本人と共有者のみ
+      // TODO(Ukkey): ルールの実装
+
+      // 作成: ログインユーザーのみ
+      allow create: if request.auth != null;
+
+      // 更新・削除: 作成者のみ
+      // TODO(Ukkey): ルールの実装
     }
   }
 }
