@@ -25,11 +25,9 @@ service cloud.firestore {
     match /shopping_lists/{shoppindListId} {
       allow create: if isAuthenticated();
 
-      // 読み取り: 本人と共有者のみ
-      // TODO(Ukkey): ルールの実装
+      // TODO(Ukkey): ルールの実装 - 読み取り: 本人と共有者のみ
 
-      // 更新・削除: 作成者のみ
-      // TODO(Ukkey): ルールの実装
+      // TODO(Ukkey): ルールの実装 - 更新・削除: 作成者のみ
     }
   }
 }
