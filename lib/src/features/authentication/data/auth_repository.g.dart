@@ -21,6 +21,23 @@ final authRepositoryProvider = Provider<AuthRepository>.internal(
 );
 
 typedef AuthRepositoryRef = ProviderRef<AuthRepository>;
+String _$currentUserHash() => r'4a821299f94f2563e7541629a28e0fb736795183';
+
+/// See also [currentUser].
+@ProviderFor(currentUser)
+final currentUserProvider = Provider<AppUser?>.internal(
+  currentUser,
+  name: r'currentUserProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$currentUserHash,
+  dependencies: <ProviderOrFamily>[authRepositoryProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    authRepositoryProvider,
+    ...?authRepositoryProvider.allTransitiveDependencies
+  },
+);
+
+typedef CurrentUserRef = ProviderRef<AppUser?>;
 String _$authStateChangesStreamHash() =>
     r'146d12b237aa1c9538c15d136918cf61f9e298a5';
 
