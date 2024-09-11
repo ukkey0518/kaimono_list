@@ -40,6 +40,7 @@ class EditShoppingListDialog extends HookWidget {
         content: Form(
           key: formKey,
           child: TextFormField(
+            controller: nameController,
             validator: FormBuilderValidators.required(
               errorText: '必須項目です',
             ),
