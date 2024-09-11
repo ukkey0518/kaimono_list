@@ -41,9 +41,16 @@ class EditShoppingListDialog extends HookWidget {
           key: formKey,
           child: TextFormField(
             controller: nameController,
-            validator: FormBuilderValidators.required(
-              errorText: '必須項目です',
-            ),
+            maxLength: ShoppingList.maxNameLength,
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(
+                errorText: '必須入力です',
+              ),
+              FormBuilderValidators.maxLength(
+                ShoppingList.maxNameLength,
+                errorText: '${ShoppingList.maxNameLength}文字以内で入力してください',
+              ),
+            ]),
             decoration: const InputDecoration(
               label: Text('買い物リスト名*'),
               border: OutlineInputBorder(),
