@@ -5,6 +5,7 @@ import { UserProfileRepository } from './repositories/user_profile_repository'
 import { UserShoppingListSettingRepository } from './repositories/user_shopping_list_setting_repository'
 import { ShoppingListService } from './services/shopping_list_service'
 import { UserService } from './services/user_service'
+import { BatchRepository } from './repositories/batch_repository'
 
 export class AppState {
   constructor(private app: admin.app.App) {}
@@ -19,6 +20,14 @@ export class AppState {
       this._transactionRepository = new TransactionRepository(this.app.firestore())
     }
     return this._transactionRepository!
+  }
+
+  private _batchRepository?: BatchRepository
+  get batchRepository(): BatchRepository {
+    if (!this._batchRepository) {
+      this._batchRepository = new BatchRepository(this.app.firestore())
+    }
+    return this._batchRepository!
   }
 
   private _userProfileRepository?: UserProfileRepository
