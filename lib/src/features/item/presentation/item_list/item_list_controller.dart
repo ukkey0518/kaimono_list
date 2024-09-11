@@ -37,12 +37,11 @@ class ItemListController extends _$ItemListController {
     return state.hasError;
   }
 
-  /// Delete the item with the given [id].
-  Future<bool> deleteItem(String id) async {
+  Future<bool> updateOrderIndexes(List<Item> items) async {
     final itemRepository = ref.read(itemRepositoryProvider);
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
-      await itemRepository.deleteItem(id);
+      await itemRepository.updateOrderIndexes(items);
     });
     return state.hasError;
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/common_widgets/progress_indicator.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
@@ -8,29 +10,29 @@ import 'package:kaimono_list/src/features/item/domain/item.dart';
 import 'package:kaimono_list/src/features/item/presentation/item_list/item_delete_confirm_dialog.dart';
 import 'package:kaimono_list/src/features/item/presentation/item_list/item_list_controller.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
-import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
-import 'package:kaimono_list/src/utils/un_focus_all.dart';
+import 'package:kaimono_list/src/utils/extensions/global_key_extensions.dart';
 
 class ItemListScreen extends HookConsumerWidget {
   const ItemListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final addTileKey = useMemoized(GlobalKey.new);
-    final scrollController = useScrollController();
+    final isReorderMode = useState(false);
 
     ref.listen(
       itemListControllerProvider,
       (_, state) => state.showSnackbarOnError(context),
     );
 
-    Future<void> addNewItem(String name) async {
-      await ref.read(itemListControllerProvider.notifier).addItem(name);
-      await scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.easeInOut,
+    Future<void> addNewItem() async {
+      final newItemName = await showDialog<String>(
+        context: context,
+        builder: (_) => const _ItemNameEditDialog(),
       );
+      if (newItemName == null) {
+        return;
+      }
+      await ref.read(itemListControllerProvider.notifier).addItem(newItemName);
     }
 
     Future<void> deleteAllPurchasedItems() async {
@@ -43,39 +45,29 @@ class ItemListScreen extends HookConsumerWidget {
           .deleteAllPurchasedItems();
     }
 
-    return GestureDetector(
-      onTap: unFocusAll,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('かいものリスト'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: deleteAllPurchasedItems,
-            ),
-          ],
-        ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: ItemListView(
-                  scrollController: scrollController,
-                  onUpdateItem: (item) => ref
-                      .read(itemListControllerProvider.notifier)
-                      .updateItem(item),
-                  onDeleteItem:
-                      ref.read(itemListControllerProvider.notifier).deleteItem,
-                ),
-              ),
-              const Divider(height: 1),
-              ItemAddTile(
-                key: addTileKey,
-                onSubmitted: addNewItem,
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('かいものリスト'),
+        actions: [
+          IconButton(
+            icon: Icon(isReorderMode.value ? Icons.done : Icons.reorder),
+            onPressed: () => isReorderMode.value = !isReorderMode.value,
           ),
-        ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: deleteAllPurchasedItems,
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: addNewItem,
+        child: const Icon(Icons.add),
+      ),
+      body: ItemListView(
+        isReorderMode: isReorderMode.value,
+        onReorder: (newItems) => ref
+            .read(itemListControllerProvider.notifier)
+            .updateOrderIndexes(newItems),
       ),
     );
   }
@@ -83,15 +75,13 @@ class ItemListScreen extends HookConsumerWidget {
 
 class ItemListView extends HookConsumerWidget {
   const ItemListView({
-    required this.scrollController,
-    required this.onUpdateItem,
-    required this.onDeleteItem,
+    required this.isReorderMode,
+    required this.onReorder,
     super.key,
   });
 
-  final ScrollController scrollController;
-  final ValueChanged<Item> onUpdateItem;
-  final ValueChanged<String> onDeleteItem;
+  final bool isReorderMode;
+  final ValueChanged<List<Item>> onReorder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -103,190 +93,140 @@ class ItemListView extends HookConsumerWidget {
       );
     }
 
+    Future<void> editItemName(Item item) async {
+      final newName = await showDialog<String>(
+        context: context,
+        builder: (_) => _ItemNameEditDialog(initialName: item.name),
+      );
+      if (newName == null) {
+        return;
+      }
+      await ref
+          .read(itemListControllerProvider.notifier)
+          .updateItem(item.copyWith(name: newName));
+    }
+
+    Future<void> togglePurchased(Item item) async {
+      await ref
+          .read(itemListControllerProvider.notifier)
+          .updateItem(item.copyWith(isPurchased: !item.isPurchased));
+    }
+
     final items = itemsAsyncValue.value ?? [];
 
-    return ListView.separated(
-      controller: scrollController,
+    return ReorderableListView.builder(
       itemCount: items.length,
-      separatorBuilder: (_, __) => const Divider(
-        height: 1,
-      ),
+      buildDefaultDragHandles: false,
+      padding: const EdgeInsets.only(bottom: Sizes.p64 * 2),
+      onReorder: (oldIndex, newIndex) {
+        final newItems = items.toList();
+        // newIndex の調整
+        if (oldIndex < newIndex) {
+          newIndex -= 1;
+        }
+        final item = newItems.removeAt(oldIndex);
+        newItems.insert(newIndex, item);
+        onReorder(newItems);
+      },
       itemBuilder: (_, index) {
         final item = items[index];
-        return ItemListTile(
-          item: item,
-          onToggle: () => onUpdateItem(
-            item.copyWith(
-              isPurchased: !item.isPurchased,
+        return ListTile(
+          key: ValueKey(item.id),
+          leading: SizedBox(
+            width: Sizes.p48,
+            child: Checkbox(
+              value: item.isPurchased,
+              onChanged: (_) => togglePurchased(item),
             ),
           ),
-          onSubmitted: (name) => onUpdateItem(
-            item.copyWith(
-              name: name,
+          title: SizedBox(
+            height: kMinInteractiveDimension,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    item.name,
+                    style: item.isPurchased
+                        ? const TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                          )
+                        : null,
+                  ),
+                ),
+                const SizedBox(width: Sizes.p8),
+                if (isReorderMode)
+                  ReorderableDragStartListener(
+                    index: index,
+                    child: const SizedBox.square(
+                      dimension: kMinInteractiveDimension,
+                      child: Icon(
+                        Icons.drag_handle,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  )
+                else
+                  IconButton(
+                    icon: const Icon(
+                      Icons.edit,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () => editItemName(item),
+                  ),
+              ],
             ),
           ),
-          onDismissed: () => onDeleteItem(item.id!),
         );
       },
     );
   }
 }
 
-class ItemTile extends StatelessWidget {
-  const ItemTile({
-    required this.leading,
-    required this.child,
-    super.key,
+class _ItemNameEditDialog extends HookWidget {
+  const _ItemNameEditDialog({
+    this.initialName,
   });
 
-  final Widget leading;
-  final Widget child;
+  final String? initialName;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: SizedBox(
-        width: Sizes.p48,
-        child: leading,
-      ),
-      title: SizedBox(
-        height: kMinInteractiveDimension,
-        child: Center(
-          child: SizedBox(
-            width: double.infinity,
-            child: child,
+    final formKey = useMemoized(GlobalKey<FormState>.new);
+    final controller = useTextEditingController(text: initialName);
+
+    Future<void> submit() async {
+      if (!(await formKey.validateAndScrollToInvalidField())) {
+        return;
+      }
+      if (!context.mounted) {
+        return;
+      }
+      context.pop(controller.text.trim());
+    }
+
+    return Form(
+      key: formKey,
+      child: AlertDialog(
+        title: const Text('アイテムを編集'),
+        content: TextFormField(
+          controller: controller,
+          validator: FormBuilderValidators.required(errorText: '未入力だで'),
+          autofocus: true,
+          decoration: const InputDecoration(
+            hintText: 'アイテム名',
+            border: OutlineInputBorder(),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ItemListTile extends HookWidget {
-  const ItemListTile({
-    required this.item,
-    required this.onToggle,
-    required this.onSubmitted,
-    required this.onDismissed,
-    super.key,
-  });
-
-  final Item item;
-  final VoidCallback onToggle;
-  final ValueChanged<String> onSubmitted;
-  final VoidCallback onDismissed;
-
-  @override
-  Widget build(BuildContext context) {
-    final isEditing = useState(false);
-    final focusNode = useFocusNode();
-    final controller = useTextEditingController(
-      text: item.name,
-    );
-
-    useEffect(
-      () {
-        controller.text = item.name;
-        return null;
-      },
-      [item.name],
-    );
-
-    useEffect(
-      () {
-        void listener() {
-          if (!focusNode.hasFocus) {
-            controller.text = item.name;
-            isEditing.value = false;
-          }
-        }
-
-        focusNode.addListener(listener);
-        return () => focusNode.removeListener(listener);
-      },
-      [],
-    );
-
-    final text = GestureDetector(
-      onLongPress: () => isEditing.value = true,
-      behavior: HitTestBehavior.translucent,
-      child: Text(
-        controller.text,
-        style: item.isPurchased
-            ? const TextStyle(
-                decoration: TextDecoration.lineThrough,
-              )
-            : null,
-      ),
-    );
-
-    final textField = TextField(
-      controller: controller,
-      focusNode: focusNode,
-      decoration: const InputDecoration(
-        border: InputBorder.none,
-      ),
-      autofocus: true,
-      enabled: isEditing.value,
-      onSubmitted: (name) {
-        if (name.isEmpty) {
-          controller.text = item.name;
-          return;
-        }
-        onSubmitted(name);
-      },
-    );
-
-    return Dismissible(
-      key: ValueKey(item.id),
-      onDismissed: (_) => onDismissed(),
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: Sizes.p16),
-        child: const Icon(Icons.delete, color: Colors.white),
-      ),
-      behavior: HitTestBehavior.translucent,
-      child: ItemTile(
-        leading: Checkbox(
-          value: item.isPurchased,
-          onChanged: (_) => onToggle(),
-        ),
-        child: isEditing.value ? textField : text,
-      ),
-    );
-  }
-}
-
-class ItemAddTile extends HookWidget {
-  const ItemAddTile({
-    required this.onSubmitted,
-    super.key,
-  });
-
-  final ValueChanged<String> onSubmitted;
-
-  @override
-  Widget build(BuildContext context) {
-    final focusNode = useFocusNode();
-    final controller = useTextEditingController();
-
-    return ItemTile(
-      leading: const Icon(Icons.add),
-      child: TextField(
-        controller: controller,
-        focusNode: focusNode,
-        onSubmitted: (name) {
-          if (name.isNotEmpty) {
-            onSubmitted.call(name);
-            controller.clear();
-            focusNode.requestFocus();
-          }
-        },
-        decoration: InputDecoration(
-          hintText: 'かうもの'.hardcoded,
-          border: InputBorder.none,
-        ),
+        actions: [
+          TextButton(
+            onPressed: context.pop,
+            child: const Text('キャンセル'),
+          ),
+          TextButton(
+            onPressed: submit,
+            child: const Text('保存'),
+          ),
+        ],
       ),
     );
   }
