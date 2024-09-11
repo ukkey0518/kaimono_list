@@ -64,8 +64,6 @@ class ItemListScreen extends HookConsumerWidget {
                   onUpdateItem: (item) => ref
                       .read(itemListControllerProvider.notifier)
                       .updateItem(item),
-                  onDeleteItem:
-                      ref.read(itemListControllerProvider.notifier).deleteItem,
                 ),
               ),
               const Divider(height: 1),
@@ -85,13 +83,11 @@ class ItemListView extends HookConsumerWidget {
   const ItemListView({
     required this.scrollController,
     required this.onUpdateItem,
-    required this.onDeleteItem,
     super.key,
   });
 
   final ScrollController scrollController;
   final ValueChanged<Item> onUpdateItem;
-  final ValueChanged<String> onDeleteItem;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -125,7 +121,6 @@ class ItemListView extends HookConsumerWidget {
               name: name,
             ),
           ),
-          onDismissed: () => onDeleteItem(item.id!),
         );
       },
     );
@@ -167,14 +162,12 @@ class ItemListTile extends HookWidget {
     required this.item,
     required this.onToggle,
     required this.onSubmitted,
-    required this.onDismissed,
     super.key,
   });
 
   final Item item;
   final VoidCallback onToggle;
   final ValueChanged<String> onSubmitted;
-  final VoidCallback onDismissed;
 
   @override
   Widget build(BuildContext context) {
@@ -237,23 +230,12 @@ class ItemListTile extends HookWidget {
       },
     );
 
-    return Dismissible(
-      key: ValueKey(item.id),
-      onDismissed: (_) => onDismissed(),
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: Sizes.p16),
-        child: const Icon(Icons.delete, color: Colors.white),
+    return ItemTile(
+      leading: Checkbox(
+        value: item.isPurchased,
+        onChanged: (_) => onToggle(),
       ),
-      behavior: HitTestBehavior.translucent,
-      child: ItemTile(
-        leading: Checkbox(
-          value: item.isPurchased,
-          onChanged: (_) => onToggle(),
-        ),
-        child: isEditing.value ? textField : text,
-      ),
+      child: isEditing.value ? textField : text,
     );
   }
 }
