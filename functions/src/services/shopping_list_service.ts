@@ -16,8 +16,12 @@ export class ShoppingListService {
       name: shoppingList.name,
     }))
 
-    await this.userShoppingListSettingRepository.update(userId, {
-      userShoppingLists: newUserShoppingLists,
-    })
+    await this.userShoppingListSettingRepository.set(
+      userId,
+      {
+        userShoppingLists: newUserShoppingLists,
+      },
+      { merge: true }
+    )
   }
 }
