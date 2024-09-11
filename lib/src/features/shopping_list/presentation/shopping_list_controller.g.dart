@@ -7,7 +7,7 @@ part of 'shopping_list_controller.dart';
 // **************************************************************************
 
 String _$shoppingListControllerHash() =>
-    r'41c140f5d7623c9a761ca49f5ceec29602cf6a56';
+    r'862b26e78cd454ec78442f24fbc2632fa19cdf90';
 
 /// See also [ShoppingListController].
 @ProviderFor(ShoppingListController)
@@ -18,8 +18,13 @@ final shoppingListControllerProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$shoppingListControllerHash,
-  dependencies: <ProviderOrFamily>[shoppingListRepositoryProvider],
+  dependencies: <ProviderOrFamily>[
+    currentUserProvider,
+    shoppingListRepositoryProvider
+  ],
   allTransitiveDependencies: <ProviderOrFamily>{
+    currentUserProvider,
+    ...?currentUserProvider.allTransitiveDependencies,
     shoppingListRepositoryProvider,
     ...?shoppingListRepositoryProvider.allTransitiveDependencies
   },
