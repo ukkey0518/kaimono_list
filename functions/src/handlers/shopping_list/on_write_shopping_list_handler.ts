@@ -4,13 +4,13 @@ import { ShoppingListData } from '../../models/shopping_list'
 
 export async function onWriteShoppingListHandler(
   appState: AppState,
-  context: functions.EventContext,
-  change: functions.Change<functions.firestore.DocumentSnapshot>
+  before: functions.firestore.DocumentSnapshot | undefined,
+  after: functions.firestore.DocumentSnapshot | undefined,
 ): Promise<void> {
-  const before = change.before.data() as ShoppingListData | undefined
-  const after = change.after.data() as ShoppingListData | undefined
+  const beforeData = before?.data() as ShoppingListData | undefined
+  const afterData = after?.data() as ShoppingListData | undefined
 
-  const ownerUserId = after?.ownerUserId || before?.ownerUserId
+  const ownerUserId = afterData?.ownerUserId || beforeData?.ownerUserId
   if (!ownerUserId) {
     // TODO: Add logging
     console.error('Shopping list does not have an owner user id')
