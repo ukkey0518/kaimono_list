@@ -9,6 +9,7 @@ part of 'item.dart';
 _$ItemImpl _$$ItemImplFromJson(Map<String, dynamic> json) => _$ItemImpl(
       name: json['name'] as String,
       isPurchased: json['isPurchased'] as bool? ?? false,
+      orderIndex: (json['orderIndex'] as num?)?.toInt() ?? 0,
       id: json['id'] as String?,
       createdAt: FirestoreFieldConverter.nullableTimestampToDateTime(
           json['createdAt']),
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$ItemImplToJson(_$ItemImpl instance) {
     }
   }
 
+  writeNotNull('orderIndex', instance.orderIndex);
   writeNotNull(
       'createdAt', FirestoreFieldConverter.createdAtToJson(instance.createdAt));
   writeNotNull(

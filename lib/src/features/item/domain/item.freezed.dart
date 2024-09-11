@@ -22,6 +22,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
 mixin _$Item {
   String get name => throw _privateConstructorUsedError;
   bool get isPurchased => throw _privateConstructorUsedError;
+  int? get orderIndex => throw _privateConstructorUsedError;
   @firestoreId
   String? get id => throw _privateConstructorUsedError;
   @firestoreCreatedAt
@@ -42,6 +43,7 @@ abstract class $ItemCopyWith<$Res> {
   $Res call(
       {String name,
       bool isPurchased,
+      int? orderIndex,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
       @firestoreUpdatedAt DateTime? updatedAt});
@@ -62,6 +64,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   $Res call({
     Object? name = null,
     Object? isPurchased = null,
+    Object? orderIndex = freezed,
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -75,6 +78,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.isPurchased
           : isPurchased // ignore: cast_nullable_to_non_nullable
               as bool,
+      orderIndex: freezed == orderIndex
+          ? _value.orderIndex
+          : orderIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -101,6 +108,7 @@ abstract class _$$ItemImplCopyWith<$Res> implements $ItemCopyWith<$Res> {
   $Res call(
       {String name,
       bool isPurchased,
+      int? orderIndex,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
       @firestoreUpdatedAt DateTime? updatedAt});
@@ -118,6 +126,7 @@ class __$$ItemImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? isPurchased = null,
+    Object? orderIndex = freezed,
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -131,6 +140,10 @@ class __$$ItemImplCopyWithImpl<$Res>
           ? _value.isPurchased
           : isPurchased // ignore: cast_nullable_to_non_nullable
               as bool,
+      orderIndex: freezed == orderIndex
+          ? _value.orderIndex
+          : orderIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -154,6 +167,7 @@ class _$ItemImpl extends _Item {
   const _$ItemImpl(
       {required this.name,
       this.isPurchased = false,
+      this.orderIndex = 0,
       @firestoreId this.id,
       @firestoreCreatedAt this.createdAt,
       @firestoreUpdatedAt this.updatedAt})
@@ -168,6 +182,9 @@ class _$ItemImpl extends _Item {
   @JsonKey()
   final bool isPurchased;
   @override
+  @JsonKey()
+  final int? orderIndex;
+  @override
   @firestoreId
   final String? id;
   @override
@@ -179,7 +196,7 @@ class _$ItemImpl extends _Item {
 
   @override
   String toString() {
-    return 'Item(name: $name, isPurchased: $isPurchased, id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Item(name: $name, isPurchased: $isPurchased, orderIndex: $orderIndex, id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -190,6 +207,8 @@ class _$ItemImpl extends _Item {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.isPurchased, isPurchased) ||
                 other.isPurchased == isPurchased) &&
+            (identical(other.orderIndex, orderIndex) ||
+                other.orderIndex == orderIndex) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -199,8 +218,8 @@ class _$ItemImpl extends _Item {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, isPurchased, id, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType, name, isPurchased, orderIndex, id, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -220,6 +239,7 @@ abstract class _Item extends Item {
   const factory _Item(
       {required final String name,
       final bool isPurchased,
+      final int? orderIndex,
       @firestoreId final String? id,
       @firestoreCreatedAt final DateTime? createdAt,
       @firestoreUpdatedAt final DateTime? updatedAt}) = _$ItemImpl;
@@ -231,6 +251,8 @@ abstract class _Item extends Item {
   String get name;
   @override
   bool get isPurchased;
+  @override
+  int? get orderIndex;
   @override
   @firestoreId
   String? get id;

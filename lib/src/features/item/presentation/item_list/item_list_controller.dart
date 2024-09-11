@@ -37,6 +37,15 @@ class ItemListController extends _$ItemListController {
     return state.hasError;
   }
 
+  Future<bool> updateOrderIndexes(List<Item> items) async {
+    final itemRepository = ref.read(itemRepositoryProvider);
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      await itemRepository.updateOrderIndexes(items);
+    });
+    return state.hasError;
+  }
+
   /// Delete all purchased items.
   Future<bool> deleteAllPurchasedItems() async {
     final itemRepository = ref.read(itemRepositoryProvider);

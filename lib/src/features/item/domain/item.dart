@@ -10,6 +10,7 @@ class Item with _$Item {
   const factory Item({
     required String name,
     @Default(false) bool isPurchased,
+    @Default(0) int? orderIndex,
     @firestoreId String? id,
     @firestoreCreatedAt DateTime? createdAt,
     @firestoreUpdatedAt DateTime? updatedAt,
