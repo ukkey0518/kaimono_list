@@ -2,6 +2,7 @@ import * as admin from 'firebase-admin'
 import { UserProfileRepository } from './repositories/user_profile_repository'
 import { UserService } from './services/user_service'
 import { TransactionRepository } from './repositories/transaction_repository'
+import { ShoppingListRepository } from './repositories/shopping_list_repository'
 
 export class AppState {
   constructor(private app: admin.app.App) {}
@@ -24,6 +25,14 @@ export class AppState {
       this._userProfileRepository = new UserProfileRepository(this.app.firestore())
     }
     return this._userProfileRepository!
+  }
+
+  private _shoppingListRepository?: ShoppingListRepository
+  get shoppingListRepository(): ShoppingListRepository {
+    if (!this._shoppingListRepository) {
+      this._shoppingListRepository = new ShoppingListRepository(this.app.firestore())
+    }
+    return this._shoppingListRepository
   }
 
   //
