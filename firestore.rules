@@ -25,12 +25,11 @@ service cloud.firestore {
     match /shopping_lists/{shoppindListId} {
       allow create: if isAuthenticated();
 
-      // TODO(Ukkey): ルールの実装 - 本人と共有者のみ読み取り可能
-      //   - オーナー情報を持つ必要がある
-      //   - 共有機能の実装が必要
+      // TODO(Ukkey): ルールの実装 - メンバーの読み取り権限の実装
+      //   - リスト共有機能の実装が必要
+      allow read: if isOwner(resource.data.ownerUserId);
 
-      // TODO(Ukkey): ルールの実装 - 作成者のみ更新・削除可能
-      //   - オーナー情報を持つ必要がある
+      allow update, delete: if isOwner(resource.data.ownerUserId);
     }
   }
 }
