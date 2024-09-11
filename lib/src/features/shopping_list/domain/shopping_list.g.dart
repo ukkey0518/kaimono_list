@@ -9,6 +9,7 @@ part of 'shopping_list.dart';
 _$ShoppingListImpl _$$ShoppingListImplFromJson(Map<String, dynamic> json) =>
     _$ShoppingListImpl(
       name: json['name'] as String,
+      ownerUserId: json['ownerUserId'] as String?,
       id: json['id'] as String?,
       createdAt: FirestoreFieldConverter.nullableTimestampToDateTime(
           json['createdAt']),
@@ -27,6 +28,7 @@ Map<String, dynamic> _$$ShoppingListImplToJson(_$ShoppingListImpl instance) {
     }
   }
 
+  writeNotNull('ownerUserId', instance.ownerUserId);
   writeNotNull(
       'createdAt', FirestoreFieldConverter.createdAtToJson(instance.createdAt));
   writeNotNull(

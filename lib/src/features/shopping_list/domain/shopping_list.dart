@@ -9,6 +9,7 @@ class ShoppingList with _$ShoppingList {
   @firestoreModel
   const factory ShoppingList({
     required String name,
+    String? ownerUserId,
     @firestoreId String? id,
     @firestoreCreatedAt DateTime? createdAt,
     @firestoreUpdatedAt DateTime? updatedAt,
