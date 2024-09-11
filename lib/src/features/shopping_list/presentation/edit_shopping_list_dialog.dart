@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
+import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class EditShoppingListDialog extends HookWidget {
   const EditShoppingListDialog({
@@ -36,7 +37,7 @@ class EditShoppingListDialog extends HookWidget {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: AlertDialog(
-        title: const Text('新しい買い物リスト'),
+        title: Text('新しい買い物リスト'.hardcoded),
         content: Form(
           key: formKey,
           child: TextFormField(
@@ -44,16 +45,17 @@ class EditShoppingListDialog extends HookWidget {
             maxLength: ShoppingList.maxNameLength,
             validator: FormBuilderValidators.compose([
               FormBuilderValidators.required(
-                errorText: '必須入力です',
+                errorText: '必須入力です'.hardcoded,
               ),
               FormBuilderValidators.maxLength(
                 ShoppingList.maxNameLength,
-                errorText: '${ShoppingList.maxNameLength}文字以内で入力してください',
+                errorText:
+                    '${ShoppingList.maxNameLength}文字以内で入力してください'.hardcoded,
               ),
             ]),
-            decoration: const InputDecoration(
-              label: Text('買い物リスト名*'),
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              label: Text('買い物リスト名*'.hardcoded),
+              border: const OutlineInputBorder(),
             ),
             autofocus: true,
           ),
@@ -61,11 +63,11 @@ class EditShoppingListDialog extends HookWidget {
         actions: [
           TextButton(
             onPressed: context.pop,
-            child: const Text('キャンセル'),
+            child: Text('キャンセル'.hardcoded),
           ),
           TextButton(
             onPressed: submit,
-            child: const Text('作成'),
+            child: Text('作成'.hardcoded),
           ),
         ],
       ),
