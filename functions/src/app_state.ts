@@ -3,6 +3,7 @@ import { ShoppingListRepository } from './repositories/shopping_list_repository'
 import { TransactionRepository } from './repositories/transaction_repository'
 import { UserProfileRepository } from './repositories/user_profile_repository'
 import { UserShoppingListSettingRepository } from './repositories/user_shopping_list_setting_repository'
+import { ShoppingListService } from './services/shopping_list_service'
 import { UserService } from './services/user_service'
 
 export class AppState {
@@ -56,5 +57,16 @@ export class AppState {
       this._userService = new UserService(this.userProfileRepository)
     }
     return this._userService!
+  }
+
+  private _shoppingListService?: ShoppingListService
+  get shoppingListService(): ShoppingListService {
+    if (!this._shoppingListService) {
+      this._shoppingListService = new ShoppingListService(
+        this.shoppingListRepository,
+        this.userShoppingListSettingRepository
+      )
+    }
+    return this._shoppingListService!
   }
 }
