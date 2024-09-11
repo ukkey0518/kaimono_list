@@ -116,6 +116,7 @@ class ItemListView extends HookConsumerWidget {
 
     return ReorderableListView.builder(
       itemCount: items.length,
+      buildDefaultDragHandles: false,
       padding: const EdgeInsets.only(bottom: Sizes.p64 * 2),
       onReorder: (oldIndex, newIndex) {
         final newItems = items.toList();
