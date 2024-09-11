@@ -55,8 +55,8 @@ class ItemRepository {
 
   Future<void> updateOrderIndexes(List<Item> items) async {
     final batch = _firestore.batch();
-    for (final item in items) {
-      batch.update(itemRef(item.id!), {'orderIndex': item.orderIndex});
+    for (final (index, item) in items.indexed) {
+      batch.update(itemRef(item.id!), {'orderIndex': index});
     }
     await batch.commit();
   }
