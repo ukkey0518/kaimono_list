@@ -6,6 +6,7 @@ class EmptyShoppingListPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: Commonization PlaceHolder widget.
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
