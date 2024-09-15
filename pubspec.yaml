@@ -22,6 +22,7 @@ dependencies:
   hooks_riverpod: ^2.5.2
   intersperse: ^2.0.0
   json_annotation: ^4.9.0
+  logger: ^2.4.0
   riverpod_annotation: ^2.3.5  
 
 dev_dependencies:

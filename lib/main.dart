@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/firebase_options.dart';
 import 'package:kaimono_list/src/app.dart';
+import 'package:kaimono_list/src/utils/app_logger.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,15 +17,13 @@ Future<void> main() async {
   // Error Handler: 未キャッチエラー
   // https://firebase.google.com/docs/crashlytics/customize-crash-reports?hl=ja&platform=flutter#report-uncaught-exceptions
   FlutterError.onError = (ed) {
-    debugPrint('${ed.exception}');
-    debugPrint('${ed.stack}');
+    AppLogger().captureException(ed.exception, ed.stack);
   };
 
   // Error Handler: 非同期エラー
   // https://firebase.google.com/docs/crashlytics/customize-crash-reports?hl=ja&platform=flutter#asynchronous-errors
   PlatformDispatcher.instance.onError = (e, s) {
-    debugPrint('$e');
-    debugPrint('$s');
+    AppLogger().captureException(e, s);
     return true;
   };
 

@@ -82,13 +82,13 @@ Future<ShoppingList?> shoppingListFuture(
 ) async {
   final shoppingListRepository = ref.watch(shoppingListRepositoryProvider);
   try {
-    await shoppingListRepository.fetchShoppingList(shoppingListId);
+    return await shoppingListRepository.fetchShoppingList(shoppingListId);
   } catch (e) {
     if (e is FirebaseException && e.code == 'permission-denied') {
       throw PermissionDeniedException(e.message ?? '', {
         'ref': shoppingListRepository.shoppingListRef(shoppingListId),
       });
     }
+    rethrow;
   }
-  return null;
 }
