@@ -40,9 +40,9 @@ class ShoppingListRepository {
   }
 
   Future<String> createShoppingList(ShoppingList shoppingList) async {
-    final validateErrorMessage = shoppingList.validateForSave();
-    if (validateErrorMessage != null) {
-      throw ModelValidationException(validateErrorMessage, shoppingList);
+    final validationErrorMessage = shoppingList.validateForCreate();
+    if (validationErrorMessage != null) {
+      throw ModelValidationException(validationErrorMessage, shoppingList);
     }
     final ref = await shoppingListsRef().add(shoppingList);
     return ref.id;
@@ -52,6 +52,11 @@ class ShoppingListRepository {
     String shoppingListId,
     String name,
   ) async {
+    if (name.isEmpty) {
+      throw ModelValidationException('`name` is required.', {
+        'name': name,
+      });
+    }
     await shoppingListRef(shoppingListId).update(
       {
         'name': name,

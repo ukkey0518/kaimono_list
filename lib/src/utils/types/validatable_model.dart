@@ -1,3 +1,3 @@
 abstract class ValidatableModel {
-  String? validateForSave();
+  String? validateForCreate();
 }

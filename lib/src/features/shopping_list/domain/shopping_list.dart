@@ -24,15 +24,18 @@ class ShoppingList with _$ShoppingList implements ValidatableModel {
   static int get maxNameLength => 10;
 
   @override
-  String? validateForSave() {
+  String? validateForCreate() {
+    final name = this.name;
+    final ownerUserId = this.ownerUserId;
+
     if (name.isEmpty) {
-      return 'Name is required';
+      return '`name` is required.';
     }
     if (name.length > maxNameLength) {
-      return 'Name must be less than $maxNameLength characters';
+      return '`name` must be at most $maxNameLength characters.';
     }
-    if (ownerUserId == null) {
-      return 'Owner user ID is required';
+    if (ownerUserId == null || ownerUserId.isEmpty) {
+      return '`ownerUserId` is required.';
     }
     return null;
   }
