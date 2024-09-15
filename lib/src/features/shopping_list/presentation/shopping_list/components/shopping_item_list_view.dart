@@ -12,7 +12,7 @@ class ShoppingItemListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: Implements shoppingItemsProvider
+    // TODO(Ukkey): Implements shoppingItemsProvider
     const shoppingItemsAsyncValue = AsyncValue<List<({String name})>>.data([]);
 
     if (shoppingItemsAsyncValue.isLoading) {

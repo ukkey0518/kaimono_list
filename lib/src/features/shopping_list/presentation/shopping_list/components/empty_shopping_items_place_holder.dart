@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kaimono_list/src/common_widgets/big_icon_with_label.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class EmptyShoppingItemPlaceHolder extends StatelessWidget {
@@ -6,23 +7,17 @@ class EmptyShoppingItemPlaceHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Commonization PlaceHolder widget.
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Icon(
-          Icons.insert_emoticon_outlined,
-          size: 100,
+    return BigIconWithLabel(
+      icon: const Icon(
+        Icons.insert_emoticon_outlined,
+        color: Colors.grey,
+      ),
+      label: Text(
+        'No shopping items yet'.hardcoded,
+        style: const TextStyle(
           color: Colors.grey,
         ),
-        const SizedBox(height: 16),
-        Text(
-          'No shopping items yet'.hardcoded,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: Colors.grey,
-              ),
-        ),
-      ],
+      ),
     );
   }
 }
