@@ -33,6 +33,11 @@ class ShoppingListRepository {
 
   // ------------------------------------------------------------------------ //
 
+  Future<ShoppingList?> fetchShoppingList(String id) async {
+    final ds = await shoppingListRef(id).get();
+    return ds.data();
+  }
+
   Future<String> createShoppingList(ShoppingList shoppingList) async {
     final validateErrorMessage = shoppingList.validateForSave();
     if (validateErrorMessage != null) {
@@ -52,6 +57,10 @@ class ShoppingListRepository {
       SetOptions(merge: true),
     );
   }
+
+  Future<void> deleteShoppingList(String shoppingListId) async {
+    await shoppingListRef(shoppingListId).delete();
+  }
 }
 
 @Riverpod(
@@ -59,4 +68,17 @@ class ShoppingListRepository {
 )
 ShoppingListRepository shoppingListRepository(ShoppingListRepositoryRef ref) {
   return ShoppingListRepository(FirebaseFirestore.instance);
+}
+
+@Riverpod(
+  dependencies: [
+    shoppingListRepository,
+  ],
+)
+Future<ShoppingList?> shoppingListFuture(
+  ShoppingListFutureRef ref,
+  String shoppingListId,
+) {
+  final shoppingListRepository = ref.watch(shoppingListRepositoryProvider);
+  return shoppingListRepository.fetchShoppingList(shoppingListId);
 }

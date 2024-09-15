@@ -7,32 +7,9 @@ part of 'app_routes.dart';
 // **************************************************************************
 
 List<RouteBase> get $appRoutes => [
-      $shoppingListsRoute,
       $signInRoute,
+      $homeRoute,
     ];
-
-RouteBase get $shoppingListsRoute => GoRouteData.$route(
-      path: '/',
-      factory: $ShoppingListsRouteExtension._fromState,
-    );
-
-extension $ShoppingListsRouteExtension on ShoppingListsRoute {
-  static ShoppingListsRoute _fromState(GoRouterState state) =>
-      const ShoppingListsRoute();
-
-  String get location => GoRouteData.$location(
-        '/',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
 
 RouteBase get $signInRoute => GoRouteData.$route(
       path: '/sign-in',
@@ -49,6 +26,75 @@ extension $SignInRouteExtension on SignInRoute {
         queryParams: {
           if (from != null) 'from': from,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $homeRoute => GoRouteData.$route(
+      path: '/',
+      factory: $HomeRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'shopping-list/:shoppingListId',
+          factory: $ShoppingListRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'shopping-list-add',
+          factory: $ShoppingListAddRouteExtension._fromState,
+        ),
+      ],
+    );
+
+extension $HomeRouteExtension on HomeRoute {
+  static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
+
+  String get location => GoRouteData.$location(
+        '/',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ShoppingListRouteExtension on ShoppingListRoute {
+  static ShoppingListRoute _fromState(GoRouterState state) => ShoppingListRoute(
+        shoppingListId: state.pathParameters['shoppingListId']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/shopping-list/${Uri.encodeComponent(shoppingListId)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ShoppingListAddRouteExtension on ShoppingListAddRoute {
+  static ShoppingListAddRoute _fromState(GoRouterState state) =>
+      const ShoppingListAddRoute();
+
+  String get location => GoRouteData.$location(
+        '/shopping-list-add',
       );
 
   void go(BuildContext context) => context.go(location);

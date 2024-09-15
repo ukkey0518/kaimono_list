@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +12,24 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Error Handler: 未キャッチエラー
+  // https://firebase.google.com/docs/crashlytics/customize-crash-reports?hl=ja&platform=flutter#report-uncaught-exceptions
+  FlutterError.onError = (ed) {
+    debugPrint('${ed.exception}');
+    debugPrint('${ed.stack}');
+  };
+
+  // Error Handler: 非同期エラー
+  // https://firebase.google.com/docs/crashlytics/customize-crash-reports?hl=ja&platform=flutter#asynchronous-errors
+  PlatformDispatcher.instance.onError = (e, s) {
+    debugPrint('$e');
+    debugPrint('$s');
+    return true;
+  };
+
+  // エラーウィジェット
+  ErrorWidget.builder = (details) => const Icon(Icons.error);
 
   runApp(
     const ProviderScope(

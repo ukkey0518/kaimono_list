@@ -1,23 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'shopping_list_controller.dart';
+part of 'add_shopping_list_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shoppingListControllerHash() =>
-    r'862b26e78cd454ec78442f24fbc2632fa19cdf90';
+String _$addShoppingListControllerHash() =>
+    r'd5cde6d6fb1a5d64f4536113198c866130f9ef83';
 
-/// See also [ShoppingListController].
-@ProviderFor(ShoppingListController)
-final shoppingListControllerProvider =
-    AutoDisposeAsyncNotifierProvider<ShoppingListController, void>.internal(
-  ShoppingListController.new,
-  name: r'shoppingListControllerProvider',
+/// See also [AddShoppingListController].
+@ProviderFor(AddShoppingListController)
+final addShoppingListControllerProvider =
+    AutoDisposeAsyncNotifierProvider<AddShoppingListController, void>.internal(
+  AddShoppingListController.new,
+  name: r'addShoppingListControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$shoppingListControllerHash,
+      : _$addShoppingListControllerHash,
   dependencies: <ProviderOrFamily>[
     currentUserProvider,
     shoppingListRepositoryProvider
@@ -30,6 +30,6 @@ final shoppingListControllerProvider =
   },
 );
 
-typedef _$ShoppingListController = AutoDisposeAsyncNotifier<void>;
+typedef _$AddShoppingListController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

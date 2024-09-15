@@ -25,7 +25,7 @@ final userShoppingListSettingRepositoryProvider =
 typedef UserShoppingListSettingRepositoryRef
     = AutoDisposeProviderRef<UserShoppingListSettingRepository>;
 String _$userShoppingListsStreamHash() =>
-    r'4808e2be89642cdace3c40cada4df14d085166a1';
+    r'098b3abf2254d813c1a3c3df7e84f03420a4035d';
 
 /// See also [userShoppingListsStream].
 @ProviderFor(userShoppingListsStream)

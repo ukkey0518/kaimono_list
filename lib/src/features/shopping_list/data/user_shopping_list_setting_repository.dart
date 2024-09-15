@@ -45,12 +45,12 @@ class UserShoppingListSettingRepository {
 
   // ------------------------------------------------------------------------ //
 
-  Stream<List<UserShoppingList>> watchUserShoppingLists(
-    String? userId,
+  Stream<UserShoppingListSetting?> watchUserShoppingListSetting(
+    String userId,
   ) {
-    return userShoppingListSettingRef(userId!)
+    return userShoppingListSettingRef(userId)
         .snapshots()
-        .map((ds) => ds.data()?.userShoppingLists ?? <UserShoppingList>[]);
+        .map((ds) => ds.data());
   }
 
   /// Reorders user shopping lists according to a specified order,
@@ -115,9 +115,10 @@ Stream<List<UserShoppingList>> userShoppingListsStream(
   if (user == null) {
     return Stream.value([]);
   }
-
   final userShoppingListSettingRepository =
       ref.watch(userShoppingListSettingRepositoryProvider);
 
-  return userShoppingListSettingRepository.watchUserShoppingLists(user.id);
+  return userShoppingListSettingRepository
+      .watchUserShoppingListSetting(user.id)
+      .map((setting) => setting?.userShoppingLists ?? []);
 }

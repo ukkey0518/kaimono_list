@@ -3,7 +3,7 @@ import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repos
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'shopping_list_controller.g.dart';
+part 'add_shopping_list_controller.g.dart';
 
 @Riverpod(
   dependencies: [
@@ -11,22 +11,25 @@ part 'shopping_list_controller.g.dart';
     shoppingListRepository,
   ],
 )
-class ShoppingListController extends _$ShoppingListController {
+class AddShoppingListController extends _$AddShoppingListController {
   @override
-  FutureOr<void> build() => null;
+  FutureOr<void> build() async => null;
 
-  Future<void> createNewShoppingList(ShoppingList shoppingList) async {
-    final currentUser = ref.watch(currentUserProvider);
-    final shoppingListRepository = ref.watch(
+  Future<String?> createNewShoppingList(String name) async {
+    final currentUser = ref.read(currentUserProvider);
+    final shoppingListRepository = ref.read(
       shoppingListRepositoryProvider,
     );
+    String? newShoppingListId;
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await shoppingListRepository.createShoppingList(
-        shoppingList.copyWith(
+      newShoppingListId = await shoppingListRepository.createShoppingList(
+        ShoppingList(
+          name: name,
           ownerUserId: currentUser!.id,
         ),
       );
     });
+    return newShoppingListId;
   }
 }
