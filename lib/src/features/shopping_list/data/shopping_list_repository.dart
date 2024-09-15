@@ -48,14 +48,14 @@ class ShoppingListRepository {
     return ref.id;
   }
 
-  Future<void> updateShoppingList(ShoppingList shoppingList) async {
-    final validateErrorMessage = shoppingList.validateForSave();
-    if (validateErrorMessage != null) {
-      throw ModelValidationException(validateErrorMessage, shoppingList);
-    }
-    await shoppingListRef(shoppingList.id!).set(
-      shoppingList,
-      SetOptions(merge: true),
+  Future<void> updateShoppingList(
+    String shoppingListId,
+    String name,
+  ) async {
+    await shoppingListRef(shoppingListId).update(
+      {
+        'name': name,
+      },
     );
   }
 

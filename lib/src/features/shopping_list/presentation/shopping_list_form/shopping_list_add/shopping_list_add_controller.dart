@@ -3,7 +3,7 @@ import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repos
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'add_shopping_list_controller.g.dart';
+part 'shopping_list_add_controller.g.dart';
 
 @Riverpod(
   dependencies: [
@@ -11,7 +11,7 @@ part 'add_shopping_list_controller.g.dart';
     shoppingListRepository,
   ],
 )
-class AddShoppingListController extends _$AddShoppingListController {
+class ShoppingListAddController extends _$ShoppingListAddController {
   @override
   FutureOr<void> build() async => null;
 

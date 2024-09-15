@@ -45,6 +45,12 @@ RouteBase get $homeRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'shopping-list/:shoppingListId',
           factory: $ShoppingListRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'edit',
+              factory: $ShoppingListEditRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'shopping-list-add',
@@ -77,6 +83,26 @@ extension $ShoppingListRouteExtension on ShoppingListRoute {
 
   String get location => GoRouteData.$location(
         '/shopping-list/${Uri.encodeComponent(shoppingListId)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ShoppingListEditRouteExtension on ShoppingListEditRoute {
+  static ShoppingListEditRoute _fromState(GoRouterState state) =>
+      ShoppingListEditRoute(
+        shoppingListId: state.pathParameters['shoppingListId']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/shopping-list/${Uri.encodeComponent(shoppingListId)}/edit',
       );
 
   void go(BuildContext context) => context.go(location);
