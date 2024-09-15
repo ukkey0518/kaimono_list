@@ -25,7 +25,7 @@ final shoppingListRepositoryProvider =
 typedef ShoppingListRepositoryRef
     = AutoDisposeProviderRef<ShoppingListRepository>;
 String _$shoppingListFutureHash() =>
-    r'f65f87bd46f128adad3d2f5b723cbc3da201c5d0';
+    r'55293f2569888f940c7866e755fe5a19c6c7402e';
 
 /// Copied from Dart SDK
 class _SystemHash {

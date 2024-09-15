@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kaimono_list/src/exceptions/model_validation_exception.dart';
+import 'package:kaimono_list/src/exceptions/permission_denied_exception.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
 import 'package:kaimono_list/src/utils/extensions/firestore_extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -78,7 +79,16 @@ ShoppingListRepository shoppingListRepository(ShoppingListRepositoryRef ref) {
 Future<ShoppingList?> shoppingListFuture(
   ShoppingListFutureRef ref,
   String shoppingListId,
-) {
+) async {
   final shoppingListRepository = ref.watch(shoppingListRepositoryProvider);
-  return shoppingListRepository.fetchShoppingList(shoppingListId);
+  try {
+    await shoppingListRepository.fetchShoppingList(shoppingListId);
+  } catch (e) {
+    if (e is FirebaseException && e.code == 'permission-denied') {
+      throw PermissionDeniedException(e.message ?? '', {
+        'ref': shoppingListRepository.shoppingListRef(shoppingListId),
+      });
+    }
+  }
+  return null;
 }

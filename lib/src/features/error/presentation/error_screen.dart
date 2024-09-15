@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/error/presentation/components/error_details_view.dart';
 
 class ErrorScreen extends StatelessWidget {
@@ -16,8 +17,11 @@ class ErrorScreen extends StatelessWidget {
         title: const Text('Error'),
       ),
       body: Center(
-        child: ErrorDetailsView(
-          error: error,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Sizes.p24),
+          child: ErrorDetailsView(
+            error: error,
+          ),
         ),
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kaimono_list/src/exceptions/permission_denied_exception.dart';
+import 'package:kaimono_list/src/features/error/presentation/error_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_list_view.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
@@ -14,33 +16,37 @@ class ShoppingListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final shoppingListAsyncValue = ref.watch(
+      shoppingListFutureProvider(
+        shoppingListId,
+      ),
+    );
+
+    if (shoppingListAsyncValue.hasError) {
+      // TODO(Ukkey): Implement error logging
+      debugPrint(shoppingListAsyncValue.error.toString());
+      debugPrint(shoppingListAsyncValue.stackTrace.toString());
+
+      return ErrorScreen(
+        error: switch (shoppingListAsyncValue.error.runtimeType) {
+          PermissionDeniedException => 'この買い物リストにアクセスする権限がありません'.hardcoded,
+          _ => shoppingListAsyncValue.error.toString(),
+        },
+      );
+    }
+
+    final shoppingList = shoppingListAsyncValue.value;
+
     return Scaffold(
       appBar: AppBar(
-        title: Consumer(
-          builder: (context, ref, child) {
-            final shoppingListAsyncValue = ref.watch(
-              shoppingListFutureProvider(
-                shoppingListId,
-              ),
-            );
-            if (shoppingListAsyncValue.isLoading) {
-              return const CircularProgressIndicator();
-            }
-            if (shoppingListAsyncValue.hasError) {
-              // TODO(Ukkey): Implement error logging
-              debugPrint(shoppingListAsyncValue.error.toString());
-              debugPrint(shoppingListAsyncValue.stackTrace.toString());
-              return Text('エラー'.hardcoded);
-            }
-            return Text(shoppingListAsyncValue.value?.name ?? '');
-          },
-        ),
+        title: Text(shoppingList?.name ?? ''),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            // TODO(Ukkey): Implement edit shopping list
-            onPressed: () {},
-          ),
+          if (!shoppingListAsyncValue.isLoading && shoppingList != null)
+            IconButton(
+              icon: const Icon(Icons.settings),
+              // TODO(Ukkey): Implement edit shopping list
+              onPressed: () {},
+            ),
         ],
       ),
       body: ShoppingItemListView(
