@@ -53,6 +53,11 @@ class ShoppingListScreen extends ConsumerWidget {
             ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        // TODO(Ukkey): Implement add shopping item
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
       body: ShoppingItemListView(
         shoppingListId: shoppingListId,
       ),
