@@ -9,7 +9,7 @@ part 'shopping_item.g.dart';
 class ShoppingItem with _$ShoppingItem implements ValidatableModel {
   @firestoreModel
   const factory ShoppingItem({
-    required String name,
+    String? name,
     @Default(false) bool isPurchased,
     @firestoreId String? id,
     @firestoreCreatedAt DateTime? createdAt,
@@ -27,7 +27,10 @@ class ShoppingItem with _$ShoppingItem implements ValidatableModel {
   String? validateForCreate() {
     final name = this.name;
 
-    if (name.isEmpty) {
+    if (id != null) {
+      return '`id` must be null.';
+    }
+    if (name == null || name.isEmpty) {
       return '`name` is required.';
     }
     if (name.length > maxNameLength) {

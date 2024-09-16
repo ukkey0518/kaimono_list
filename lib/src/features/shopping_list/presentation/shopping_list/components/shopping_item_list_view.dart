@@ -55,7 +55,7 @@ class ShoppingItemListView extends ConsumerWidget {
                 ),
           ),
           title: Text(
-            shoppingItem.name,
+            shoppingItem.name ?? '',
             style: TextStyle(
               decoration: shoppingItem.isPurchased
                   ? TextDecoration.lineThrough
