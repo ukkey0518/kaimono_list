@@ -53,6 +53,7 @@ class ShoppingListAddScreen extends HookConsumerWidget {
             children: [
               ShoppingListFormNameTextField(
                 controller: nameController,
+                autofocus: true,
               ),
             ],
           ),

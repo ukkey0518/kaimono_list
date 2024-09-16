@@ -6,10 +6,12 @@ import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 class ShoppingListFormNameTextField extends StatelessWidget {
   const ShoppingListFormNameTextField({
     required this.controller,
+    this.autofocus = false,
     super.key,
   });
 
   final TextEditingController controller;
+  final bool autofocus;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class ShoppingListFormNameTextField extends StatelessWidget {
         border: const OutlineInputBorder(),
         labelText: '買い物リスト名*'.hardcoded,
       ),
-      autofocus: true,
+      autofocus: autofocus,
     );
   }
 }
