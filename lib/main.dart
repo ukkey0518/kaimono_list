@@ -17,6 +17,7 @@ Future<void> main() async {
   // Error Handler: 未キャッチエラー
   // https://firebase.google.com/docs/crashlytics/customize-crash-reports?hl=ja&platform=flutter#report-uncaught-exceptions
   FlutterError.onError = (ed) {
+    FlutterError.presentError(ed);
     AppLogger().captureException(ed.exception, ed.stack);
   };
 
