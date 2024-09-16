@@ -23,7 +23,7 @@ class ShoppingListEditController extends _$ShoppingListEditController {
     );
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await shoppingListRepository.updateShoppingList(
+      await shoppingListRepository.updateShoppingListInfo(
         shoppingListId,
         name,
       );

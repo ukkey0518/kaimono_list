@@ -48,7 +48,7 @@ class ShoppingListRepository {
     return ref.id;
   }
 
-  Future<void> updateShoppingList(
+  Future<void> updateShoppingListInfo(
     String shoppingListId,
     String name,
   ) async {
