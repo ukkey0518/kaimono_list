@@ -2,12 +2,12 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Check if the user is authenticated
+    // * Check if the user is authenticated
     function isAuthenticated() {
       return request.auth != null;
     }
 
-    // Check if the user is the owner of the document
+    // * Check if the user is the owner of the document
     function isOwner(userId) {
       return isAuthenticated() && request.auth.uid == userId;
     }
@@ -26,14 +26,22 @@ service cloud.firestore {
       // NOTE: Create & Delete are done by AdminSDK
     }
 
-    match /shopping_lists/{shoppindListId} {
+    match /shopping_lists/{shoppingListId} {
+      // * Check if the user is the owner of the shopping list
+      function isShoppingListOwner(userId) {
+        return isOwner(get(/databases/$(database)/documents/shopping_lists/$(shoppingListId)).data.ownerUserId);
+      }
+
       allow create: if isAuthenticated();
 
-      // TODO(Ukkey): ルールの実装 - メンバーの読み取り権限の実装
-      //   - リスト共有機能の実装が必要
+      // TODO(Ukkey): メンバー読み取り権限の付与（要: リスト共有機能）
       allow read: if isOwner(resource.data.ownerUserId);
 
       allow update, delete: if isOwner(resource.data.ownerUserId);
+
+      match /shopping_items/{shoppingItemId} {
+        allow read, write: if isShoppingListOwner(userId);
+      }
     }
   }
 }
