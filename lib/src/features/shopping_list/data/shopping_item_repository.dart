@@ -58,6 +58,16 @@ class ShoppingItemRepository {
         );
   }
 
+  Stream<bool> watchHasAnyPurchasedShoppingItem({
+    required String shoppingListId,
+  }) {
+    return shoppingItemsRef(shoppingListId)
+        .where('isPurchased', isEqualTo: true)
+        .limit(1)
+        .snapshots()
+        .map((qs) => qs.docs.isNotEmpty);
+  }
+
   Future<ShoppingItem?> fetchShoppingItem({
     required String shoppingListId,
     required String shoppingItemId,
@@ -95,25 +105,16 @@ class ShoppingItemRepository {
     );
   }
 
-  Future<void> toggleShoppingItemIsPurchased({
+  Future<void> updateShoppingItemIsPurchased({
     required String shoppingListId,
     required String shoppingItemId,
+    required bool isPurchased,
   }) async {
-    await _firestore.runTransaction((transaction) async {
-      final ref = shoppingItemRef(shoppingListId, shoppingItemId);
-      final ds = await transaction.get(ref);
-      final shoppingItem = ds.data();
-      if (shoppingItem == null) {
-        // TODO(Ukkey): Add a custom exception class.
-        throw Exception('ShoppingItem not found.');
-      }
-      transaction.update(
-        ref,
-        {
-          'isPurchased': !shoppingItem.isPurchased,
-        },
-      );
-    });
+    await shoppingItemRef(shoppingListId, shoppingItemId).update(
+      {
+        'isPurchased': isPurchased,
+      },
+    );
   }
 
   Future<void> deleteShoppingItem({
@@ -155,6 +156,21 @@ Stream<List<ShoppingItem>> shoppingItemsStream(
 ) {
   final shoppingItemRepository = ref.watch(shoppingItemRepositoryProvider);
   return shoppingItemRepository.watchShoppingItems(
+    shoppingListId: shoppingListId,
+  );
+}
+
+@Riverpod(
+  dependencies: [
+    shoppingItemRepository,
+  ],
+)
+Stream<bool> hasAnyPurchasedShoppingItemStream(
+  HasAnyPurchasedShoppingItemStreamRef ref,
+  String shoppingListId,
+) {
+  final shoppingItemRepository = ref.watch(shoppingItemRepositoryProvider);
+  return shoppingItemRepository.watchHasAnyPurchasedShoppingItem(
     shoppingListId: shoppingListId,
   );
 }

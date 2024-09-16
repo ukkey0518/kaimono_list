@@ -13,10 +13,10 @@ class ShoppingListController extends _$ShoppingListController {
   @override
   FutureOr<void> build() async => null;
 
-  Future<String?> createNewShoppingItem(
-    String shoppingListId,
-    String name,
-  ) async {
+  Future<String?> createNewShoppingItem({
+    required String shoppingListId,
+    required String name,
+  }) async {
     String? newShoppingItemId;
     final shoppingItemRepository = ref.read(
       shoppingItemRepositoryProvider,
@@ -33,11 +33,11 @@ class ShoppingListController extends _$ShoppingListController {
     return newShoppingItemId;
   }
 
-  Future<void> updateShoppingItemInfo(
-    String shoppingListId,
-    String shoppingItemId,
-    String name,
-  ) async {
+  Future<void> updateShoppingItemInfo({
+    required String shoppingListId,
+    required String shoppingItemId,
+    required String name,
+  }) async {
     final shoppingItemRepository = ref.read(
       shoppingItemRepositoryProvider,
     );
@@ -51,18 +51,20 @@ class ShoppingListController extends _$ShoppingListController {
     });
   }
 
-  Future<void> toggleShoppingItemIsPurchased(
-    String shoppingListId,
-    String shoppingItemId,
-  ) async {
+  Future<void> updateShoppingItemIsPurchased({
+    required String shoppingListId,
+    required String shoppingItemId,
+    required bool isPurchased,
+  }) async {
     final shoppingItemRepository = ref.read(
       shoppingItemRepositoryProvider,
     );
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await shoppingItemRepository.toggleShoppingItemIsPurchased(
+      await shoppingItemRepository.updateShoppingItemIsPurchased(
         shoppingListId: shoppingListId,
         shoppingItemId: shoppingItemId,
+        isPurchased: isPurchased,
       );
     });
   }

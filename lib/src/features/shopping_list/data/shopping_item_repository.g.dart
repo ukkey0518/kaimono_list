@@ -185,6 +185,147 @@ class _ShoppingItemsStreamProviderElement
       (origin as ShoppingItemsStreamProvider).shoppingListId;
 }
 
+String _$hasAnyPurchasedShoppingItemStreamHash() =>
+    r'162593ec12068e0b74c47d1f766c883cecb523b0';
+
+/// See also [hasAnyPurchasedShoppingItemStream].
+@ProviderFor(hasAnyPurchasedShoppingItemStream)
+const hasAnyPurchasedShoppingItemStreamProvider =
+    HasAnyPurchasedShoppingItemStreamFamily();
+
+/// See also [hasAnyPurchasedShoppingItemStream].
+class HasAnyPurchasedShoppingItemStreamFamily extends Family<AsyncValue<bool>> {
+  /// See also [hasAnyPurchasedShoppingItemStream].
+  const HasAnyPurchasedShoppingItemStreamFamily();
+
+  /// See also [hasAnyPurchasedShoppingItemStream].
+  HasAnyPurchasedShoppingItemStreamProvider call(
+    String shoppingListId,
+  ) {
+    return HasAnyPurchasedShoppingItemStreamProvider(
+      shoppingListId,
+    );
+  }
+
+  @override
+  HasAnyPurchasedShoppingItemStreamProvider getProviderOverride(
+    covariant HasAnyPurchasedShoppingItemStreamProvider provider,
+  ) {
+    return call(
+      provider.shoppingListId,
+    );
+  }
+
+  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[
+    shoppingItemRepositoryProvider
+  ];
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
+      <ProviderOrFamily>{
+    shoppingItemRepositoryProvider,
+    ...?shoppingItemRepositoryProvider.allTransitiveDependencies
+  };
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'hasAnyPurchasedShoppingItemStreamProvider';
+}
+
+/// See also [hasAnyPurchasedShoppingItemStream].
+class HasAnyPurchasedShoppingItemStreamProvider
+    extends AutoDisposeStreamProvider<bool> {
+  /// See also [hasAnyPurchasedShoppingItemStream].
+  HasAnyPurchasedShoppingItemStreamProvider(
+    String shoppingListId,
+  ) : this._internal(
+          (ref) => hasAnyPurchasedShoppingItemStream(
+            ref as HasAnyPurchasedShoppingItemStreamRef,
+            shoppingListId,
+          ),
+          from: hasAnyPurchasedShoppingItemStreamProvider,
+          name: r'hasAnyPurchasedShoppingItemStreamProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$hasAnyPurchasedShoppingItemStreamHash,
+          dependencies: HasAnyPurchasedShoppingItemStreamFamily._dependencies,
+          allTransitiveDependencies: HasAnyPurchasedShoppingItemStreamFamily
+              ._allTransitiveDependencies,
+          shoppingListId: shoppingListId,
+        );
+
+  HasAnyPurchasedShoppingItemStreamProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.shoppingListId,
+  }) : super.internal();
+
+  final String shoppingListId;
+
+  @override
+  Override overrideWith(
+    Stream<bool> Function(HasAnyPurchasedShoppingItemStreamRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: HasAnyPurchasedShoppingItemStreamProvider._internal(
+        (ref) => create(ref as HasAnyPurchasedShoppingItemStreamRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        shoppingListId: shoppingListId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<bool> createElement() {
+    return _HasAnyPurchasedShoppingItemStreamProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is HasAnyPurchasedShoppingItemStreamProvider &&
+        other.shoppingListId == shoppingListId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, shoppingListId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin HasAnyPurchasedShoppingItemStreamRef
+    on AutoDisposeStreamProviderRef<bool> {
+  /// The parameter `shoppingListId` of this provider.
+  String get shoppingListId;
+}
+
+class _HasAnyPurchasedShoppingItemStreamProviderElement
+    extends AutoDisposeStreamProviderElement<bool>
+    with HasAnyPurchasedShoppingItemStreamRef {
+  _HasAnyPurchasedShoppingItemStreamProviderElement(super.provider);
+
+  @override
+  String get shoppingListId =>
+      (origin as HasAnyPurchasedShoppingItemStreamProvider).shoppingListId;
+}
+
 String _$shoppingItemFutureHash() =>
     r'2e0a6b78fd624f84f5b48648b468f7be799bf69a';
 

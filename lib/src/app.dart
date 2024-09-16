@@ -11,6 +11,9 @@ class App extends ConsumerWidget {
 
     return MaterialApp.router(
       title: 'かいものリスト',
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
       routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
