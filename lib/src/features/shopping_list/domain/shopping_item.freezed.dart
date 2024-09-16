@@ -21,7 +21,7 @@ ShoppingItem _$ShoppingItemFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ShoppingItem {
   String? get name => throw _privateConstructorUsedError;
-  bool get isPurchased => throw _privateConstructorUsedError;
+  bool? get isPurchased => throw _privateConstructorUsedError;
   @firestoreId
   String? get id => throw _privateConstructorUsedError;
   @firestoreCreatedAt
@@ -47,7 +47,7 @@ abstract class $ShoppingItemCopyWith<$Res> {
   @useResult
   $Res call(
       {String? name,
-      bool isPurchased,
+      bool? isPurchased,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
       @firestoreUpdatedAt DateTime? updatedAt});
@@ -69,7 +69,7 @@ class _$ShoppingItemCopyWithImpl<$Res, $Val extends ShoppingItem>
   @override
   $Res call({
     Object? name = freezed,
-    Object? isPurchased = null,
+    Object? isPurchased = freezed,
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -79,10 +79,10 @@ class _$ShoppingItemCopyWithImpl<$Res, $Val extends ShoppingItem>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      isPurchased: null == isPurchased
+      isPurchased: freezed == isPurchased
           ? _value.isPurchased
           : isPurchased // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ abstract class _$$ShoppingItemImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? name,
-      bool isPurchased,
+      bool? isPurchased,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
       @firestoreUpdatedAt DateTime? updatedAt});
@@ -129,7 +129,7 @@ class __$$ShoppingItemImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? isPurchased = null,
+    Object? isPurchased = freezed,
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -139,10 +139,10 @@ class __$$ShoppingItemImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      isPurchased: null == isPurchased
+      isPurchased: freezed == isPurchased
           ? _value.isPurchased
           : isPurchased // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -178,7 +178,7 @@ class _$ShoppingItemImpl extends _ShoppingItem {
   final String? name;
   @override
   @JsonKey()
-  final bool isPurchased;
+  final bool? isPurchased;
   @override
   @firestoreId
   final String? id;
@@ -233,7 +233,7 @@ class _$ShoppingItemImpl extends _ShoppingItem {
 abstract class _ShoppingItem extends ShoppingItem {
   const factory _ShoppingItem(
       {final String? name,
-      final bool isPurchased,
+      final bool? isPurchased,
       @firestoreId final String? id,
       @firestoreCreatedAt final DateTime? createdAt,
       @firestoreUpdatedAt final DateTime? updatedAt}) = _$ShoppingItemImpl;
@@ -245,7 +245,7 @@ abstract class _ShoppingItem extends ShoppingItem {
   @override
   String? get name;
   @override
-  bool get isPurchased;
+  bool? get isPurchased;
   @override
   @firestoreId
   String? get id;

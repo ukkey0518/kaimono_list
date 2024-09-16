@@ -43,6 +43,7 @@ class ShoppingItemListView extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: Sizes.p128),
       itemBuilder: (context, index) {
         final shoppingItem = shoppingItems[index];
+        final isPurchased = shoppingItem.isPurchased ?? false;
         return ListTile(
           leading: Checkbox(
             value: shoppingItem.isPurchased,
@@ -57,10 +58,10 @@ class ShoppingItemListView extends ConsumerWidget {
           title: Text(
             shoppingItem.name ?? '',
             style: TextStyle(
-              decoration: shoppingItem.isPurchased
+              decoration: isPurchased
                   ? TextDecoration.lineThrough
                   : TextDecoration.none,
-              color: shoppingItem.isPurchased ? Colors.grey : Colors.black,
+              color: isPurchased ? Colors.grey : Colors.black,
             ),
           ),
           onTap: () => onEditShoppingItem(shoppingItem),

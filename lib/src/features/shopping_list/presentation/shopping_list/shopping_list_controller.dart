@@ -15,7 +15,7 @@ class ShoppingListController extends _$ShoppingListController {
 
   Future<String?> createNewShoppingItem({
     required String shoppingListId,
-    required String name,
+    required ShoppingItem shoppingItem,
   }) async {
     String? newShoppingItemId;
     final shoppingItemRepository = ref.read(
@@ -25,9 +25,7 @@ class ShoppingListController extends _$ShoppingListController {
     state = await AsyncValue.guard(() async {
       newShoppingItemId = await shoppingItemRepository.createShoppingItem(
         shoppingListId: shoppingListId,
-        shoppingItem: ShoppingItem(
-          name: name,
-        ),
+        shoppingItem: shoppingItem,
       );
     });
     return newShoppingItemId;
@@ -35,18 +33,19 @@ class ShoppingListController extends _$ShoppingListController {
 
   Future<void> updateShoppingItemInfo({
     required String shoppingListId,
-    required String shoppingItemId,
-    required String name,
+    required ShoppingItem shoppingItem,
   }) async {
     final shoppingItemRepository = ref.read(
       shoppingItemRepositoryProvider,
     );
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await shoppingItemRepository.updateShoppingItemInfo(
+      await shoppingItemRepository.updateShoppingItem(
         shoppingListId: shoppingListId,
-        shoppingItemId: shoppingItemId,
-        name: name,
+        shoppingItem: shoppingItem.copyWith(
+          // * 購入状態は更新しない
+          isPurchased: null,
+        ),
       );
     });
   }
@@ -61,10 +60,12 @@ class ShoppingListController extends _$ShoppingListController {
     );
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await shoppingItemRepository.updateShoppingItemIsPurchased(
+      await shoppingItemRepository.updateShoppingItem(
         shoppingListId: shoppingListId,
-        shoppingItemId: shoppingItemId,
-        isPurchased: isPurchased,
+        shoppingItem: ShoppingItem(
+          id: shoppingItemId,
+          isPurchased: isPurchased,
+        ),
       );
     });
   }

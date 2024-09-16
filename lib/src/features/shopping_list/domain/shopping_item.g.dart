@@ -27,7 +27,7 @@ Map<String, dynamic> _$$ShoppingItemImplToJson(_$ShoppingItemImpl instance) {
   }
 
   writeNotNull('name', instance.name);
-  val['isPurchased'] = instance.isPurchased;
+  writeNotNull('isPurchased', instance.isPurchased);
   writeNotNull(
       'createdAt', FirestoreFieldConverter.createdAtToJson(instance.createdAt));
   writeNotNull(

@@ -10,7 +10,7 @@ class ShoppingItem with _$ShoppingItem implements ValidatableModel {
   @firestoreModel
   const factory ShoppingItem({
     String? name,
-    @Default(false) bool isPurchased,
+    @Default(false) bool? isPurchased,
     @firestoreId String? id,
     @firestoreCreatedAt DateTime? createdAt,
     @firestoreUpdatedAt DateTime? updatedAt,
@@ -26,6 +26,7 @@ class ShoppingItem with _$ShoppingItem implements ValidatableModel {
   @override
   String? validateForCreate() {
     final name = this.name;
+    final isPurchased = this.isPurchased;
 
     if (id != null) {
       return '`id` must be null.';
@@ -36,8 +37,29 @@ class ShoppingItem with _$ShoppingItem implements ValidatableModel {
     if (name.length > maxNameLength) {
       return '`name` must be at most $maxNameLength characters.';
     }
+    if (isPurchased == null) {
+      return '`isPurchased` is required.';
+    }
     if (isPurchased) {
       return '`isPurchased` must be false.';
+    }
+    return null;
+  }
+
+  @override
+  String? validateForUpdate() {
+    final name = this.name;
+
+    if (id == null) {
+      return '`id` is required.';
+    }
+    if (name != null) {
+      if (name.isEmpty) {
+        return '`name` is required.';
+      }
+      if (name.length > maxNameLength) {
+        return '`name` must be at most $maxNameLength characters.';
+      }
     }
     return null;
   }

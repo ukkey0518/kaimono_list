@@ -48,13 +48,12 @@ class ShoppingListScreen extends HookConsumerWidget {
       if (shoppingItem == null) {
         await controller.createNewShoppingItem(
           shoppingListId: shoppingListId,
-          name: newShoppingItem.name ?? '',
+          shoppingItem: newShoppingItem,
         );
       } else {
         await controller.updateShoppingItemInfo(
           shoppingListId: shoppingListId,
-          shoppingItemId: shoppingItem.id!,
-          name: newShoppingItem.name ?? '',
+          shoppingItem: newShoppingItem,
         );
       }
     }

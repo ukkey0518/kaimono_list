@@ -39,4 +39,10 @@ class ShoppingList with _$ShoppingList implements ValidatableModel {
     }
     return null;
   }
+
+  @override
+  String? validateForUpdate() {
+    // TODO(Ukkey): Implement validateForUpdate
+    return null;
+  }
 }

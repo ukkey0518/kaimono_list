@@ -88,32 +88,17 @@ class ShoppingItemRepository {
     return ref.id;
   }
 
-  Future<void> updateShoppingItemInfo({
+  Future<void> updateShoppingItem({
     required String shoppingListId,
-    required String shoppingItemId,
-    required String name,
+    required ShoppingItem shoppingItem,
   }) async {
-    if (name.isEmpty) {
-      throw ModelValidationException('`name` is required.', {
-        'name': name,
-      });
+    final validationErrorMessage = shoppingItem.validateForUpdate();
+    if (validationErrorMessage != null) {
+      throw ModelValidationException(validationErrorMessage, shoppingItem);
     }
-    await shoppingItemRef(shoppingListId, shoppingItemId).update(
-      {
-        'name': name,
-      },
-    );
-  }
-
-  Future<void> updateShoppingItemIsPurchased({
-    required String shoppingListId,
-    required String shoppingItemId,
-    required bool isPurchased,
-  }) async {
-    await shoppingItemRef(shoppingListId, shoppingItemId).update(
-      {
-        'isPurchased': isPurchased,
-      },
+    await shoppingItemRef(shoppingListId, shoppingItem.id!).set(
+      shoppingItem,
+      SetOptions(merge: true),
     );
   }
 
