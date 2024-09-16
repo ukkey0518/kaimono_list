@@ -13,7 +13,7 @@ class ProviderLogger extends ProviderObserver {
   static List<String> onlyMatched = [];
 
   static String? _limitedValueString(Object? value) {
-    return value?.toString().ellipsis(maxStateLength);
+    return value?.toString().replaceAll('\n', '').ellipsis(maxStateLength);
   }
 
   static void logInit(String providerName, Object? value) {
