@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kaimono_list/src/common_widgets/dialogs.dart';
+import 'package:kaimono_list/src/utils/app_logger.dart';
 import 'package:kaimono_list/src/utils/snackbar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 extension AsyncValueUI<T> on AsyncValue<T> {
   void showDialogOnError(BuildContext context) {
     switch (this) {
-      case AsyncError(:final error):
+      case AsyncError(:final error, :final stackTrace):
+        AppLogger().captureException(error, stackTrace);
         if (context.mounted) {
           AppErrorDialog.show(context, error);
         }
@@ -15,9 +17,9 @@ extension AsyncValueUI<T> on AsyncValue<T> {
 
   void showSnackbarOnError(BuildContext context) {
     switch (this) {
-      case AsyncError(:final error):
+      case AsyncError(:final error, :final stackTrace):
+        AppLogger().captureException(error, stackTrace);
         if (context.mounted) {
-          debugPrint('$error');
           AppSnackbar.showError(context, error);
         }
     }
