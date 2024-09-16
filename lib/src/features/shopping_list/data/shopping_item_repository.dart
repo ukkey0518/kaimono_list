@@ -95,16 +95,25 @@ class ShoppingItemRepository {
     );
   }
 
-  Future<void> updateShoppingItemIsPurchased({
+  Future<void> toggleShoppingItemIsPurchased({
     required String shoppingListId,
     required String shoppingItemId,
-    required bool isPurchased,
   }) async {
-    await shoppingItemRef(shoppingListId, shoppingItemId).update(
-      {
-        'isPurchased': isPurchased,
-      },
-    );
+    await _firestore.runTransaction((transaction) async {
+      final ref = shoppingItemRef(shoppingListId, shoppingItemId);
+      final ds = await transaction.get(ref);
+      final shoppingItem = ds.data();
+      if (shoppingItem == null) {
+        // TODO(Ukkey): Add a custom exception class.
+        throw Exception('ShoppingItem not found.');
+      }
+      transaction.update(
+        ref,
+        {
+          'isPurchased': !shoppingItem.isPurchased,
+        },
+      );
+    });
   }
 
   Future<void> deleteShoppingItem({
@@ -114,7 +123,9 @@ class ShoppingItemRepository {
     await shoppingItemRef(shoppingListId, shoppingItemId).delete();
   }
 
-  Future<void> deleteAllPurchasedShoppingItems(String shoppingListId) async {
+  Future<void> deleteAllPurchasedShoppingItems({
+    required String shoppingListId,
+  }) async {
     final qs = await shoppingItemsRef(shoppingListId)
         .where('isPurchased', isEqualTo: true)
         .get();
