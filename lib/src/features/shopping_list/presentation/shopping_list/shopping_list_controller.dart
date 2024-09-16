@@ -13,25 +13,7 @@ class ShoppingListController extends _$ShoppingListController {
   @override
   FutureOr<void> build() async => null;
 
-  Future<String?> createNewShoppingItem({
-    required String shoppingListId,
-    required ShoppingItem shoppingItem,
-  }) async {
-    String? newShoppingItemId;
-    final shoppingItemRepository = ref.read(
-      shoppingItemRepositoryProvider,
-    );
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      newShoppingItemId = await shoppingItemRepository.createShoppingItem(
-        shoppingListId: shoppingListId,
-        shoppingItem: shoppingItem,
-      );
-    });
-    return newShoppingItemId;
-  }
-
-  Future<void> updateShoppingItemInfo({
+  Future<void> saveShoppingItem({
     required String shoppingListId,
     required ShoppingItem shoppingItem,
   }) async {
@@ -40,13 +22,22 @@ class ShoppingListController extends _$ShoppingListController {
     );
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await shoppingItemRepository.updateShoppingItem(
-        shoppingListId: shoppingListId,
-        shoppingItem: shoppingItem.copyWith(
-          // * 購入状態は更新しない
-          isPurchased: null,
-        ),
-      );
+      if (shoppingItem.id == null) {
+        // * If the shopping item has no ID, it's a new item
+        await shoppingItemRepository.createShoppingItem(
+          shoppingListId: shoppingListId,
+          shoppingItem: shoppingItem,
+        );
+      } else {
+        // * If the shopping item has an ID, it's an existing item
+        await shoppingItemRepository.updateShoppingItem(
+          shoppingListId: shoppingListId,
+          shoppingItem: shoppingItem.copyWith(
+            // * Prevent unintended updates to the purchase status
+            isPurchased: null,
+          ),
+        );
+      }
     });
   }
 

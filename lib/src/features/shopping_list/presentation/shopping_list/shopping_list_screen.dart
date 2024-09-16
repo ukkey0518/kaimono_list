@@ -34,9 +34,7 @@ class ShoppingListScreen extends HookConsumerWidget {
     );
 
     Future<void> showShoppingItemForm([ShoppingItem? shoppingItem]) async {
-      final controller = ref.read(
-        shoppingListControllerProvider.notifier,
-      );
+      final controller = ref.read(shoppingListControllerProvider.notifier);
       final newShoppingItem = await ShoppingItemEditBottomSheet.show(
         context,
         shoppingItem: shoppingItem,
@@ -44,18 +42,10 @@ class ShoppingListScreen extends HookConsumerWidget {
       if (newShoppingItem == null) {
         return;
       }
-
-      if (shoppingItem == null) {
-        await controller.createNewShoppingItem(
-          shoppingListId: shoppingListId,
-          shoppingItem: newShoppingItem,
-        );
-      } else {
-        await controller.updateShoppingItemInfo(
-          shoppingListId: shoppingListId,
-          shoppingItem: newShoppingItem,
-        );
-      }
+      await controller.saveShoppingItem(
+        shoppingListId: shoppingListId,
+        shoppingItem: newShoppingItem,
+      );
     }
 
     return Consumer(
