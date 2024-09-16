@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/firebase_options.dart';
 import 'package:kaimono_list/src/app.dart';
 import 'package:kaimono_list/src/utils/app_logger.dart';
+import 'package:kaimono_list/src/utils/provider_logger.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +33,11 @@ Future<void> main() async {
   ErrorWidget.builder = (details) => const Icon(Icons.error);
 
   runApp(
-    const ProviderScope(
-      child: App(),
+    ProviderScope(
+      observers: [
+        ProviderLogger(),
+      ],
+      child: const App(),
     ),
   );
 }

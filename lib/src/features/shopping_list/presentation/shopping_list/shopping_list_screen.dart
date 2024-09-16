@@ -13,7 +13,6 @@ import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_li
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_list_view.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_controller.dart';
 import 'package:kaimono_list/src/routing/app_routes.dart';
-import 'package:kaimono_list/src/utils/app_logger.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 import 'package:kaimono_list/src/utils/un_focus_all.dart';
@@ -97,12 +96,6 @@ class ShoppingListScreen extends HookConsumerWidget {
                     final hasAnyPurchasedShoppingItem = ref.watch(
                       hasAnyPurchasedShoppingItemStreamProvider(shoppingListId),
                     );
-                    if (hasAnyPurchasedShoppingItem.hasError) {
-                      AppLogger().captureException(
-                        hasAnyPurchasedShoppingItem.error,
-                        hasAnyPurchasedShoppingItem.stackTrace,
-                      );
-                    }
                     final isShowing = !hasAnyPurchasedShoppingItem.isLoading &&
                         hasAnyPurchasedShoppingItem.hasValue &&
                         hasAnyPurchasedShoppingItem.value!;

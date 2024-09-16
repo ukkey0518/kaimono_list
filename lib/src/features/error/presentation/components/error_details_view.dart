@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:kaimono_list/src/common_widgets/big_icon_with_label.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
-import 'package:kaimono_list/src/utils/app_logger.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class ErrorDetailsView extends StatelessWidget {
@@ -17,8 +16,6 @@ class ErrorDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLogger().captureException(error, stackTrace);
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
