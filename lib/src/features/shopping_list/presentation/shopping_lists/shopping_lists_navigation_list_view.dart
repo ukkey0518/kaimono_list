@@ -8,12 +8,7 @@ import 'package:kaimono_list/src/routing/app_routes.dart';
 class ShoppingListsNavigationListView extends ConsumerWidget {
   const ShoppingListsNavigationListView({
     super.key,
-    this.shrinkWrap = false,
-    this.physics = const AlwaysScrollableScrollPhysics(),
   });
-
-  final bool shrinkWrap;
-  final ScrollPhysics physics;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,8 +24,6 @@ class ShoppingListsNavigationListView extends ConsumerWidget {
     final userShoppingLists = userShoppingListsAsyncValue.value ?? [];
 
     return ListView(
-      shrinkWrap: shrinkWrap,
-      physics: physics,
       children: [
         for (final userShoppingList in userShoppingLists)
           UserShoppingListTile(
