@@ -48,6 +48,14 @@ class ShoppingListScreen extends HookConsumerWidget {
       );
     }
 
+    Future<void> cleanShoppingItems() async {
+      // TODO(Ukkey): Display a delete confirmation dialog
+      //   with an option for "Do not show again"
+      await ref
+          .read(shoppingListControllerProvider.notifier)
+          .deleteAllPurchasedShoppingItems(shoppingListId);
+    }
+
     return Consumer(
       builder: (context, ref, child) {
         final shoppingListAsyncValue = ref.watch(
@@ -104,11 +112,7 @@ class ShoppingListScreen extends HookConsumerWidget {
                       child: IgnorePointer(
                         ignoring: !isShowing,
                         child: ShoppingItemCleanFab(
-                          onPressed: () => ref
-                              .read(shoppingListControllerProvider.notifier)
-                              .deleteAllPurchasedShoppingItems(
-                                shoppingListId,
-                              ),
+                          onPressed: cleanShoppingItems,
                         ),
                       ),
                     );

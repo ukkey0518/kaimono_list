@@ -12,7 +12,6 @@ class ShoppingItemCleanFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(Ukkey): Explain the behavior of this button in some way
     return Tooltip(
       message: '購入済のアイテムを削除'.hardcoded,
       // * Adjust verticalOffset to show Tooltip above the Widget
