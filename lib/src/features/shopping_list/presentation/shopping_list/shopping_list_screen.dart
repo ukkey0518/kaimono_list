@@ -25,16 +25,12 @@ class ShoppingListScreen extends ConsumerWidget {
     );
 
     if (shoppingListAsyncValue.hasError) {
-      AppLogger().captureException(
-        shoppingListAsyncValue.error,
-        shoppingListAsyncValue.stackTrace,
-      );
-
       return ErrorScreen(
         error: switch (shoppingListAsyncValue.error.runtimeType) {
           PermissionDeniedException => 'この買い物リストにアクセスする権限がありません'.hardcoded,
-          _ => shoppingListAsyncValue.error.toString(),
+          _ => shoppingListAsyncValue.error,
         },
+        stackTrace: shoppingListAsyncValue.stackTrace,
       );
     }
 

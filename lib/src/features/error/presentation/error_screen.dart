@@ -5,10 +5,12 @@ import 'package:kaimono_list/src/features/error/presentation/components/error_de
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({
     required this.error,
+    this.stackTrace,
     super.key,
   });
 
   final dynamic error;
+  final StackTrace? stackTrace;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class ErrorScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: Sizes.p24),
           child: ErrorDetailsView(
             error: error,
+            stackTrace: stackTrace,
           ),
         ),
       ),
