@@ -19,7 +19,7 @@ GoRouter appRouter(AppRouterRef ref) {
     initialLocation: rootLocation,
     debugLogDiagnostics: true,
     refreshListenable: RouterRefreshStreamNotifier(
-      authRepository.authStateChanges,
+      authRepository.currentUserStream(),
     ),
     routes: $appRoutes,
     redirect: (context, state) {
