@@ -1,46 +1,11 @@
 import * as admin from 'firebase-admin'
-import { isNil } from 'lodash'
 import { Entity } from '../models/entity'
-import { FirestoreReference } from './firestore_reference'
 import { FirestoreRepository } from './firestore_repository'
 
 export abstract class FirestoreModelRepository<
-    D extends admin.firestore.DocumentData,
-    E extends Entity<D>,
-  >
-  extends FirestoreRepository
-  implements FirestoreReference<D>
-{
-  //
-  // --- Paths ---
-  //
-
-  abstract collectionPath(): string
-
-  documentPath(id: string): string {
-    return `${this.collectionPath()}/${id}`
-  }
-
-  //
-  // --- References ---
-  //
-
-  collectionRef(): admin.firestore.CollectionReference<D> {
-    return this.firestore.collection(this.collectionPath()).withConverter(this.dataConverter)
-  }
-
-  documentRef(id?: string): admin.firestore.DocumentReference<D> {
-    return (
-      isNil(id)
-        ? this.firestore.collection(this.collectionPath()).doc()
-        : this.firestore.doc(this.documentPath(id))
-    ).withConverter(this.dataConverter)
-  }
-
-  //
-  // --- Data Converter ---
-  //
-
+  D extends admin.firestore.DocumentData,
+  E extends Entity<D>,
+> extends FirestoreRepository {
   dataConverter: admin.firestore.FirestoreDataConverter<D> = {
     fromFirestore: ds => ds.data() as D,
     toFirestore: data => data,
@@ -50,8 +15,10 @@ export abstract class FirestoreModelRepository<
   // --- GET ---
   //
 
-  async get(id: string): Promise<E | undefined> {
-    const ds = await this.documentRef(id).get()
+  protected async fetchFromRef(
+    documentRef: admin.firestore.DocumentReference
+  ): Promise<E | undefined> {
+    const ds = await documentRef.get()
     if (!ds.exists) {
       return undefined
     }
@@ -61,11 +28,11 @@ export abstract class FirestoreModelRepository<
     } as E
   }
 
-  async getWithTransaction(
+  protected async fetchWithTransactionFromRef(
     transaction: admin.firestore.Transaction,
-    id: string
+    documentRef: admin.firestore.DocumentReference
   ): Promise<E | undefined> {
-    const ds = await transaction.get(this.documentRef(id))
+    const ds = await transaction.get(documentRef)
     if (!ds.exists) {
       return undefined
     }
@@ -79,16 +46,18 @@ export abstract class FirestoreModelRepository<
   // --- EXISTS ---
   //
 
-  async isExists(id: string): Promise<boolean> {
-    const ds = await this.documentRef(id).get()
+  protected async isExistsFromRef(
+    documentRef: admin.firestore.DocumentReference
+  ): Promise<boolean> {
+    const ds = await documentRef.get()
     return ds.exists
   }
 
-  async isExistsWithTransaction(
+  protected async isExistsWithTransactionFromRef(
     transaction: admin.firestore.Transaction,
-    id: string
+    documentRef: admin.firestore.DocumentReference
   ): Promise<boolean> {
-    const ds = await transaction.get(this.documentRef(id))
+    const ds = await transaction.get(documentRef)
     return ds.exists
   }
 
@@ -96,19 +65,23 @@ export abstract class FirestoreModelRepository<
   // --- ADD ---
   //
 
-  async add(data: D): Promise<string> {
-    const ref = await this.collectionRef().add(data)
-    return ref.id
+  protected async addFromRef(
+    collectionRef: admin.firestore.CollectionReference,
+    data: D
+  ): Promise<string> {
+    const dRef = await collectionRef.add(data)
+    return dRef.id
   }
 
-  addWithTransaction(
+  protected addWithTransactionFromRef(
     transaction: admin.firestore.Transaction,
+    collectionRef: admin.firestore.CollectionReference,
     data: D
   ): {
     transaction: admin.firestore.Transaction
     id: string
   } {
-    const ref = this.documentRef()
+    const ref = collectionRef.doc().withConverter(this.dataConverter)
     transaction.set(ref, data)
     return {
       transaction,
@@ -116,14 +89,15 @@ export abstract class FirestoreModelRepository<
     }
   }
 
-  addWithBatch(
+  protected addWithBatchFromRef(
     batch: admin.firestore.WriteBatch,
+    collectionRef: admin.firestore.CollectionReference,
     data: D
   ): {
     batch: admin.firestore.WriteBatch
     id: string
   } {
-    const ref = this.documentRef()
+    const ref = collectionRef.doc().withConverter(this.dataConverter)
     batch.set(ref, data)
     return {
       batch,
@@ -135,25 +109,28 @@ export abstract class FirestoreModelRepository<
   // --- CREATE ---
   //
 
-  async create(id: string, data: D): Promise<void> {
-    await this.documentRef(id).create(data)
+  protected async createFromRef(
+    documentRef: admin.firestore.DocumentReference,
+    data: D
+  ): Promise<void> {
+    await documentRef.create(data)
   }
 
-  createWithTransaction(
+  protected createWithTransactionFromRef(
     transaction: admin.firestore.Transaction,
-    id: string,
+    documentRef: admin.firestore.DocumentReference,
     data: D
   ): admin.firestore.Transaction {
-    transaction.create(this.documentRef(id), data)
+    transaction.create(documentRef, data)
     return transaction
   }
 
-  createWithBatch(
+  protected createWithBatchFromRef(
     batch: admin.firestore.WriteBatch,
-    id: string,
+    documentRef: admin.firestore.DocumentReference,
     data: D
   ): admin.firestore.WriteBatch {
-    batch.create(this.documentRef(id), data)
+    batch.create(documentRef, data)
     return batch
   }
 
@@ -161,38 +138,42 @@ export abstract class FirestoreModelRepository<
   // --- SET ---
   //
 
-  async set(id: string, data: D, options?: admin.firestore.SetOptions): Promise<void> {
+  protected async setFromRef(
+    documentRef: admin.firestore.DocumentReference,
+    data: D,
+    options?: admin.firestore.SetOptions
+  ): Promise<void> {
     if (options) {
-      await this.documentRef(id).set(data, options)
+      await documentRef.set(data, options)
     } else {
-      await this.documentRef(id).set(data)
+      await documentRef.set(data)
     }
   }
 
-  setWithTransaction(
+  protected setWithTransactionFromRef(
     transaction: admin.firestore.Transaction,
-    id: string,
+    documentRef: admin.firestore.DocumentReference,
     data: D,
     options?: admin.firestore.SetOptions
   ): admin.firestore.Transaction {
     if (options) {
-      transaction.set(this.documentRef(id), data, options)
+      transaction.set(documentRef, data, options)
     } else {
-      transaction.set(this.documentRef(id), data)
+      transaction.set(documentRef, data)
     }
     return transaction
   }
 
-  setWithBatch(
+  protected setWithBatchFromRef(
     batch: admin.firestore.WriteBatch,
-    id: string,
+    documentRef: admin.firestore.DocumentReference,
     data: D,
     options?: admin.firestore.SetOptions
   ): admin.firestore.WriteBatch {
     if (options) {
-      batch.set(this.documentRef(id), data, options)
+      batch.set(documentRef, data, options)
     } else {
-      batch.set(this.documentRef(id), data)
+      batch.set(documentRef, data)
     }
     return batch
   }
@@ -201,25 +182,28 @@ export abstract class FirestoreModelRepository<
   // --- UPDATE ---
   //
 
-  async update(id: string, data: Partial<D>): Promise<void> {
-    await this.documentRef(id).update(data)
+  protected async updateFromRef(
+    documentRef: admin.firestore.DocumentReference,
+    data: Partial<D>
+  ): Promise<void> {
+    await documentRef.update(data)
   }
 
-  updateWithTransaction(
+  protected updateWithTransactionFromRef(
     transaction: admin.firestore.Transaction,
-    id: string,
+    documentRef: admin.firestore.DocumentReference,
     data: Partial<D>
   ): admin.firestore.Transaction {
-    transaction.update(this.documentRef(id), data as admin.firestore.UpdateData<D>)
+    transaction.update(documentRef, data as admin.firestore.UpdateData<D>)
     return transaction
   }
 
-  updateWithBatch(
+  protected updateWithBatchFromRef(
     batch: admin.firestore.WriteBatch,
-    id: string,
+    documentRef: admin.firestore.DocumentReference,
     data: Partial<D>
   ): admin.firestore.WriteBatch {
-    batch.update(this.documentRef(id), data as admin.firestore.UpdateData<D>)
+    batch.update(documentRef, data as admin.firestore.UpdateData<D>)
     return batch
   }
 
@@ -227,20 +211,23 @@ export abstract class FirestoreModelRepository<
   // --- DELETE ---
   //
 
-  async delete(id: string): Promise<void> {
-    await this.documentRef(id).delete()
+  protected async deleteFromRef(documentRef: admin.firestore.DocumentReference): Promise<void> {
+    await documentRef.delete()
   }
 
-  deleteWithTransaction(
+  protected deleteWithTransactionFromRef(
     transaction: admin.firestore.Transaction,
-    id: string
+    documentRef: admin.firestore.DocumentReference
   ): admin.firestore.Transaction {
-    transaction.delete(this.documentRef(id))
+    transaction.delete(documentRef)
     return transaction
   }
 
-  deleteWithBatch(batch: admin.firestore.WriteBatch, id: string): admin.firestore.WriteBatch {
-    batch.delete(this.documentRef(id))
+  protected deleteWithBatchFromRef(
+    batch: admin.firestore.WriteBatch,
+    documentRef: admin.firestore.DocumentReference
+  ): admin.firestore.WriteBatch {
+    batch.delete(documentRef)
     return batch
   }
 }

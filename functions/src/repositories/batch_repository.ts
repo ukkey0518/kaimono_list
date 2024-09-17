@@ -1,4 +1,4 @@
-import { FirestoreRepository } from "./firestore_repository"
+import { FirestoreRepository } from './firestore_repository'
 
 export class BatchRepository extends FirestoreRepository {
   async runBatch(

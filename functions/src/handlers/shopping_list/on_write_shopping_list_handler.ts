@@ -5,7 +5,7 @@ import { ShoppingListData } from '../../models/shopping_list'
 export async function onWriteShoppingListHandler(
   appState: AppState,
   before: functions.firestore.DocumentSnapshot | undefined,
-  after: functions.firestore.DocumentSnapshot | undefined,
+  after: functions.firestore.DocumentSnapshot | undefined
 ): Promise<void> {
   const beforeData = before?.data() as ShoppingListData | undefined
   const afterData = after?.data() as ShoppingListData | undefined

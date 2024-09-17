@@ -6,7 +6,7 @@ import { onCreateAuthUserHandler } from './handlers/auth/triggers/on_create_auth
 import { onDeleteAuthUserHandler } from './handlers/auth/triggers/on_delete_auth_user_handler'
 import { onWriteShoppingListHandler } from './handlers/shopping_list/on_write_shopping_list_handler'
 
-functionsV2.setGlobalOptions({ region: "asia-northeast1" });
+functionsV2.setGlobalOptions({ region: 'asia-northeast1' })
 
 const appState = new AppState(admin.initializeApp())
 
