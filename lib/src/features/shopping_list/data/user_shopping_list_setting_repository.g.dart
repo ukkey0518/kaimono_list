@@ -25,7 +25,7 @@ final userShoppingListSettingRepositoryProvider =
 typedef UserShoppingListSettingRepositoryRef
     = AutoDisposeProviderRef<UserShoppingListSettingRepository>;
 String _$userShoppingListsStreamHash() =>
-    r'098b3abf2254d813c1a3c3df7e84f03420a4035d';
+    r'55bd970f93d53d3b61a851553ab39a2673812520';
 
 /// See also [userShoppingListsStream].
 @ProviderFor(userShoppingListsStream)
@@ -37,12 +37,12 @@ final userShoppingListsStreamProvider =
       ? null
       : _$userShoppingListsStreamHash,
   dependencies: <ProviderOrFamily>[
-    authStateChangesStreamProvider,
+    currentUserStreamProvider,
     userShoppingListSettingRepositoryProvider
   ],
   allTransitiveDependencies: <ProviderOrFamily>{
-    authStateChangesStreamProvider,
-    ...?authStateChangesStreamProvider.allTransitiveDependencies,
+    currentUserStreamProvider,
+    ...?currentUserStreamProvider.allTransitiveDependencies,
     userShoppingListSettingRepositoryProvider,
     ...?userShoppingListSettingRepositoryProvider.allTransitiveDependencies
   },

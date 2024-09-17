@@ -104,14 +104,14 @@ UserShoppingListSettingRepository userShoppingListSettingRepository(
 
 @Riverpod(
   dependencies: [
-    authStateChangesStream,
+    currentUserStream,
     userShoppingListSettingRepository,
   ],
 )
 Stream<List<UserShoppingList>> userShoppingListsStream(
   UserShoppingListsStreamRef ref,
 ) {
-  final user = ref.watch(authStateChangesStreamProvider).value;
+  final user = ref.watch(currentUserStreamProvider).value;
   if (user == null) {
     return Stream.value([]);
   }

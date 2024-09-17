@@ -38,17 +38,16 @@ final currentUserProvider = Provider<AppUser?>.internal(
 );
 
 typedef CurrentUserRef = ProviderRef<AppUser?>;
-String _$authStateChangesStreamHash() =>
-    r'146d12b237aa1c9538c15d136918cf61f9e298a5';
+String _$currentUserStreamHash() => r'566967fa8d45e1f5fe4e38c00acfcb8b45e52ad5';
 
-/// See also [authStateChangesStream].
-@ProviderFor(authStateChangesStream)
-final authStateChangesStreamProvider = StreamProvider<AppUser?>.internal(
-  authStateChangesStream,
-  name: r'authStateChangesStreamProvider',
+/// See also [currentUserStream].
+@ProviderFor(currentUserStream)
+final currentUserStreamProvider = StreamProvider<AppUser?>.internal(
+  currentUserStream,
+  name: r'currentUserStreamProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$authStateChangesStreamHash,
+      : _$currentUserStreamHash,
   dependencies: <ProviderOrFamily>[authRepositoryProvider],
   allTransitiveDependencies: <ProviderOrFamily>{
     authRepositoryProvider,
@@ -56,6 +55,6 @@ final authStateChangesStreamProvider = StreamProvider<AppUser?>.internal(
   },
 );
 
-typedef AuthStateChangesStreamRef = StreamProviderRef<AppUser?>;
+typedef CurrentUserStreamRef = StreamProviderRef<AppUser?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

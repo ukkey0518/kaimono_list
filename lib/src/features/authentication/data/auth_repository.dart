@@ -37,7 +37,7 @@ class AuthRepository {
 
   /// Notifies about changes to the user's sign-in state (such as sign-in or
   /// sign-out).
-  Stream<AppUser?> get authStateChanges {
+  Stream<AppUser?> currentUserStream() {
     return _auth.authStateChanges().map(_convertUser);
   }
 
@@ -82,7 +82,7 @@ AppUser? currentUser(CurrentUserRef ref) {
     authRepository,
   ],
 )
-Stream<AppUser?> authStateChangesStream(AuthStateChangesStreamRef ref) {
+Stream<AppUser?> currentUserStream(CurrentUserStreamRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  return authRepository.authStateChanges;
+  return authRepository.currentUserStream();
 }
