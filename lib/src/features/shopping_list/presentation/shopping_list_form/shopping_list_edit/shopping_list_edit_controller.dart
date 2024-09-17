@@ -1,4 +1,3 @@
-import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -6,7 +5,6 @@ part 'shopping_list_edit_controller.g.dart';
 
 @Riverpod(
   dependencies: [
-    currentUser,
     shoppingListRepository,
   ],
 )

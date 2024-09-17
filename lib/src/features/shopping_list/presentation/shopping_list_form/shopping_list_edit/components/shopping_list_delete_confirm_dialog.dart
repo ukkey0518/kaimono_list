@@ -5,11 +5,14 @@ import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 class ShoppingListDeleteConfirmDialog extends StatelessWidget {
   const ShoppingListDeleteConfirmDialog._({super.key});
 
-  static Future<bool> show(BuildContext context) async {
+  static Future<bool> show(
+    BuildContext context, {
+    Key? key,
+  }) async {
     final isConfirmed = await showDialog<bool>(
       context: context,
       builder: (context) {
-        return const ShoppingListDeleteConfirmDialog._();
+        return ShoppingListDeleteConfirmDialog._(key: key);
       },
     );
     return isConfirmed ?? false;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
 import 'package:kaimono_list/src/features/home/presentation/home_screen.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_add/shopping_list_add_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_screen.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_add/shopping_list_add_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_edit/shopping_list_edit_screen.dart';
 
 part 'app_routes.g.dart';
