@@ -6,9 +6,26 @@ export abstract class FirestoreModelRepository<
   D extends admin.firestore.DocumentData,
   E extends Entity<D>,
 > extends FirestoreRepository {
-  dataConverter: admin.firestore.FirestoreDataConverter<D> = {
+  protected dataConverter: admin.firestore.FirestoreDataConverter<D> = {
     fromFirestore: ds => ds.data() as D,
     toFirestore: data => data,
+  }
+
+  protected documentSnapshotToEntity(ds: admin.firestore.DocumentSnapshot): E | undefined {
+    if (!ds.exists) {
+      return undefined
+    }
+    return {
+      id: ds.id,
+      ...(ds.data() as D),
+    } as E
+  }
+
+  protected queryDocumentSnapshotToEntity(ds: admin.firestore.QueryDocumentSnapshot): E {
+    return {
+      id: ds.id,
+      ...(ds.data() as D),
+    } as E
   }
 
   //
@@ -22,10 +39,7 @@ export abstract class FirestoreModelRepository<
     if (!ds.exists) {
       return undefined
     }
-    return {
-      id: ds.id,
-      ...(ds.data() as D),
-    } as E
+    return this.documentSnapshotToEntity(ds)
   }
 
   protected async fetchWithTransactionFromRef(
@@ -36,10 +50,20 @@ export abstract class FirestoreModelRepository<
     if (!ds.exists) {
       return undefined
     }
-    return {
-      id: ds.id,
-      ...(ds.data() as D),
-    } as E
+    return this.documentSnapshotToEntity(ds)
+  }
+
+  protected async listFromRef(collectionRef: admin.firestore.CollectionReference): Promise<E[]> {
+    const qs = await collectionRef.get()
+    return qs.docs.map(this.queryDocumentSnapshotToEntity)
+  }
+
+  protected async listWithTransactionFromRef(
+    transaction: admin.firestore.Transaction,
+    collectionRef: admin.firestore.CollectionReference
+  ): Promise<E[]> {
+    const qs = await transaction.get(collectionRef)
+    return qs.docs.map(this.queryDocumentSnapshotToEntity)
   }
 
   //
