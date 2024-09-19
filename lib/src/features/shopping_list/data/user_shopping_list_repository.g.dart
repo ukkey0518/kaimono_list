@@ -1,31 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_shopping_list_setting_repository.dart';
+part of 'user_shopping_list_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userShoppingListSettingRepositoryHash() =>
-    r'e76d19b9cf98e2336518805fb359ee1021f2bade';
+String _$userShoppingListRepositoryHash() =>
+    r'a31e2f7210db1a47bd99ad51842025e9080a552e';
 
-/// See also [userShoppingListSettingRepository].
-@ProviderFor(userShoppingListSettingRepository)
-final userShoppingListSettingRepositoryProvider =
-    AutoDisposeProvider<UserShoppingListSettingRepository>.internal(
-  userShoppingListSettingRepository,
-  name: r'userShoppingListSettingRepositoryProvider',
+/// See also [userShoppingListRepository].
+@ProviderFor(userShoppingListRepository)
+final userShoppingListRepositoryProvider =
+    AutoDisposeProvider<UserShoppingListRepository>.internal(
+  userShoppingListRepository,
+  name: r'userShoppingListRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$userShoppingListSettingRepositoryHash,
+      : _$userShoppingListRepositoryHash,
   dependencies: const <ProviderOrFamily>[],
   allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
-typedef UserShoppingListSettingRepositoryRef
-    = AutoDisposeProviderRef<UserShoppingListSettingRepository>;
+typedef UserShoppingListRepositoryRef
+    = AutoDisposeProviderRef<UserShoppingListRepository>;
 String _$userShoppingListsStreamHash() =>
-    r'55bd970f93d53d3b61a851553ab39a2673812520';
+    r'72924434aa03162ef626a78c3e3281412a4935d0';
 
 /// See also [userShoppingListsStream].
 @ProviderFor(userShoppingListsStream)
@@ -38,13 +38,13 @@ final userShoppingListsStreamProvider =
       : _$userShoppingListsStreamHash,
   dependencies: <ProviderOrFamily>[
     currentUserStreamProvider,
-    userShoppingListSettingRepositoryProvider
+    userShoppingListRepositoryProvider
   ],
   allTransitiveDependencies: <ProviderOrFamily>{
     currentUserStreamProvider,
     ...?currentUserStreamProvider.allTransitiveDependencies,
-    userShoppingListSettingRepositoryProvider,
-    ...?userShoppingListSettingRepositoryProvider.allTransitiveDependencies
+    userShoppingListRepositoryProvider,
+    ...?userShoppingListRepositoryProvider.allTransitiveDependencies
   },
 );
 

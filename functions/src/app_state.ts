@@ -1,12 +1,16 @@
 import * as admin from 'firebase-admin'
+import { BatchRepository } from './repositories/batch_repository'
 import { ShoppingListRepository } from './repositories/shopping_list_repository'
 import { TransactionRepository } from './repositories/transaction_repository'
 import { UserProfileRepository } from './repositories/user_profile_repository'
-import { UserShoppingListSettingRepository } from './repositories/user_shopping_list_setting_repository'
+import { UserShoppingListRepository } from './repositories/user_shopping_list_repository'
 import { ShoppingListService } from './services/shopping_list_service'
 import { UserService } from './services/user_service'
-import { BatchRepository } from './repositories/batch_repository'
 
+/**
+ * The AppState class manages the application's state.
+ * It holds multiple repositories and services, initializing and providing them as needed.
+ */
 export class AppState {
   constructor(private app: admin.app.App) {}
 
@@ -38,14 +42,12 @@ export class AppState {
     return this._userProfileRepository!
   }
 
-  private _userShoppingListSettingRepository?: UserShoppingListSettingRepository
-  get userShoppingListSettingRepository(): UserShoppingListSettingRepository {
-    if (!this._userShoppingListSettingRepository) {
-      this._userShoppingListSettingRepository = new UserShoppingListSettingRepository(
-        this.app.firestore()
-      )
+  private _userShoppingListRepository?: UserShoppingListRepository
+  get userShoppingListRepository(): UserShoppingListRepository {
+    if (!this._userShoppingListRepository) {
+      this._userShoppingListRepository = new UserShoppingListRepository(this.app.firestore())
     }
-    return this._userShoppingListSettingRepository!
+    return this._userShoppingListRepository!
   }
 
   private _shoppingListRepository?: ShoppingListRepository
@@ -73,7 +75,7 @@ export class AppState {
     if (!this._shoppingListService) {
       this._shoppingListService = new ShoppingListService(
         this.shoppingListRepository,
-        this.userShoppingListSettingRepository
+        this.userShoppingListRepository
       )
     }
     return this._shoppingListService!

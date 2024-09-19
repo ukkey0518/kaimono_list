@@ -1,27 +1,31 @@
-import { UserShoppingListData } from '../models/user_shopping_list_setting'
 import { ShoppingListRepository } from '../repositories/shopping_list_repository'
-import { UserShoppingListSettingRepository } from '../repositories/user_shopping_list_setting_repository'
+import { UserShoppingListRepository } from '../repositories/user_shopping_list_repository'
 
 export class ShoppingListService {
   constructor(
     private shoppingListRepository: ShoppingListRepository,
-    private userShoppingListSettingRepository: UserShoppingListSettingRepository
+    private userShoppingListRepository: UserShoppingListRepository
   ) {}
 
-  async syncShoppingListsWithUserSettings(userId: string): Promise<void> {
-    const shoppingLists = await this.shoppingListRepository.listByOwnerUserId(userId)
+  /**
+   * Synchronizes the shopping list with all user shopping lists.
+   *
+   * This method fetches the shopping list by its ID and updates all user shopping lists
+   * with the name of the fetched shopping list. If the shopping list does not exist,
+   * it deletes all user shopping lists associated with the given shopping list ID.
+   *
+   * @param shoppingListId - The ID of the shopping list to synchronize.
+   * @returns A promise that resolves when the synchronization is complete.
+   */
+  async syncShoppingListUserShoppingLists(shoppingListId: string): Promise<void> {
+    const shoppingList = await this.shoppingListRepository.fetch(shoppingListId)
 
-    const newUserShoppingLists: UserShoppingListData[] = shoppingLists.map(shoppingList => ({
-      id: shoppingList.id,
-      name: shoppingList.name,
-    }))
-
-    await this.userShoppingListSettingRepository.set(
-      userId,
-      {
-        userShoppingLists: newUserShoppingLists,
-      },
-      { merge: true }
-    )
+    if (shoppingList) {
+      await this.userShoppingListRepository.updateAllUsersShoppingLists(shoppingListId, {
+        name: shoppingList.name,
+      })
+    } else {
+      await this.userShoppingListRepository.deleteAllUsersShoppingLists(shoppingListId)
+    }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
-import 'package:kaimono_list/src/features/shopping_list/domain/user_shopping_list_setting.dart';
+import 'package:kaimono_list/src/features/shopping_list/domain/user_shopping_list.dart';
 
 class UserShoppingListTile extends StatelessWidget {
   const UserShoppingListTile({
@@ -19,7 +19,7 @@ class UserShoppingListTile extends StatelessWidget {
       title: Row(
         children: [
           Expanded(
-            child: Text(userShoppingList.name),
+            child: Text(userShoppingList.name ?? '??'),
           ),
           // TODO(Ukkey): Show the number of items in the shopping list
           const Padding(

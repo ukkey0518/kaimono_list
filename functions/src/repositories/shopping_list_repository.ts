@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin'
+import { isNil } from 'lodash'
 import { ShoppingList, ShoppingListData } from '../models/shopping_list'
 import { FirestoreModelRepository } from './firestore_model_repository'
-import { isNil } from 'lodash'
 
 export class ShoppingListRepository extends FirestoreModelRepository<
   ShoppingListData,
@@ -36,6 +36,10 @@ export class ShoppingListRepository extends FirestoreModelRepository<
   }
 
   // ----------------------------------------------------------------------- //
+
+  fetch(shoppingListId: string): Promise<ShoppingList | undefined> {
+    return this.fetchFromRef(this.documentRef(shoppingListId))
+  }
 
   async listByOwnerUserId(ownerUserId: string): Promise<ShoppingList[]> {
     const qs = await this.firestore

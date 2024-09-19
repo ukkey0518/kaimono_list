@@ -18,17 +18,15 @@ service cloud.firestore {
 
     match /user_profiles/{userId} {
       allow read, write: if isOwner(userId);
-    }
 
-    match /user_shopping_list_settings/{userId} {
-      allow read, update: if isOwner(userId);
-
-      // NOTE: Create & Delete are done by AdminSDK
+      match /user_shopping_lists/{shoppingListId} {
+        allow read, write: if isOwner(userId);
+      }
     }
 
     match /shopping_lists/{shoppingListId} {
       // * Check if the user is the owner of the shopping list
-      function isShoppingListOwner(userId) {
+      function isShoppingListOwner() {
         return isOwner(get(/databases/$(database)/documents/shopping_lists/$(shoppingListId)).data.ownerUserId);
       }
 
@@ -40,7 +38,7 @@ service cloud.firestore {
       allow update, delete: if isOwner(resource.data.ownerUserId);
 
       match /shopping_items/{shoppingItemId} {
-        allow read, write: if isShoppingListOwner(userId);
+        allow read, write: if isShoppingListOwner();
       }
     }
   }
