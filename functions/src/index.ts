@@ -4,7 +4,7 @@ import * as functionsV2 from 'firebase-functions/v2'
 import { AppState } from './app_state'
 import { onCreateAuthUserHandler } from './handlers/auth/triggers/on_create_auth_user_handler'
 import { onDeleteAuthUserHandler } from './handlers/auth/triggers/on_delete_auth_user_handler'
-import { onWriteShoppingListHandler } from './handlers/shopping_list/on_write_shopping_list_handler'
+import { onCreateShoppingListHandler } from './handlers/shopping_list/on_create_shopping_list_handler'
 
 functionsV2.setGlobalOptions({ region: 'asia-northeast1' })
 
@@ -24,9 +24,9 @@ const onDeleteAuthUser = functions
   .auth.user()
   .onDelete(async (user, context) => await onDeleteAuthUserHandler(appState, context, user.uid))
 
-const onWriteShoppingList = functionsV2.firestore.onDocumentWritten(
+const onCreateShoppingList = functionsV2.firestore.onDocumentCreated(
   'shopping_lists/{shoppingListId}',
-  event => onWriteShoppingListHandler(appState, event.data?.before, event.data?.after)
+  async event => await onCreateShoppingListHandler(appState, event.data)
 )
 
 // ----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ const auth = {
 
 const shoppingList = {
   triggers: {
-    onWriteShoppingList,
+    onCreateShoppingList,
   },
 }
 

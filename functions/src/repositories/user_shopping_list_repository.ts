@@ -50,6 +50,41 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
 
   // ----------------------------------------------------------------------- //
 
+  
+  /**
+   * Fetches the maximum order index for a user's shopping list.
+   *
+   * @param userId - The ID of the user whose shopping list's maximum order index is to be fetched.
+   * @returns A promise that resolves to the maximum order index as a number, or undefined if the list is empty.
+   */
+  async fetchMaxOrderIndex(userId: string): Promise<number | undefined> {
+    const qs = await this.collectionRef(userId).orderBy('orderIndex', 'desc').limit(1).get()
+    if (qs.empty) return undefined
+    return qs.docs[0].data().orderIndex ?? undefined
+  }
+
+  /**
+   * Checks if a shopping list exists for a given user.
+   *
+   * @param userId - The ID of the user.
+   * @param shoppingListId - The ID of the shopping list.
+   * @returns A promise that resolves to a boolean indicating whether the shopping list exists.
+   */
+  async isExists(userId: string, shoppingListId: string): Promise<boolean> {
+    return this.isExistsFromRef(this.documentRef(userId, shoppingListId))
+  }
+
+  /**
+   * Creates a new user shopping list in the repository.
+   *
+   * @param userId - The unique identifier of the user.
+   * @param userShoppingList - The shopping list object to be created.
+   * @returns A promise that resolves when the creation is complete.
+   */
+  async create(userId: string, userShoppingList: UserShoppingList): Promise<void> {
+    await this.createFromRef(this.documentRef(userId, userShoppingList.id), userShoppingList)
+  }
+
   /**
    * Updates all user shopping lists that match the given shopping list ID with the provided data.
    *
