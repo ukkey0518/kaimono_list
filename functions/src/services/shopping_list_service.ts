@@ -8,8 +8,6 @@ export class ShoppingListService {
     private userShoppingListRepository: UserShoppingListRepository
   ) {}
 
-
-  
   /**
    * Creates a user shopping list if it does not already exist.
    *
@@ -49,24 +47,25 @@ export class ShoppingListService {
   }
 
   /**
-   * Synchronizes the shopping list with all user shopping lists.
+   * Synchronizes the specified shopping list to all users.
    *
-   * This method fetches the shopping list by its ID and updates all user shopping lists
-   * with the name of the fetched shopping list. If the shopping list does not exist,
-   * it deletes all user shopping lists associated with the given shopping list ID.
+   * This method fetches the shopping list by its ID and updates all users' shopping lists
+   * with the name of the fetched shopping list. If the shopping list is not found, it logs
+   * an error message.
    *
    * @param shoppingListId - The ID of the shopping list to synchronize.
    * @returns A promise that resolves when the synchronization is complete.
    */
-  async syncShoppingListUserShoppingLists(shoppingListId: string): Promise<void> {
+  async syncShoppingListToUsers(shoppingListId: string): Promise<void> {
     const shoppingList = await this.shoppingListRepository.fetch(shoppingListId)
-
-    if (shoppingList) {
-      await this.userShoppingListRepository.updateAllUsersShoppingLists(shoppingListId, {
-        name: shoppingList.name,
-      })
-    } else {
-      await this.userShoppingListRepository.deleteAllUsersShoppingLists(shoppingListId)
+    if (!shoppingList) {
+      // TODO(Ukkey): Implement custom logger
+      console.error(`Shopping list not found: ${shoppingListId}`)
+      return
     }
+
+    await this.userShoppingListRepository.updateAllUsersShoppingLists(shoppingListId, {
+      name: shoppingList.name,
+    })
   }
 }
