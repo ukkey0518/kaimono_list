@@ -6,6 +6,7 @@ import { onCreateAuthUserHandler } from './handlers/auth/triggers/on_create_auth
 import { onDeleteAuthUserHandler } from './handlers/auth/triggers/on_delete_auth_user_handler'
 import { onCreateShoppingListHandler } from './handlers/shopping_list/on_create_shopping_list_handler'
 import { onUpdateShoppingListHandler } from './handlers/shopping_list/on_update_shopping_list_handler'
+import { onDeleteShoppingListHandler } from './handlers/shopping_list/on_write_shopping_list_handler'
 
 functionsV2.setGlobalOptions({ region: 'asia-northeast1' })
 
@@ -35,6 +36,11 @@ const onUpdateShoppingList = functionsV2.firestore.onDocumentUpdated(
   async event => await onUpdateShoppingListHandler(appState, event.data)
 )
 
+const onDeleteShoppingList = functionsV2.firestore.onDocumentDeleted(
+  'shopping_lists/{shoppingListId}',
+  async event => await onDeleteShoppingListHandler(appState, event.data)
+)
+
 // ----------------------------------------------------------------------------
 
 const auth = {
@@ -48,6 +54,7 @@ const shoppingList = {
   triggers: {
     onCreateShoppingList,
     onUpdateShoppingList,
+    onDeleteShoppingList,
   },
 }
 

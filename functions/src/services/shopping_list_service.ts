@@ -68,4 +68,14 @@ export class ShoppingListService {
       name: shoppingList.name,
     })
   }
+
+  /**
+   * Deletes a shopping list from all users.
+   *
+   * @param shoppingListId - The ID of the shopping list to be deleted.
+   * @returns A promise that resolves when the shopping list has been deleted from all users.
+   */
+  async deleteShoppingListFromUsers(shoppingListId: string): Promise<void> {
+    await this.userShoppingListRepository.deleteAllUsersShoppingLists(shoppingListId)
+  }
 }
