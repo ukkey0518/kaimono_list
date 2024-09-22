@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import { FieldPath } from 'firebase-admin/firestore'
 import { UserShoppingList, UserShoppingListData } from '../models/user_shopping_list'
 import { FirestoreModelRepository } from './firestore_model_repository'
 
@@ -7,6 +6,14 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
   UserShoppingListData,
   UserShoppingList
 > {
+  // * The dataConverter is overridden to add an id field to the Document.
+  // * This is necessary for performing a CollectionGroup query to match the ShoppingListId.
+  // * ref: https://github.com/firebase/firebase-admin-node/issues/587
+  protected dataConverter: admin.firestore.FirestoreDataConverter<UserShoppingListData> = {
+    fromFirestore: ds => ds.data() as UserShoppingListData,
+    toFirestore: data => data,
+  }
+
   //
   // --- Paths ---
   //
@@ -29,7 +36,7 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
 
   collectionGroupRef(): admin.firestore.CollectionGroup<UserShoppingListData> {
     return this.firestore
-      .collectionGroup(this.collectionGroupPath())
+      .collectionGroup(this.collectionGroupId())
       .withConverter(this.dataConverter)
   }
 
@@ -50,7 +57,6 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
 
   // ----------------------------------------------------------------------- //
 
-  
   /**
    * Fetches the maximum order index for a user's shopping list.
    *
@@ -102,9 +108,7 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
     shoppingListId: string,
     data: Partial<UserShoppingListData>
   ): Promise<admin.firestore.DocumentReference[]> {
-    const qs = await this.collectionGroupRef()
-      .where(FieldPath.documentId(), '==', shoppingListId)
-      .get()
+    const qs = await this.collectionGroupRef().where('id', '==', shoppingListId).get()
 
     // ? Is it better to take a WriteBatch instance as an argument?
     const batch = this.firestore.batch()
@@ -135,9 +139,7 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
   async deleteAllUsersShoppingLists(
     shoppingListId: string
   ): Promise<admin.firestore.DocumentReference[]> {
-    const qs = await this.collectionGroupRef()
-      .where(FieldPath.documentId(), '==', shoppingListId)
-      .get()
+    const qs = await this.collectionGroupRef().where('id', '==', shoppingListId).get()
 
     // ? Is it better to take a WriteBatch instance as an argument?
     const batch = this.firestore.batch()
