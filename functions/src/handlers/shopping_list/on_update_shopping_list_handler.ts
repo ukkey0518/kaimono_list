@@ -1,5 +1,6 @@
 import * as functionsV2 from 'firebase-functions/v2'
 import { AppState } from '../../app_state'
+import { ShoppingListData } from '../../models/shopping_list'
 
 /**
  * Handles the update event for a shopping list.
@@ -20,8 +21,11 @@ export async function onUpdateShoppingListHandler(
     return
   }
 
-  // TODO(UKkey): Add handling logic for when `.ownerUserId` is changed
+  const beforeData = change.before.data() as ShoppingListData
 
   // Synchronize the shopping list to all users
-  await appState.shoppingListService.syncAllUsersShoppingLists(change.after.id)
+  await appState.shoppingListService.syncAllUsersShoppingLists(
+    change.after.id,
+    beforeData.ownerUserId
+  )
 }

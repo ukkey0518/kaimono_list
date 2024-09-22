@@ -103,6 +103,26 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
   }
 
   /**
+   * Creates a user shopping list document within a Firestore batch operation.
+   *
+   * @param batch - The Firestore WriteBatch instance to use for the batch operation.
+   * @param userId - The ID of the user to whom the shopping list belongs.
+   * @param userShoppingList - The UserShoppingList object containing the shopping list data.
+   * @returns The Firestore WriteBatch instance with the new operation added.
+   */
+  createWithBatch(
+    batch: admin.firestore.WriteBatch,
+    userId: string,
+    userShoppingList: UserShoppingList
+  ): admin.firestore.WriteBatch {
+    return this.createWithBatchFromRef(
+      batch,
+      this.documentRef(userId, userShoppingList.id),
+      userShoppingList
+    )
+  }
+
+  /**
    * Updates a user shopping list document within a Firestore batch operation.
    *
    * @param batch - The Firestore WriteBatch instance to use for the operation.

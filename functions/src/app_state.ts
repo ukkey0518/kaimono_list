@@ -74,6 +74,8 @@ export class AppState {
   get shoppingListService(): ShoppingListService {
     if (!this._shoppingListService) {
       this._shoppingListService = new ShoppingListService(
+        this.batchRepository,
+        this.userProfileRepository,
         this.shoppingListRepository,
         this.userShoppingListRepository
       )
