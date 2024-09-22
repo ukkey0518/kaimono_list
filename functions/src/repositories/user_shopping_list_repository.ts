@@ -34,8 +34,8 @@ export class UserShoppingListRepository
     return `/user_profiles/${userId}/${this.collectionGroupId()}`
   }
 
-  documentPath(userId: string, userShoppingListId: string): string {
-    return `${this.collectionPath(userId)}/${userShoppingListId}`
+  documentPath(userId: string, shoppingListId: string): string {
+    return `${this.collectionPath(userId)}/${shoppingListId}`
   }
 
   //
@@ -54,11 +54,11 @@ export class UserShoppingListRepository
 
   documentRef(
     userId: string,
-    userShoppingListId?: string
+    shoppingListId?: string
   ): admin.firestore.DocumentReference<UserShoppingListData> {
     return (
-      userShoppingListId
-        ? this.firestore.doc(this.documentPath(userId, userShoppingListId))
+      shoppingListId
+        ? this.firestore.doc(this.documentPath(userId, shoppingListId))
         : this.firestore.collection(this.collectionPath(userId)).doc()
     ).withConverter(this.dataConverter)
   }
@@ -115,18 +115,18 @@ export class UserShoppingListRepository
    *
    * @param batch - The Firestore WriteBatch instance to use for the batch operation.
    * @param userId - The ID of the user to whom the shopping list belongs.
-   * @param userShoppingList - The UserShoppingList object containing the shopping list data.
+   * @param shoppingList - The UserShoppingList object containing the shopping list data.
    * @returns The Firestore WriteBatch instance with the new operation added.
    */
   createWithBatch(
     batch: admin.firestore.WriteBatch,
     userId: string,
-    userShoppingList: UserShoppingList
+    shoppingList: UserShoppingList
   ): admin.firestore.WriteBatch {
     return this.createWithBatchFromRef(
       batch,
-      this.documentRef(userId, userShoppingList.id),
-      userShoppingList
+      this.documentRef(userId, shoppingList.id),
+      shoppingList
     )
   }
 
