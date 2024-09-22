@@ -131,12 +131,12 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
    * @param data - A partial object containing the fields to update in the shopping list.
    * @returns A promise that resolves to the Firestore WriteBatch instance after the update operation is added.
    */
-  async updateWithBatch(
+  updateWithBatch(
     batch: admin.firestore.WriteBatch,
     userId: string,
     shoppingListId: string,
     data: Partial<UserShoppingListData>
-  ): Promise<admin.firestore.WriteBatch> {
+  ): admin.firestore.WriteBatch {
     return this.updateWithBatchFromRef(batch, this.documentRef(userId, shoppingListId), data)
   }
 
@@ -148,11 +148,11 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
    * @param shoppingListId - The ID of the shopping list to be deleted.
    * @returns A promise that resolves to the Firestore WriteBatch instance after the delete operation is added to the batch.
    */
-  async deleteWithBatch(
+  deleteWithBatch(
     batch: admin.firestore.WriteBatch,
     userId: string,
     shoppingListId: string
-  ): Promise<admin.firestore.WriteBatch> {
+  ): admin.firestore.WriteBatch {
     return this.deleteWithBatchFromRef(batch, this.documentRef(userId, shoppingListId))
   }
 }
