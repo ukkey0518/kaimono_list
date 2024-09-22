@@ -6,5 +6,5 @@ export function generateRandomUsername(): string {
   const randomNumber = Math.floor(Math.random() * 10000)
     .toString()
     .padStart(4, '0')
-  return `${randomPrefix}${randomSuffix}#${randomNumber}`
+  return `${randomPrefix}${randomSuffix} #${randomNumber}`
 }
