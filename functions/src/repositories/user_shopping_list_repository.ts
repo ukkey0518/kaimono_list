@@ -7,7 +7,7 @@ export class UserShoppingListRepository
   extends FirestoreModelRepository<UserShoppingListData, UserShoppingList>
   implements FirestoreReference<UserShoppingListData>
 {
-  // * The dataConverter is overridden to add an id field to the Document.
+  // * The dataConverter is overridden to add an `id` field to the Document.
   // * This is necessary for performing a CollectionGroup query to match the ShoppingListId.
   // * ref: https://github.com/firebase/firebase-admin-node/issues/587
   protected dataConverter: admin.firestore.FirestoreDataConverter<UserShoppingListData> = {
