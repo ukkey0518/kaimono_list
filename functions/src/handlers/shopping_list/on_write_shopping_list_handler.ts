@@ -21,5 +21,5 @@ export async function onDeleteShoppingListHandler(
   }
 
   // Delete the shopping list from all users
-  await appState.shoppingListService.deleteShoppingListFromUsers(ds.id)
+  await appState.shoppingListService.deleteAllUsersShoppingLists(ds.id)
 }

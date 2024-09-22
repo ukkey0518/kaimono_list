@@ -1,9 +1,11 @@
 import { isNil } from 'lodash'
+import { BatchRepository } from '../repositories/batch_repository'
 import { ShoppingListRepository } from '../repositories/shopping_list_repository'
 import { UserShoppingListRepository } from '../repositories/user_shopping_list_repository'
 
 export class ShoppingListService {
   constructor(
+    private batchRepository: BatchRepository,
     private shoppingListRepository: ShoppingListRepository,
     private userShoppingListRepository: UserShoppingListRepository
   ) {}
@@ -47,16 +49,15 @@ export class ShoppingListService {
   }
 
   /**
-   * Synchronizes the specified shopping list to all users.
+   * Synchronizes the shopping lists of all users associated with a given shopping list ID.
    *
-   * This method fetches the shopping list by its ID and updates all users' shopping lists
-   * with the name of the fetched shopping list. If the shopping list is not found, it logs
-   * an error message.
+   * This method fetches the shopping list by its ID and retrieves all user IDs associated with it.
+   * It then updates each user's shopping list with the latest information from the fetched shopping list.
    *
    * @param shoppingListId - The ID of the shopping list to synchronize.
    * @returns A promise that resolves when the synchronization is complete.
    */
-  async syncShoppingListToUsers(shoppingListId: string): Promise<void> {
+  async syncAllUsersShoppingLists(shoppingListId: string): Promise<void> {
     const shoppingList = await this.shoppingListRepository.fetch(shoppingListId)
     if (!shoppingList) {
       // TODO(Ukkey): Implement custom logger
@@ -64,18 +65,35 @@ export class ShoppingListService {
       return
     }
 
-    await this.userShoppingListRepository.updateAllUsersShoppingLists(shoppingListId, {
-      name: shoppingList.name,
+    const userIds =
+      await this.userShoppingListRepository.listUserIdsByShoppingListId(shoppingListId)
+
+    this.batchRepository.runBatch(async batch => {
+      for (const userId of userIds) {
+        this.userShoppingListRepository.updateWithBatch(batch, userId, shoppingListId, {
+          name: shoppingList.name,
+        })
+      }
     })
   }
 
   /**
-   * Deletes a shopping list from all users.
+   * Deletes all user shopping lists associated with a given shopping list ID.
    *
-   * @param shoppingListId - The ID of the shopping list to be deleted.
-   * @returns A promise that resolves when the shopping list has been deleted from all users.
+   * This method retrieves all user IDs associated with the specified shopping list ID
+   * and then deletes each user's shopping list in a batch operation.
+   *
+   * @param shoppingListId - The ID of the shopping list to delete for all users.
+   * @returns A promise that resolves when the operation is complete.
    */
-  async deleteShoppingListFromUsers(shoppingListId: string): Promise<void> {
-    await this.userShoppingListRepository.deleteAllUsersShoppingLists(shoppingListId)
+  async deleteAllUsersShoppingLists(shoppingListId: string): Promise<void> {
+    const userIds =
+      await this.userShoppingListRepository.listUserIdsByShoppingListId(shoppingListId)
+
+    this.batchRepository.runBatch(async batch => {
+      for (const userId of userIds) {
+        this.userShoppingListRepository.deleteWithBatch(batch, userId, shoppingListId)
+      }
+    })
   }
 }

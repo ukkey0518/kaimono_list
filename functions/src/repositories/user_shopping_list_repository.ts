@@ -58,6 +58,17 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
   // ----------------------------------------------------------------------- //
 
   /**
+   * Retrieves all user shopping lists associated with a specific shopping list ID.
+   *
+   * @param shoppingListId - The ID of the shopping list to query.
+   * @returns A promise that resolves to an array of objects, each containing a userId and the corresponding userShoppingList.
+   */
+  async listUserIdsByShoppingListId(shoppingListId: string): Promise<string[]> {
+    const qs = await this.collectionGroupRef().where('id', '==', shoppingListId).get()
+    return qs.docs.map(doc => doc.ref.parent.parent!.id)
+  }
+
+  /**
    * Fetches the maximum order index for a user's shopping list.
    *
    * @param userId - The ID of the user whose shopping list's maximum order index is to be fetched.
@@ -92,35 +103,37 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
   }
 
   /**
-   * Updates all user shopping lists that match the given shopping list ID with the provided data.
+   * Updates a user shopping list document within a Firestore batch operation.
    *
+   * @param batch - The Firestore WriteBatch instance to use for the operation.
+   * @param userId - The ID of the user who owns the shopping list.
    * @param shoppingListId - The ID of the shopping list to update.
-   * @param data - Partial data to update in the user shopping lists.
-   * @returns A promise that resolves to an array of document references that were updated.
-   *
-   * @remarks
-   * This method uses a Firestore batch to perform the updates. Note that Firestore batches have a limit of 500 operations.
-   * Ensure that the number of updates does not exceed this limit. Consider limiting the maximum number of list shares (e.g., 100).
-   *
-   * @see {@link https://firebase.google.com/docs/firestore/manage-data/transactions#batched-writes}
+   * @param data - A partial object containing the fields to update in the shopping list.
+   * @returns A promise that resolves to the Firestore WriteBatch instance after the update operation is added.
    */
-  async updateAllUsersShoppingLists(
+  async updateWithBatch(
+    batch: admin.firestore.WriteBatch,
+    userId: string,
     shoppingListId: string,
     data: Partial<UserShoppingListData>
-  ): Promise<admin.firestore.DocumentReference[]> {
-    const qs = await this.collectionGroupRef().where('id', '==', shoppingListId).get()
+  ): Promise<admin.firestore.WriteBatch> {
+    return this.updateWithBatchFromRef(batch, this.documentRef(userId, shoppingListId), data)
+  }
 
-    // ? Is it better to take a WriteBatch instance as an argument?
-    const batch = this.firestore.batch()
-    // TODO(Ukkey): Ensure that the number of updates does not exceed 500
-    //   - https://firebase.google.com/docs/firestore/manage-data/transactions#batched-writes
-    //   - Limit the maximum number of list shares (e.g. 100)
-    for (const doc of qs.docs) {
-      this.updateWithBatchFromRef(batch, doc.ref, data)
-    }
-    await batch.commit()
-
-    return qs.docs.map(doc => doc.ref)
+  /**
+   * Deletes a shopping list document for a specific user within a Firestore batch operation.
+   *
+   * @param batch - The Firestore WriteBatch instance used to perform the batch operation.
+   * @param userId - The ID of the user whose shopping list is to be deleted.
+   * @param shoppingListId - The ID of the shopping list to be deleted.
+   * @returns A promise that resolves to the Firestore WriteBatch instance after the delete operation is added to the batch.
+   */
+  async deleteWithBatch(
+    batch: admin.firestore.WriteBatch,
+    userId: string,
+    shoppingListId: string
+  ): Promise<admin.firestore.WriteBatch> {
+    return this.deleteWithBatchFromRef(batch, this.documentRef(userId, shoppingListId))
   }
 
   /**

@@ -20,6 +20,8 @@ export async function onUpdateShoppingListHandler(
     return
   }
 
+  // TODO(UKkey): Add handling logic for when `.ownerUserId` is changed
+
   // Synchronize the shopping list to all users
-  await appState.shoppingListService.syncShoppingListToUsers(change.after.id)
+  await appState.shoppingListService.syncAllUsersShoppingLists(change.after.id)
 }
