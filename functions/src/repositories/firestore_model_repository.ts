@@ -8,7 +8,11 @@ export abstract class FirestoreModelRepository<
 > extends FirestoreRepository {
   protected dataConverter: admin.firestore.FirestoreDataConverter<D> = {
     fromFirestore: ds => ds.data() as D,
-    toFirestore: data => data,
+    toFirestore: data => {
+      const d = { ...data }
+      delete d.id
+      return d
+    },
   }
 
   protected documentSnapshotToEntity(ds: admin.firestore.DocumentSnapshot): E | undefined {
