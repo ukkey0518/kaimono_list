@@ -3,6 +3,13 @@ import { UserShoppingList, UserShoppingListData } from '../models/user_shopping_
 import { FirestoreModelRepository } from './firestore_model_repository'
 import { FirestoreReference } from './firestore_reference'
 
+/**
+ * Repository class for managing user shopping lists in Firestore.
+ *
+ * This class extends the `FirestoreModelRepository` and implements the `FirestoreReference` interface
+ * to provide methods for interacting with user shopping lists stored in Firestore. It includes methods
+ * for creating, updating, deleting, and querying user shopping lists.
+ */
 export class UserShoppingListRepository
   extends FirestoreModelRepository<UserShoppingListData, UserShoppingList>
   implements FirestoreReference<UserShoppingListData>
