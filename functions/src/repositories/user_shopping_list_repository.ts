@@ -11,12 +11,12 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
   // --- Paths ---
   //
 
-  collectionGroupPath(): string {
-    return `/user_shopping_lists`
+  collectionGroupId(): string {
+    return `user_shopping_lists`
   }
 
   collectionPath(userId: string): string {
-    return `/user_profiles/${userId}${this.collectionGroupPath()}`
+    return `/user_profiles/${userId}/${this.collectionGroupId()}`
   }
 
   documentPath(userId: string, userShoppingListId: string): string {
