@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import * as functions from 'firebase-functions'
+import * as functions from 'firebase-functions/v1'
 import * as functionsV2 from 'firebase-functions/v2'
 import { AppState } from './app_state'
 import { onCreateAuthUserHandler } from './handlers/auth/triggers/on_create_auth_user_handler'
