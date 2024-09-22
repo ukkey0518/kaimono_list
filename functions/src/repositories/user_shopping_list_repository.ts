@@ -155,35 +155,4 @@ export class UserShoppingListRepository extends FirestoreModelRepository<
   ): Promise<admin.firestore.WriteBatch> {
     return this.deleteWithBatchFromRef(batch, this.documentRef(userId, shoppingListId))
   }
-
-  /**
-   * Deletes all user shopping lists associated with the given shopping list ID.
-   *
-   * @param shoppingListId - The ID of the shopping list to delete.
-   * @returns A promise that resolves to an array of document references that were deleted.
-   *
-   * @remarks
-   * This method retrieves all documents in the collection group that match the given shopping list ID,
-   * and deletes them using a Firestore batch operation. Note that Firestore batch operations are limited
-   * to 500 updates per batch. Ensure that the number of updates does not exceed this limit.
-   *
-   * @see {@link https://firebase.google.com/docs/firestore/manage-data/transactions#batched-writes | Firestore Batched Writes}
-   */
-  async deleteAllUsersShoppingLists(
-    shoppingListId: string
-  ): Promise<admin.firestore.DocumentReference[]> {
-    const qs = await this.collectionGroupRef().where('id', '==', shoppingListId).get()
-
-    // ? Is it better to take a WriteBatch instance as an argument?
-    const batch = this.firestore.batch()
-    // TODO(Ukkey): Ensure that the number of updates does not exceed 500
-    //   - https://firebase.google.com/docs/firestore/manage-data/transactions#batched-writes
-    //   - Limit the maximum number of list shares (e.g. 100)
-    for (const doc of qs.docs) {
-      this.deleteWithBatchFromRef(batch, doc.ref)
-    }
-    await batch.commit()
-
-    return qs.docs.map(doc => doc.ref)
-  }
 }
