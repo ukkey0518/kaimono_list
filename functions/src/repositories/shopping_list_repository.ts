@@ -68,13 +68,13 @@ export class ShoppingListRepository
   /**
    * Retrieves a list of shopping lists by the owner's user ID.
    *
-   * @param ownerUserId - The ID of the user who owns the shopping lists.
+   * @param userId - The ID of the user who owns the shopping lists.
    * @returns A promise that resolves to an array of `ShoppingList` objects.
    */
-  async listByOwnerUserId(ownerUserId: string): Promise<ShoppingList[]> {
+  async listByOwnerUserId(userId: string): Promise<ShoppingList[]> {
     const qs = await this.firestore
       .collection(this.collectionPath())
-      .where('ownerUserId', '==', ownerUserId)
+      .where('ownerUserId', '==', userId)
       .get()
     return qs.docs.map(doc => ({
       id: doc.id,
