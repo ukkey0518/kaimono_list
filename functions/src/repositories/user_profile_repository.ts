@@ -2,14 +2,22 @@ import * as admin from 'firebase-admin'
 import { isNil } from 'lodash'
 import { UserProfile, UserProfileData } from '../models/user_profile'
 import { FirestoreModelRepository } from './firestore_model_repository'
+import { FirestoreReference } from './firestore_reference'
 
-export class UserProfileRepository extends FirestoreModelRepository<UserProfileData, UserProfile> {
+export class UserProfileRepository
+  extends FirestoreModelRepository<UserProfileData, UserProfile>
+  implements FirestoreReference<UserProfileData>
+{
   //
   // --- Paths ---
   //
 
+  collectionGroupId(): string {
+    return `user_profiles`
+  }
+
   collectionPath(): string {
-    return `/user_profiles`
+    return `/${this.collectionGroupId()}`
   }
 
   documentPath(userId: string): string {
@@ -19,6 +27,12 @@ export class UserProfileRepository extends FirestoreModelRepository<UserProfileD
   //
   // --- References ---
   //
+
+  collectionGroupRef(): admin.firestore.CollectionGroup<UserProfileData> {
+    return this.firestore
+      .collectionGroup(this.collectionGroupId())
+      .withConverter(this.dataConverter)
+  }
 
   collectionRef(): admin.firestore.CollectionReference<UserProfileData> {
     return this.firestore.collection(this.collectionPath()).withConverter(this.dataConverter)

@@ -2,17 +2,22 @@ import * as admin from 'firebase-admin'
 import { isNil } from 'lodash'
 import { ShoppingList, ShoppingListData } from '../models/shopping_list'
 import { FirestoreModelRepository } from './firestore_model_repository'
+import { FirestoreReference } from './firestore_reference'
 
-export class ShoppingListRepository extends FirestoreModelRepository<
-  ShoppingListData,
-  ShoppingList
-> {
+export class ShoppingListRepository
+  extends FirestoreModelRepository<ShoppingListData, ShoppingList>
+  implements FirestoreReference<ShoppingListData>
+{
   //
   // --- Paths ---
   //
 
+  collectionGroupId(): string {
+    return `shopping_lists`
+  }
+
   collectionPath(): string {
-    return `/shopping_lists`
+    return `/${this.collectionGroupId()}`
   }
 
   documentPath(shoppingListId: string): string {
@@ -22,6 +27,12 @@ export class ShoppingListRepository extends FirestoreModelRepository<
   //
   // --- References ---
   //
+
+  collectionGroupRef(): admin.firestore.CollectionGroup<ShoppingListData> {
+    return this.firestore
+      .collectionGroup(this.collectionGroupId())
+      .withConverter(this.dataConverter)
+  }
 
   collectionRef(): admin.firestore.CollectionReference<ShoppingListData> {
     return this.firestore.collection(this.collectionPath()).withConverter(this.dataConverter)

@@ -1,11 +1,12 @@
 import * as admin from 'firebase-admin'
 import { UserShoppingList, UserShoppingListData } from '../models/user_shopping_list'
 import { FirestoreModelRepository } from './firestore_model_repository'
+import { FirestoreReference } from './firestore_reference'
 
-export class UserShoppingListRepository extends FirestoreModelRepository<
-  UserShoppingListData,
-  UserShoppingList
-> {
+export class UserShoppingListRepository
+  extends FirestoreModelRepository<UserShoppingListData, UserShoppingList>
+  implements FirestoreReference<UserShoppingListData>
+{
   // * The dataConverter is overridden to add an id field to the Document.
   // * This is necessary for performing a CollectionGroup query to match the ShoppingListId.
   // * ref: https://github.com/firebase/firebase-admin-node/issues/587
