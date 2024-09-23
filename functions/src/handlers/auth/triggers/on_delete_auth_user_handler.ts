@@ -5,5 +5,9 @@ export async function onDeleteAuthUserHandler(
   appState: AppState,
   user: functionsV1.auth.UserRecord
 ): Promise<void> {
-  await appState.userService.setUserStatusToDeleted(user.uid)
+  try {
+    await appState.userService.setUserStatusToDeleted(user.uid)
+  } catch (error) {
+    throw new functionsV1.https.HttpsError('internal', error.message)
+  }
 }

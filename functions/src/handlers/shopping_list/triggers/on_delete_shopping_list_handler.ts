@@ -17,14 +17,18 @@ export async function onDeleteShoppingListHandler(
     functionsV2.firestore.QueryDocumentSnapshot | undefined
   >
 ): Promise<void> {
-  if (!event.data) {
-    // TODO(Ukkey): Implement custom logger
-    console.error('Shopping list document snapshot is undefined')
-    return
+  try {
+    if (!event.data) {
+      // TODO: Implement custom logger
+      console.error('Shopping list document snapshot is undefined')
+      return
+    }
+
+    const ds = event.data
+
+    // Delete the shopping list from all users
+    await appState.shoppingListService.deleteAllUsersShoppingLists(ds.id)
+  } catch (error) {
+    throw new functionsV2.https.HttpsError('internal', error.message)
   }
-
-  const ds = event.data
-
-  // Delete the shopping list from all users
-  await appState.shoppingListService.deleteAllUsersShoppingLists(ds.id)
 }

@@ -18,15 +18,19 @@ export async function onCreateShoppingListHandler(
     functionsV2.firestore.QueryDocumentSnapshot | undefined
   >
 ): Promise<void> {
-  const ds = event.data
-  if (!ds) {
-    // TODO(Ukkey): Implement custom logger
-    console.error('Shopping list document snapshot is undefined')
-    return
+  try {
+    const ds = event.data
+    if (!ds) {
+      // TODO: Implement custom logger
+      console.error('Shopping list document snapshot is undefined')
+      return
+    }
+
+    const shoppingList = ds.data() as ShoppingListData
+
+    // Create a user shopping list for the owner of the shopping list
+    await appState.shoppingListService.createUserShoppingList(shoppingList.ownerUserId, ds.id)
+  } catch (error) {
+    throw new functionsV2.https.HttpsError('internal', error.message)
   }
-
-  const shoppingList = ds.data() as ShoppingListData
-
-  // Create a user shopping list for the owner of the shopping list
-  await appState.shoppingListService.createUserShoppingList(shoppingList.ownerUserId, ds.id)
 }

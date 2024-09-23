@@ -17,19 +17,23 @@ export async function onUpdateShoppingListHandler(
     functionsV2.Change<FirebaseFirestore.QueryDocumentSnapshot> | undefined
   >
 ): Promise<void> {
-  if (!event.data) {
-    // TODO(Ukkey): Implement custom logger
-    console.error('Shopping list document snapshot is undefined')
-    return
+  try {
+    if (!event.data) {
+      // TODO: Implement custom logger
+      console.error('Shopping list document snapshot is undefined')
+      return
+    }
+
+    const change = event.data
+
+    const beforeData = change.before.data() as ShoppingListData
+
+    // Synchronize the shopping list to all users
+    await appState.shoppingListService.syncAllUsersShoppingLists(
+      change.after.id,
+      beforeData.ownerUserId
+    )
+  } catch (error) {
+    throw new functionsV2.https.HttpsError('internal', error.message)
   }
-
-  const change = event.data
-
-  const beforeData = change.before.data() as ShoppingListData
-
-  // Synchronize the shopping list to all users
-  await appState.shoppingListService.syncAllUsersShoppingLists(
-    change.after.id,
-    beforeData.ownerUserId
-  )
 }

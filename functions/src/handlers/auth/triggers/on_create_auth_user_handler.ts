@@ -5,5 +5,9 @@ export async function onCreateAuthUserHandler(
   appState: AppState,
   user: functionsV1.auth.UserRecord
 ): Promise<void> {
-  await appState.userService.createNewUserProfile(user.uid)
+  try {
+    await appState.userService.createNewUserProfile(user.uid)
+  } catch (error) {
+    throw new functionsV1.https.HttpsError('internal', error.message)
+  }
 }
