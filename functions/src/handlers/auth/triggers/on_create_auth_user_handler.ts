@@ -3,8 +3,7 @@ import { AppState } from '../../../app_state'
 
 export async function onCreateAuthUserHandler(
   appState: AppState,
-  context: functions.EventContext,
-  userId: string
+  user: functions.auth.UserRecord
 ): Promise<void> {
-  await appState.userService.createNewUserProfile(userId)
+  await appState.userService.createNewUserProfile(user.uid)
 }

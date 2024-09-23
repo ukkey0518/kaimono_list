@@ -19,12 +19,12 @@ const appState = new AppState(admin.initializeApp())
 const onCreateAuthUser = functions
   .region('asia-northeast1')
   .auth.user()
-  .onCreate(async (user, context) => await onCreateAuthUserHandler(appState, context, user.uid))
+  .onCreate(async user => await onCreateAuthUserHandler(appState, user))
 
 const onDeleteAuthUser = functions
   .region('asia-northeast1')
   .auth.user()
-  .onDelete(async (user, context) => await onDeleteAuthUserHandler(appState, context, user.uid))
+  .onDelete(async user => await onDeleteAuthUserHandler(appState, user))
 
 const onCreateShoppingList = functionsV2.firestore.onDocumentCreated(
   'shopping_lists/{shoppingListId}',

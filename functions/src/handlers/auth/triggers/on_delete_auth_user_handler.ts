@@ -3,8 +3,7 @@ import { AppState } from '../../../app_state'
 
 export async function onDeleteAuthUserHandler(
   appState: AppState,
-  context: functions.EventContext,
-  userId: string
+  user: functions.auth.UserRecord
 ): Promise<void> {
-  await appState.userService.setUserStatusToDeleted(userId)
+  await appState.userService.setUserStatusToDeleted(user.uid)
 }
