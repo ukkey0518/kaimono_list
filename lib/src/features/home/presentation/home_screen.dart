@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/common_widgets/big_icon_with_label.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
@@ -51,6 +52,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ),
             ),
+            const Gap(Sizes.p24),
             const Expanded(
               flex: 2,
               child: ShoppingListsNavigationListView(),
