@@ -5,7 +5,7 @@ publish_to: "none"
 
 version: 0.0.6+10
 
-environment: { sdk: ^3.5.2 }
+environment: { sdk: ^3.5.3 }
 
 dependencies:
   cider: ^0.2.8
