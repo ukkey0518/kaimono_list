@@ -1,4 +1,4 @@
-import { AppState } from '../../app_state'
+import { AppState } from '../../../app_state'
 
 /**
  * Handles the deletion of a shopping list.

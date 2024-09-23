@@ -1,6 +1,6 @@
 import * as functionsV2 from 'firebase-functions/v2'
-import { AppState } from '../../app_state'
-import { ShoppingListData } from '../../models/shopping_list'
+import { AppState } from '../../../app_state'
+import { ShoppingListData } from '../../../models/shopping_list'
 
 /**
  * Handles the update event for a shopping list.

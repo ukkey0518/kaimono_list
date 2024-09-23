@@ -1,5 +1,5 @@
-import { AppState } from '../../app_state'
-import { ShoppingListData } from '../../models/shopping_list'
+import { AppState } from '../../../app_state'
+import { ShoppingListData } from '../../../models/shopping_list'
 
 /**
  * Handles the creation of a new shopping list.
