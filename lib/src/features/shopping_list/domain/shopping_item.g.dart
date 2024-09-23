@@ -8,6 +8,7 @@ part of 'shopping_item.dart';
 
 _$ShoppingItemImpl _$$ShoppingItemImplFromJson(Map<String, dynamic> json) =>
     _$ShoppingItemImpl(
+      orderIndex: (json['orderIndex'] as num?)?.toInt(),
       name: json['name'] as String?,
       isPurchased: json['isPurchased'] as bool? ?? false,
       id: json['id'] as String?,
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$ShoppingItemImplToJson(_$ShoppingItemImpl instance) {
     }
   }
 
+  writeNotNull('orderIndex', instance.orderIndex);
   writeNotNull('name', instance.name);
   writeNotNull('isPurchased', instance.isPurchased);
   writeNotNull(

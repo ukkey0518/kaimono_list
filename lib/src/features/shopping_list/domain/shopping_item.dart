@@ -9,6 +9,7 @@ part 'shopping_item.g.dart';
 class ShoppingItem with _$ShoppingItem implements ValidatableModel {
   @firestoreModel
   const factory ShoppingItem({
+    int? orderIndex,
     String? name,
     @Default(false) bool? isPurchased,
     @firestoreId String? id,
@@ -30,6 +31,12 @@ class ShoppingItem with _$ShoppingItem implements ValidatableModel {
 
     if (id != null) {
       return '`id` must be null.';
+    }
+    if (orderIndex == null) {
+      return '`orderIndex` is required.';
+    }
+    if (orderIndex! < 0) {
+      return '`orderIndex` must be greater than or equal to 0.';
     }
     if (name == null || name.isEmpty) {
       return '`name` is required.';

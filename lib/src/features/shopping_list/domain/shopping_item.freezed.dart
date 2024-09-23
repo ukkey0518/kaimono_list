@@ -20,6 +20,7 @@ ShoppingItem _$ShoppingItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ShoppingItem {
+  int? get orderIndex => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   bool? get isPurchased => throw _privateConstructorUsedError;
   @firestoreId
@@ -46,7 +47,8 @@ abstract class $ShoppingItemCopyWith<$Res> {
       _$ShoppingItemCopyWithImpl<$Res, ShoppingItem>;
   @useResult
   $Res call(
-      {String? name,
+      {int? orderIndex,
+      String? name,
       bool? isPurchased,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
@@ -68,6 +70,7 @@ class _$ShoppingItemCopyWithImpl<$Res, $Val extends ShoppingItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? orderIndex = freezed,
     Object? name = freezed,
     Object? isPurchased = freezed,
     Object? id = freezed,
@@ -75,6 +78,10 @@ class _$ShoppingItemCopyWithImpl<$Res, $Val extends ShoppingItem>
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
+      orderIndex: freezed == orderIndex
+          ? _value.orderIndex
+          : orderIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -108,7 +115,8 @@ abstract class _$$ShoppingItemImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? name,
+      {int? orderIndex,
+      String? name,
       bool? isPurchased,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
@@ -128,6 +136,7 @@ class __$$ShoppingItemImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? orderIndex = freezed,
     Object? name = freezed,
     Object? isPurchased = freezed,
     Object? id = freezed,
@@ -135,6 +144,10 @@ class __$$ShoppingItemImplCopyWithImpl<$Res>
     Object? updatedAt = freezed,
   }) {
     return _then(_$ShoppingItemImpl(
+      orderIndex: freezed == orderIndex
+          ? _value.orderIndex
+          : orderIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -164,7 +177,8 @@ class __$$ShoppingItemImplCopyWithImpl<$Res>
 @firestoreModel
 class _$ShoppingItemImpl extends _ShoppingItem {
   const _$ShoppingItemImpl(
-      {this.name,
+      {this.orderIndex,
+      this.name,
       this.isPurchased = false,
       @firestoreId this.id,
       @firestoreCreatedAt this.createdAt,
@@ -174,6 +188,8 @@ class _$ShoppingItemImpl extends _ShoppingItem {
   factory _$ShoppingItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$ShoppingItemImplFromJson(json);
 
+  @override
+  final int? orderIndex;
   @override
   final String? name;
   @override
@@ -191,7 +207,7 @@ class _$ShoppingItemImpl extends _ShoppingItem {
 
   @override
   String toString() {
-    return 'ShoppingItem(name: $name, isPurchased: $isPurchased, id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ShoppingItem(orderIndex: $orderIndex, name: $name, isPurchased: $isPurchased, id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -199,6 +215,8 @@ class _$ShoppingItemImpl extends _ShoppingItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ShoppingItemImpl &&
+            (identical(other.orderIndex, orderIndex) ||
+                other.orderIndex == orderIndex) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.isPurchased, isPurchased) ||
                 other.isPurchased == isPurchased) &&
@@ -211,8 +229,8 @@ class _$ShoppingItemImpl extends _ShoppingItem {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, isPurchased, id, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType, orderIndex, name, isPurchased, id, createdAt, updatedAt);
 
   /// Create a copy of ShoppingItem
   /// with the given fields replaced by the non-null parameter values.
@@ -232,7 +250,8 @@ class _$ShoppingItemImpl extends _ShoppingItem {
 
 abstract class _ShoppingItem extends ShoppingItem {
   const factory _ShoppingItem(
-      {final String? name,
+      {final int? orderIndex,
+      final String? name,
       final bool? isPurchased,
       @firestoreId final String? id,
       @firestoreCreatedAt final DateTime? createdAt,
@@ -242,6 +261,8 @@ abstract class _ShoppingItem extends ShoppingItem {
   factory _ShoppingItem.fromJson(Map<String, dynamic> json) =
       _$ShoppingItemImpl.fromJson;
 
+  @override
+  int? get orderIndex;
   @override
   String? get name;
   @override

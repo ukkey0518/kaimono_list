@@ -53,7 +53,10 @@ class ShoppingItemRepository {
   Stream<List<ShoppingItem>> watchShoppingItems({
     required String shoppingListId,
   }) {
-    return shoppingItemsRef(shoppingListId).snapshots().map(
+    return shoppingItemsRef(shoppingListId)
+        .orderBy('orderIndex', descending: true)
+        .snapshots()
+        .map(
           (qs) => qs.docs.map((ds) => ds.data()).toList(),
         );
   }
@@ -80,6 +83,12 @@ class ShoppingItemRepository {
     required String shoppingListId,
     required ShoppingItem shoppingItem,
   }) async {
+    final maxOrderIndex = await _fetchMaxOrderIndex(
+      shoppingListId: shoppingListId,
+    );
+    shoppingItem = shoppingItem.copyWith(
+      orderIndex: maxOrderIndex == null ? 0 : maxOrderIndex + 1,
+    );
     final validationErrorMessage = shoppingItem.validateForCreate();
     if (validationErrorMessage != null) {
       throw ModelValidationException(validationErrorMessage, shoppingItem);
@@ -120,6 +129,16 @@ class ShoppingItemRepository {
       batch.delete(ds.reference);
     }
     await batch.commit();
+  }
+
+  Future<int?> _fetchMaxOrderIndex({
+    required String shoppingListId,
+  }) async {
+    final qs = await shoppingItemsRef(shoppingListId)
+        .orderBy('orderIndex', descending: true)
+        .limit(1)
+        .get();
+    return qs.docs.firstOrNull?.data().orderIndex;
   }
 }
 
