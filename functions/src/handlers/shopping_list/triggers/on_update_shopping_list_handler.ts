@@ -13,13 +13,17 @@ import { ShoppingListData } from '../../../models/shopping_list'
  */
 export async function onUpdateShoppingListHandler(
   appState: AppState,
-  change: functionsV2.Change<FirebaseFirestore.QueryDocumentSnapshot> | undefined
+  event: functionsV2.firestore.FirestoreEvent<
+    functionsV2.Change<FirebaseFirestore.QueryDocumentSnapshot> | undefined
+  >
 ): Promise<void> {
-  if (!change) {
+  if (!event.data) {
     // TODO(Ukkey): Implement custom logger
     console.error('Shopping list document snapshot is undefined')
     return
   }
+
+  const change = event.data
 
   const beforeData = change.before.data() as ShoppingListData
 

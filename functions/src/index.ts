@@ -28,17 +28,17 @@ const onDeleteAuthUser = functionsV1
 
 const onCreateShoppingList = functionsV2.firestore.onDocumentCreated(
   'shopping_lists/{shoppingListId}',
-  async event => await onCreateShoppingListHandler(appState, event.data)
+  async event => await onCreateShoppingListHandler(appState, event)
 )
 
 const onUpdateShoppingList = functionsV2.firestore.onDocumentUpdated(
   'shopping_lists/{shoppingListId}',
-  async event => await onUpdateShoppingListHandler(appState, event.data)
+  async event => await onUpdateShoppingListHandler(appState, event)
 )
 
 const onDeleteShoppingList = functionsV2.firestore.onDocumentDeleted(
   'shopping_lists/{shoppingListId}',
-  async event => await onDeleteShoppingListHandler(appState, event.data)
+  async event => await onDeleteShoppingListHandler(appState, event)
 )
 
 // ----------------------------------------------------------------------------

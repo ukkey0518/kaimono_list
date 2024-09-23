@@ -1,3 +1,4 @@
+import * as functionsV2 from 'firebase-functions'
 import { AppState } from '../../../app_state'
 
 /**
@@ -12,13 +13,17 @@ import { AppState } from '../../../app_state'
  */
 export async function onDeleteShoppingListHandler(
   appState: AppState,
-  ds: FirebaseFirestore.QueryDocumentSnapshot | undefined
+  event: functionsV2.firestore.FirestoreEvent<
+    functionsV2.firestore.QueryDocumentSnapshot | undefined
+  >
 ): Promise<void> {
-  if (!ds) {
+  if (!event.data) {
     // TODO(Ukkey): Implement custom logger
     console.error('Shopping list document snapshot is undefined')
     return
   }
+
+  const ds = event.data
 
   // Delete the shopping list from all users
   await appState.shoppingListService.deleteAllUsersShoppingLists(ds.id)

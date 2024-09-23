@@ -1,3 +1,4 @@
+import * as functionsV2 from 'firebase-functions/v2'
 import { AppState } from '../../../app_state'
 import { ShoppingListData } from '../../../models/shopping_list'
 
@@ -13,8 +14,11 @@ import { ShoppingListData } from '../../../models/shopping_list'
  */
 export async function onCreateShoppingListHandler(
   appState: AppState,
-  ds: FirebaseFirestore.QueryDocumentSnapshot | undefined
+  event: functionsV2.firestore.FirestoreEvent<
+    functionsV2.firestore.QueryDocumentSnapshot | undefined
+  >
 ): Promise<void> {
+  const ds = event.data
   if (!ds) {
     // TODO(Ukkey): Implement custom logger
     console.error('Shopping list document snapshot is undefined')
