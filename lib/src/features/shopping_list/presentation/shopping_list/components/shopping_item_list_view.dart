@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_item.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_list_tile.dart';
+import 'package:kaimono_list/src/utils/types/two_value_changed.dart';
 
 class ShoppingItemListView extends ConsumerWidget {
   const ShoppingItemListView({
@@ -13,7 +14,7 @@ class ShoppingItemListView extends ConsumerWidget {
   });
 
   final List<ShoppingItem> shoppingItems;
-  final ValueChanged<(String, bool)> onIsPurchasedChanged;
+  final TwoValueChanged<String, bool> onIsPurchasedChanged;
   final ValueChanged<ShoppingItem> onEditShoppingItem;
 
   @override
@@ -26,7 +27,8 @@ class ShoppingItemListView extends ConsumerWidget {
         return ShoppingItemListTile(
           shoppingItem: shoppingItem,
           onIsPurchasedChanged: (value) => onIsPurchasedChanged(
-            (shoppingItem.id!, value),
+            shoppingItem.id!,
+            value,
           ),
           onEditShoppingItem: () => onEditShoppingItem(shoppingItem),
         );

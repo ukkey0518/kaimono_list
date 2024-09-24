@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -35,15 +37,13 @@ class ShoppingListScreen extends HookConsumerWidget {
       (_, state) => state.showSnackbarOnError(context),
     );
 
-    void updateIsPurchased(
-      (String shoppingItemId, bool isPurchased) value,
-    ) {
+    void updateIsPurchased(String shoppingItemId, bool isPurchased) {
       ref
           .read(shoppingListControllerProvider.notifier)
           .updateShoppingItemIsPurchased(
             shoppingListId: shoppingListId,
-            shoppingItemId: value.$1,
-            isPurchased: value.$2,
+            shoppingItemId: shoppingItemId,
+            isPurchased: isPurchased,
           );
     }
 
