@@ -56,15 +56,6 @@ class ShoppingItemEditBottomSheet extends HookWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(
-            controller: nameController,
-            autofocus: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'アイテム名',
-            ),
-          ),
-          const SizedBox(height: 16),
           Align(
             alignment: Alignment.centerRight,
             child: ListenableBuilder(
@@ -78,6 +69,15 @@ class ShoppingItemEditBottomSheet extends HookWidget {
                       : const Icon(Icons.check),
                 );
               },
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: nameController,
+            autofocus: true,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'アイテム名',
             ),
           ),
         ],
