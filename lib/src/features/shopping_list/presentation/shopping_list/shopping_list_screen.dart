@@ -78,6 +78,7 @@ class ShoppingListScreen extends HookConsumerWidget {
         return GestureDetector(
           onTap: unFocusAll,
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Text(shoppingList?.name ?? ''),
               actions: [
