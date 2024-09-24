@@ -11,6 +11,7 @@ import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_li
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_clean_fab.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_edit_bottom_sheet.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_list_view.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/dialogs/clean_shopping_items_confirm_dialog.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_controller.dart';
 import 'package:kaimono_list/src/routing/app_routes.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
@@ -48,8 +49,10 @@ class ShoppingListScreen extends HookConsumerWidget {
     }
 
     Future<void> cleanShoppingItems() async {
-      // TODO(Ukkey): Display a delete confirmation dialog
-      //   with an option for "Do not show again"
+      final isConfirmed = await CleanShoppingItemsConfirmDialog.show(context);
+      if (!isConfirmed) {
+        return;
+      }
       await ref
           .read(shoppingListControllerProvider.notifier)
           .deleteAllPurchasedShoppingItems(shoppingListId);
