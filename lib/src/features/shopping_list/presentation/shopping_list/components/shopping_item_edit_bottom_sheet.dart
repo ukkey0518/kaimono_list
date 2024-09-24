@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
@@ -38,6 +39,7 @@ class ShoppingItemEditBottomSheet extends HookWidget {
     );
 
     void submit() {
+      HapticFeedback.mediumImpact();
       final newShoppingItem = shoppingItem?.copyWith(
             name: nameController.text,
           ) ??

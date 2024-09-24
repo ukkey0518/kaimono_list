@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_item_repository.dart';
@@ -47,13 +48,16 @@ class ShoppingItemListView extends ConsumerWidget {
         return ListTile(
           leading: Checkbox(
             value: shoppingItem.isPurchased,
-            onChanged: (value) => ref
-                .read(shoppingListControllerProvider.notifier)
-                .updateShoppingItemIsPurchased(
-                  shoppingListId: shoppingListId,
-                  shoppingItemId: shoppingItem.id!,
-                  isPurchased: value!,
-                ),
+            onChanged: (value) {
+              HapticFeedback.selectionClick();
+              ref
+                  .read(shoppingListControllerProvider.notifier)
+                  .updateShoppingItemIsPurchased(
+                    shoppingListId: shoppingListId,
+                    shoppingItemId: shoppingItem.id!,
+                    isPurchased: value!,
+                  );
+            },
           ),
           title: Text(
             shoppingItem.name ?? '',
