@@ -33,6 +33,18 @@ class ShoppingListScreen extends HookConsumerWidget {
       (_, state) => state.showSnackbarOnError(context),
     );
 
+    void updateIsPurchased(
+      (String shoppingItemId, bool isPurchased) value,
+    ) {
+      ref
+          .read(shoppingListControllerProvider.notifier)
+          .updateShoppingItemIsPurchased(
+            shoppingListId: shoppingListId,
+            shoppingItemId: value.$1,
+            isPurchased: value.$2,
+          );
+    }
+
     Future<void> showShoppingItemForm([ShoppingItem? shoppingItem]) async {
       final controller = ref.read(shoppingListControllerProvider.notifier);
       final newShoppingItem = await ShoppingItemEditBottomSheet.show(
@@ -124,6 +136,7 @@ class ShoppingListScreen extends HookConsumerWidget {
             body: SafeArea(
               child: ShoppingItemListView(
                 shoppingListId: shoppingListId,
+                onIsPurchasedChanged: updateIsPurchased,
                 onEditShoppingItem: showShoppingItemForm,
               ),
             ),

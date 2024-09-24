@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_item_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_item.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/empty_shopping_items_place_holder.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_controller.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_list_tile.dart';
 
 class ShoppingItemListView extends ConsumerWidget {
   const ShoppingItemListView({
     required this.shoppingListId,
+    required this.onIsPurchasedChanged,
     required this.onEditShoppingItem,
     super.key,
   });
 
   final String shoppingListId;
+  final ValueChanged<(String, bool)> onIsPurchasedChanged;
   final ValueChanged<ShoppingItem> onEditShoppingItem;
 
   @override
@@ -44,31 +45,12 @@ class ShoppingItemListView extends ConsumerWidget {
       padding: const EdgeInsets.only(bottom: Sizes.p128),
       itemBuilder: (context, index) {
         final shoppingItem = shoppingItems[index];
-        final isPurchased = shoppingItem.isPurchased ?? false;
-        return ListTile(
-          leading: Checkbox(
-            value: shoppingItem.isPurchased,
-            onChanged: (value) {
-              HapticFeedback.selectionClick();
-              ref
-                  .read(shoppingListControllerProvider.notifier)
-                  .updateShoppingItemIsPurchased(
-                    shoppingListId: shoppingListId,
-                    shoppingItemId: shoppingItem.id!,
-                    isPurchased: value!,
-                  );
-            },
+        return ShoppingItemListTile(
+          shoppingItem: shoppingItem,
+          onIsPurchasedChanged: (value) => onIsPurchasedChanged(
+            (shoppingItem.id!, value),
           ),
-          title: Text(
-            shoppingItem.name ?? '',
-            style: TextStyle(
-              decoration: isPurchased
-                  ? TextDecoration.lineThrough
-                  : TextDecoration.none,
-              color: isPurchased ? Colors.grey : Colors.black,
-            ),
-          ),
-          onTap: () => onEditShoppingItem(shoppingItem),
+          onEditShoppingItem: () => onEditShoppingItem(shoppingItem),
         );
       },
     );
