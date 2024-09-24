@@ -41,12 +41,12 @@ class ShoppingListEditController extends _$ShoppingListEditController {
     );
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      // TODO(Ukkey): Make it a batch process
-      await shoppingListRepository.deleteShoppingList(
-        shoppingListId,
-      );
+      // TODO(Ukkey): Make it a batch process or use `recursiveDelete` in AdminSDK.
       await shoppingItemRepository.deleteAllShoppingItems(
         shoppingListId: shoppingListId,
+      );
+      await shoppingListRepository.deleteShoppingList(
+        shoppingListId,
       );
     });
   }

@@ -7,7 +7,7 @@ part of 'shopping_list_edit_controller.dart';
 // **************************************************************************
 
 String _$shoppingListEditControllerHash() =>
-    r'18312bd8e85b85fa3dfd5b1074b508bc2dac7b1a';
+    r'd4b8a18d45b0cdc4e78305f6ca0fe645ed066aab';
 
 /// See also [ShoppingListEditController].
 @ProviderFor(ShoppingListEditController)
