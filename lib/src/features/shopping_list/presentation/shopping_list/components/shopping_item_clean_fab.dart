@@ -21,7 +21,7 @@ class ShoppingItemCleanFab extends StatelessWidget {
         // TODO(Ukkey): Add elevation to the theme
         elevation: 4,
         onPressed: onPressed,
-        child: const Icon(Icons.cleaning_services_rounded),
+        child: const Icon(Icons.delete),
       ),
     );
   }
