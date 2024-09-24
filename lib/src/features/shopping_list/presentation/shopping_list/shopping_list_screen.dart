@@ -120,9 +120,11 @@ class ShoppingListScreen extends HookConsumerWidget {
                 ),
               ],
             ),
-            body: ShoppingItemListView(
-              shoppingListId: shoppingListId,
-              onEditShoppingItem: showShoppingItemForm,
+            body: SafeArea(
+              child: ShoppingItemListView(
+                shoppingListId: shoppingListId,
+                onEditShoppingItem: showShoppingItemForm,
+              ),
             ),
           ),
         );
