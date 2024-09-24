@@ -32,8 +32,6 @@ class ShoppingItemEditBottomSheet extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEditing = shoppingItem != null;
-
     final nameController = useTextEditingController(
       text: shoppingItem?.name,
     );
@@ -75,13 +73,9 @@ class ShoppingItemEditBottomSheet extends HookWidget {
                 final isEmpty = nameController.text.trim().isEmpty;
                 return ElevatedButton(
                   onPressed: isEmpty ? context.pop : submit,
-                  child: Text(
-                    isEmpty
-                        ? '閉じる'
-                        : isEditing
-                            ? '更新'
-                            : '追加',
-                  ),
+                  child: isEmpty
+                      ? const Icon(Icons.close)
+                      : const Icon(Icons.check),
                 );
               },
             ),
