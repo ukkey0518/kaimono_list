@@ -7,7 +7,7 @@ part of 'shopping_list_edit_controller.dart';
 // **************************************************************************
 
 String _$shoppingListEditControllerHash() =>
-    r'b419ae377adfd7ac319b0b3c77ca157a8423724b';
+    r'18312bd8e85b85fa3dfd5b1074b508bc2dac7b1a';
 
 /// See also [ShoppingListEditController].
 @ProviderFor(ShoppingListEditController)
@@ -18,10 +18,15 @@ final shoppingListEditControllerProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$shoppingListEditControllerHash,
-  dependencies: <ProviderOrFamily>[shoppingListRepositoryProvider],
+  dependencies: <ProviderOrFamily>[
+    shoppingListRepositoryProvider,
+    shoppingItemRepositoryProvider
+  ],
   allTransitiveDependencies: <ProviderOrFamily>{
     shoppingListRepositoryProvider,
-    ...?shoppingListRepositoryProvider.allTransitiveDependencies
+    ...?shoppingListRepositoryProvider.allTransitiveDependencies,
+    shoppingItemRepositoryProvider,
+    ...?shoppingItemRepositoryProvider.allTransitiveDependencies
   },
 );
 

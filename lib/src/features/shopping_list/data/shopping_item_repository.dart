@@ -131,6 +131,17 @@ class ShoppingItemRepository {
     await batch.commit();
   }
 
+  Future<void> deleteAllShoppingItems({
+    required String shoppingListId,
+  }) async {
+    final qs = await shoppingItemsRef(shoppingListId).get();
+    final batch = _firestore.batch();
+    for (final ds in qs.docs) {
+      batch.delete(ds.reference);
+    }
+    await batch.commit();
+  }
+
   Future<int?> _fetchMaxOrderIndex({
     required String shoppingListId,
   }) async {

@@ -1,3 +1,4 @@
+import 'package:kaimono_list/src/features/shopping_list/data/shopping_item_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -6,6 +7,7 @@ part 'shopping_list_edit_controller.g.dart';
 @Riverpod(
   dependencies: [
     shoppingListRepository,
+    shoppingItemRepository,
   ],
 )
 class ShoppingListEditController extends _$ShoppingListEditController {
@@ -34,10 +36,17 @@ class ShoppingListEditController extends _$ShoppingListEditController {
     final shoppingListRepository = ref.read(
       shoppingListRepositoryProvider,
     );
+    final shoppingItemRepository = ref.read(
+      shoppingItemRepositoryProvider,
+    );
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
+      // TODO(Ukkey): Make it a batch process
       await shoppingListRepository.deleteShoppingList(
         shoppingListId,
+      );
+      await shoppingItemRepository.deleteAllShoppingItems(
+        shoppingListId: shoppingListId,
       );
     });
   }
