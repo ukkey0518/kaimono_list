@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kaimono_list/src/common_widgets/loading_widget.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/exceptions/permission_denied_exception.dart';
 import 'package:kaimono_list/src/features/error/presentation/error_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_item_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_item.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/empty_shopping_items_place_holder.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_add_fab.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_clean_fab.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_edit_bottom_sheet.dart';
@@ -134,10 +136,27 @@ class ShoppingListScreen extends HookConsumerWidget {
               ],
             ),
             body: SafeArea(
-              child: ShoppingItemListView(
-                shoppingListId: shoppingListId,
-                onIsPurchasedChanged: updateIsPurchased,
-                onEditShoppingItem: showShoppingItemForm,
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final shoppingItemsAsyncValue = ref.watch(
+                    shoppingItemsStreamProvider(shoppingListId),
+                  );
+
+                  final shoppingItems = shoppingItemsAsyncValue.value ?? [];
+
+                  return LoadingWidget(
+                    isProcessing: shoppingItemsAsyncValue.isLoading,
+                    child: shoppingItems.isEmpty
+                        ? const Center(
+                            child: EmptyShoppingItemPlaceHolder(),
+                          )
+                        : ShoppingItemListView(
+                            shoppingItems: shoppingItems,
+                            onIsPurchasedChanged: updateIsPurchased,
+                            onEditShoppingItem: showShoppingItemForm,
+                          ),
+                  );
+                },
               ),
             ),
           ),
