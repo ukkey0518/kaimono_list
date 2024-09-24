@@ -13,3 +13,4 @@ analyzer:
     - "**/*.freezed.dart"
   errors:
     invalid_annotation_target: ignore
+    avoid_positional_boolean_parameters: ignore
