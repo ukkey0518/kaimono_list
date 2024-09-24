@@ -48,7 +48,12 @@ class ShoppingItemEditBottomSheet extends HookWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(Sizes.p24).add(
+      padding: const EdgeInsets.fromLTRB(
+        Sizes.p24,
+        Sizes.p16,
+        Sizes.p24,
+        Sizes.p32,
+      ).add(
         EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
