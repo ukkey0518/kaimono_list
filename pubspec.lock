@@ -183,7 +183,7 @@ packages:
     source: hosted
     version: "0.1.0"
   cider:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: cider
       sha256: dfff70e9324f99e315857c596c31f54cb7380cfa20dfdfdca11a3631e05b7d3e
