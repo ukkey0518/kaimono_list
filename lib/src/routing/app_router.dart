@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/routing/app_routes.dart';
+import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 import 'package:kaimono_list/src/routing/router_refresh_stream_notifier.dart';
+import 'package:kaimono_list/src/utils/shared_pref_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
@@ -9,14 +11,17 @@ part 'app_router.g.dart';
 @Riverpod(
   dependencies: [
     authRepository,
+    sharedPref,
+    InitialLocationController,
   ],
 )
 GoRouter appRouter(AppRouterRef ref) {
-  const rootLocation = '/';
+  final initialLocation = ref.watch(initialLocationControllerProvider);
+
   final authRepository = ref.read(authRepositoryProvider);
 
   return GoRouter(
-    initialLocation: rootLocation,
+    initialLocation: initialLocation,
     debugLogDiagnostics: true,
     refreshListenable: RouterRefreshStreamNotifier(
       authRepository.currentUserStream(),
@@ -39,7 +44,7 @@ GoRouter appRouter(AppRouterRef ref) {
         return signInLocation(
           // ログイン後にリダイレクトするため元のURIを保持
           // - Rootの場合は保存しない
-          matchedLocation == rootLocation ? null : state.uri,
+          matchedLocation == '/' ? null : state.uri,
         );
       }
 
@@ -47,7 +52,7 @@ GoRouter appRouter(AppRouterRef ref) {
       /// - 元のURIがない場合はRootにリダイレクトする
       if (signedIn && matchedLocation.startsWith(signInLocation())) {
         final from = state.uri.queryParameters['from'] ?? '';
-        return from.isNotEmpty ? Uri.decodeComponent(from) : rootLocation;
+        return from.isNotEmpty ? Uri.decodeComponent(from) : '/';
       }
 
       return null;

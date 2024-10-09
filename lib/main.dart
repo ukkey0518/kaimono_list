@@ -7,6 +7,8 @@ import 'package:kaimono_list/firebase_options.dart';
 import 'package:kaimono_list/src/app.dart';
 import 'package:kaimono_list/src/utils/app_logger.dart';
 import 'package:kaimono_list/src/utils/provider_logger.dart';
+import 'package:kaimono_list/src/utils/shared_pref_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,10 +34,17 @@ Future<void> main() async {
   // エラーウィジェット
   ErrorWidget.builder = (details) => const Icon(Icons.error);
 
+  final sharedPreferences = await SharedPreferencesWithCache.create(
+    cacheOptions: const SharedPreferencesWithCacheOptions(),
+  );
+
   runApp(
     ProviderScope(
       observers: [
         ProviderLogger(),
+      ],
+      overrides: [
+        sharedPrefProvider.overrideWithValue(sharedPreferences),
       ],
       child: const App(),
     ),
