@@ -39,6 +39,11 @@ class ShoppingListScreen extends HookConsumerWidget {
       [shoppingListId],
     );
 
+    final shoppingListAsyncValue = ref.watch(
+      shoppingListFutureProvider(shoppingListId),
+    );
+    final shoppingList = shoppingListAsyncValue.value;
+
     ref.listen(
       shoppingListControllerProvider,
       (_, state) => state.showSnackbarOnError(context),
@@ -69,75 +74,66 @@ class ShoppingListScreen extends HookConsumerWidget {
           .deleteAllPurchasedShoppingItems(shoppingListId);
     }
 
-    return Consumer(
-      builder: (context, ref, child) {
-        final shoppingListAsyncValue = ref.watch(
-          shoppingListFutureProvider(shoppingListId),
-        );
-        final shoppingList = shoppingListAsyncValue.value;
-
-        return GestureDetector(
-          onTap: unFocusAll,
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              title: Text(shoppingList?.name ?? ''),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.reorder),
-                  onPressed: () => ShoppingItemsReorderModalRoute(
-                    shoppingListId: shoppingListId,
-                  ).go(context),
-                ),
-                if (!shoppingListAsyncValue.isLoading && shoppingList != null)
-                  IconButton(
-                    icon: const Icon(Icons.settings),
-                    onPressed: () => ShoppingListEditRoute(
-                      shoppingListId: shoppingListId,
-                    ).go(context),
-                  ),
-              ],
-            ),
-            floatingActionButton: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Consumer(
-                  builder: (context, ref, child) {
-                    final hasAnyPurchasedShoppingItem = ref.watch(
-                      hasAnyPurchasedShoppingItemStreamProvider(
-                        shoppingListId,
-                      ),
-                    );
-                    final isShowing = !hasAnyPurchasedShoppingItem.isLoading &&
-                        hasAnyPurchasedShoppingItem.hasValue &&
-                        hasAnyPurchasedShoppingItem.value!;
-                    return AnimatedOpacity(
-                      duration: const Duration(milliseconds: 200),
-                      opacity: isShowing ? 1 : 0,
-                      child: IgnorePointer(
-                        ignoring: !isShowing,
-                        child: ShoppingItemCleanFab(
-                          onPressed: cleanShoppingItems,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const Gap(Sizes.p16),
-                ShoppingItemAddFab(
-                  onPressed: showShoppingItemForm,
-                ),
-              ],
-            ),
-            body: SafeArea(
-              child: ShoppingListItemsView(
+    return GestureDetector(
+      onTap: unFocusAll,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: Text(shoppingList?.name ?? ''),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.reorder),
+              onPressed: () => ShoppingItemsReorderModalRoute(
                 shoppingListId: shoppingListId,
-              ),
+              ).go(context),
             ),
+            if (!shoppingListAsyncValue.isLoading && shoppingList != null)
+              IconButton(
+                icon: const Icon(Icons.settings),
+                onPressed: () => ShoppingListEditRoute(
+                  shoppingListId: shoppingListId,
+                ).go(context),
+              ),
+          ],
+        ),
+        floatingActionButton: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Consumer(
+              builder: (context, ref, child) {
+                final hasAnyPurchasedShoppingItem = ref.watch(
+                  hasAnyPurchasedShoppingItemStreamProvider(
+                    shoppingListId,
+                  ),
+                );
+                final isShowing = !hasAnyPurchasedShoppingItem.isLoading &&
+                    hasAnyPurchasedShoppingItem.hasValue &&
+                    hasAnyPurchasedShoppingItem.value!;
+                return AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: isShowing ? 1 : 0,
+                  child: IgnorePointer(
+                    ignoring: !isShowing,
+                    child: ShoppingItemCleanFab(
+                      onPressed: cleanShoppingItems,
+                    ),
+                  ),
+                );
+              },
+            ),
+            const Gap(Sizes.p16),
+            ShoppingItemAddFab(
+              onPressed: showShoppingItemForm,
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: ShoppingListItemsView(
+            shoppingListId: shoppingListId,
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
