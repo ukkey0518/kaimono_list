@@ -67,6 +67,15 @@ class ShoppingListRepository {
   Future<void> deleteShoppingList(String shoppingListId) async {
     await shoppingListRef(shoppingListId).delete();
   }
+
+  Future<bool> canAccess(String shoppingListId) async {
+    try {
+      final ds = await shoppingListRef(shoppingListId).get();
+      return ds.exists;
+    } catch (e) {
+      return false;
+    }
+  }
 }
 
 @Riverpod(

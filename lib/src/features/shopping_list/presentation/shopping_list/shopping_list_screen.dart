@@ -5,8 +5,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
-import 'package:kaimono_list/src/exceptions/permission_denied_exception.dart';
-import 'package:kaimono_list/src/features/error/presentation/error_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_item_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_item.dart';
@@ -19,7 +17,6 @@ import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_li
 import 'package:kaimono_list/src/routing/app_routes.dart';
 import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
-import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 import 'package:kaimono_list/src/utils/un_focus_all.dart';
 
 class ShoppingListScreen extends HookConsumerWidget {
@@ -32,6 +29,16 @@ class ShoppingListScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(
+      () {
+        ref.read(initialLocationControllerProvider.notifier).setInitialLocation(
+              ShoppingListRoute(shoppingListId: shoppingListId).location,
+            );
+        return null;
+      },
+      [shoppingListId],
+    );
+
     ref.listen(
       shoppingListControllerProvider,
       (_, state) => state.showSnackbarOnError(context),
@@ -67,96 +74,68 @@ class ShoppingListScreen extends HookConsumerWidget {
         final shoppingListAsyncValue = ref.watch(
           shoppingListFutureProvider(shoppingListId),
         );
-        if (shoppingListAsyncValue.hasError) {
-          return ErrorScreen(
-            error: switch (shoppingListAsyncValue.error.runtimeType) {
-              PermissionDeniedException => 'この買い物リストにアクセスする権限がありません'.hardcoded,
-              _ => shoppingListAsyncValue.error,
-            },
-            stackTrace: shoppingListAsyncValue.stackTrace,
-          );
-        }
-
         final shoppingList = shoppingListAsyncValue.value;
 
-        return HookBuilder(
-          builder: (context) {
-            useEffect(
-              () {
-                ref
-                    .read(initialLocationControllerProvider.notifier)
-                    .setInitialLocation(
-                      ShoppingListRoute(shoppingListId: shoppingListId)
-                          .location,
-                    );
-                return null;
-              },
-              [shoppingListId],
-            );
-            return GestureDetector(
-              onTap: unFocusAll,
-              child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                appBar: AppBar(
-                  title: Text(shoppingList?.name ?? ''),
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.reorder),
-                      onPressed: () => ShoppingItemsReorderModalRoute(
-                        shoppingListId: shoppingListId,
-                      ).go(context),
-                    ),
-                    if (!shoppingListAsyncValue.isLoading &&
-                        shoppingList != null)
-                      IconButton(
-                        icon: const Icon(Icons.settings),
-                        onPressed: () => ShoppingListEditRoute(
-                          shoppingListId: shoppingListId,
-                        ).go(context),
-                      ),
-                  ],
-                ),
-                floatingActionButton: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final hasAnyPurchasedShoppingItem = ref.watch(
-                          hasAnyPurchasedShoppingItemStreamProvider(
-                            shoppingListId,
-                          ),
-                        );
-                        final isShowing =
-                            !hasAnyPurchasedShoppingItem.isLoading &&
-                                hasAnyPurchasedShoppingItem.hasValue &&
-                                hasAnyPurchasedShoppingItem.value!;
-                        return AnimatedOpacity(
-                          duration: const Duration(milliseconds: 200),
-                          opacity: isShowing ? 1 : 0,
-                          child: IgnorePointer(
-                            ignoring: !isShowing,
-                            child: ShoppingItemCleanFab(
-                              onPressed: cleanShoppingItems,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const Gap(Sizes.p16),
-                    ShoppingItemAddFab(
-                      onPressed: showShoppingItemForm,
-                    ),
-                  ],
-                ),
-                body: SafeArea(
-                  child: ShoppingListItemsView(
+        return GestureDetector(
+          onTap: unFocusAll,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              title: Text(shoppingList?.name ?? ''),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.reorder),
+                  onPressed: () => ShoppingItemsReorderModalRoute(
                     shoppingListId: shoppingListId,
-                  ),
+                  ).go(context),
                 ),
+                if (!shoppingListAsyncValue.isLoading && shoppingList != null)
+                  IconButton(
+                    icon: const Icon(Icons.settings),
+                    onPressed: () => ShoppingListEditRoute(
+                      shoppingListId: shoppingListId,
+                    ).go(context),
+                  ),
+              ],
+            ),
+            floatingActionButton: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Consumer(
+                  builder: (context, ref, child) {
+                    final hasAnyPurchasedShoppingItem = ref.watch(
+                      hasAnyPurchasedShoppingItemStreamProvider(
+                        shoppingListId,
+                      ),
+                    );
+                    final isShowing = !hasAnyPurchasedShoppingItem.isLoading &&
+                        hasAnyPurchasedShoppingItem.hasValue &&
+                        hasAnyPurchasedShoppingItem.value!;
+                    return AnimatedOpacity(
+                      duration: const Duration(milliseconds: 200),
+                      opacity: isShowing ? 1 : 0,
+                      child: IgnorePointer(
+                        ignoring: !isShowing,
+                        child: ShoppingItemCleanFab(
+                          onPressed: cleanShoppingItems,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const Gap(Sizes.p16),
+                ShoppingItemAddFab(
+                  onPressed: showShoppingItemForm,
+                ),
+              ],
+            ),
+            body: SafeArea(
+              child: ShoppingListItemsView(
+                shoppingListId: shoppingListId,
               ),
-            );
-          },
+            ),
+          ),
         );
       },
     );

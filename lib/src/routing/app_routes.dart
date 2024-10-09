@@ -74,6 +74,7 @@ class ShoppingListRoute extends GoRouteData {
 
   @override
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
+    // TODO(Ukkey): ShoppingListRepository should be injected.
     final canAccess =
         await ShoppingListRepository(FirebaseFirestore.instance).canAccess(
       shoppingListId,
