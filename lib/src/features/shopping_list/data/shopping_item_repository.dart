@@ -53,12 +53,20 @@ class ShoppingItemRepository {
   Stream<List<ShoppingItem>> watchShoppingItems({
     required String shoppingListId,
   }) {
-    return shoppingItemsRef(shoppingListId)
-        .orderBy('orderIndex', descending: true)
-        .snapshots()
-        .map(
+    final query = shoppingItemsRef(shoppingListId)
+        .orderBy('orderIndex', descending: true);
+    return query.snapshots().map(
           (qs) => qs.docs.map((ds) => ds.data()).toList(),
         );
+  }
+
+  Future<List<ShoppingItem>> listShoppingItems({
+    required String shoppingListId,
+  }) async {
+    final query = shoppingItemsRef(shoppingListId)
+        .orderBy('orderIndex', descending: true);
+    final qs = await query.get();
+    return qs.docs.map((ds) => ds.data()).toList();
   }
 
   Stream<bool> watchHasAnyPurchasedShoppingItem({
@@ -109,6 +117,26 @@ class ShoppingItemRepository {
       shoppingItem,
       SetOptions(merge: true),
     );
+  }
+
+  Future<void> updateShoppingItemOrderIndexes({
+    required String shoppingListId,
+    required List<ShoppingItem> shoppingItems,
+  }) async {
+    final batch = _firestore.batch();
+    for (final shoppingItem in shoppingItems) {
+      final ref = shoppingItemRef(shoppingListId, shoppingItem.id!);
+      final ds = await ref.get();
+      if (!ds.exists) {
+        continue;
+      }
+      final oldIndex = ds.data()!.orderIndex;
+      final newIndex = shoppingItem.orderIndex;
+      if (newIndex != null && oldIndex != newIndex) {
+        batch.update(ref, {'orderIndex': newIndex});
+      }
+    }
+    await batch.commit();
   }
 
   Future<void> deleteShoppingItem({
@@ -171,6 +199,21 @@ Stream<List<ShoppingItem>> shoppingItemsStream(
 ) {
   final shoppingItemRepository = ref.watch(shoppingItemRepositoryProvider);
   return shoppingItemRepository.watchShoppingItems(
+    shoppingListId: shoppingListId,
+  );
+}
+
+@Riverpod(
+  dependencies: [
+    shoppingItemRepository,
+  ],
+)
+Future<List<ShoppingItem>> shoppingItemsFuture(
+  ShoppingItemsFutureRef ref,
+  String shoppingListId,
+) {
+  final shoppingItemRepository = ref.watch(shoppingItemRepositoryProvider);
+  return shoppingItemRepository.listShoppingItems(
     shoppingListId: shoppingListId,
   );
 }

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_item.dart';
 
-class ShoppingItemListTile extends StatelessWidget {
-  const ShoppingItemListTile({
+class ShoppingItemsListTile extends StatelessWidget {
+  const ShoppingItemsListTile({
     required this.shoppingItem,
-    required this.onIsPurchasedChanged,
-    required this.onEditShoppingItem,
+    this.onIsPurchasedChanged,
+    this.onTap,
     super.key,
   });
 
   final ShoppingItem shoppingItem;
   final ValueChanged<bool>? onIsPurchasedChanged;
-  final VoidCallback? onEditShoppingItem;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class ShoppingItemListTile extends StatelessWidget {
           color: isPurchased ? Colors.grey : Colors.black,
         ),
       ),
-      onTap: onEditShoppingItem,
+      onTap: onTap,
     );
   }
 }

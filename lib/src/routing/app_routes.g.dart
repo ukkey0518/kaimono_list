@@ -50,6 +50,10 @@ RouteBase get $homeRoute => GoRouteData.$route(
               path: 'edit',
               factory: $ShoppingListEditRouteExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: 'reorder',
+              factory: $ShoppingItemsReorderModalRouteExtension._fromState,
+            ),
           ],
         ),
         GoRouteData.$route(
@@ -103,6 +107,27 @@ extension $ShoppingListEditRouteExtension on ShoppingListEditRoute {
 
   String get location => GoRouteData.$location(
         '/shopping-list/${Uri.encodeComponent(shoppingListId)}/edit',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ShoppingItemsReorderModalRouteExtension
+    on ShoppingItemsReorderModalRoute {
+  static ShoppingItemsReorderModalRoute _fromState(GoRouterState state) =>
+      ShoppingItemsReorderModalRoute(
+        shoppingListId: state.pathParameters['shoppingListId']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/shopping-list/${Uri.encodeComponent(shoppingListId)}/reorder',
       );
 
   void go(BuildContext context) => context.go(location);

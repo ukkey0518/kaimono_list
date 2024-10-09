@@ -3,20 +3,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kaimono_list/src/common_widgets/loading_widget.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/exceptions/permission_denied_exception.dart';
 import 'package:kaimono_list/src/features/error/presentation/error_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_item_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_item.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/empty_shopping_items_place_holder.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_add_fab.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_clean_fab.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_edit_bottom_sheet.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/components/shopping_item_list_view.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/dialogs/clean_shopping_items_confirm_dialog.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_controller.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_items_view.dart';
 import 'package:kaimono_list/src/routing/app_routes.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
@@ -36,16 +34,6 @@ class ShoppingListScreen extends HookConsumerWidget {
       shoppingListControllerProvider,
       (_, state) => state.showSnackbarOnError(context),
     );
-
-    void updateIsPurchased(String shoppingItemId, bool isPurchased) {
-      ref
-          .read(shoppingListControllerProvider.notifier)
-          .updateShoppingItemIsPurchased(
-            shoppingListId: shoppingListId,
-            shoppingItemId: shoppingItemId,
-            isPurchased: isPurchased,
-          );
-    }
 
     Future<void> showShoppingItemForm([ShoppingItem? shoppingItem]) async {
       final controller = ref.read(shoppingListControllerProvider.notifier);
@@ -96,6 +84,12 @@ class ShoppingListScreen extends HookConsumerWidget {
             appBar: AppBar(
               title: Text(shoppingList?.name ?? ''),
               actions: [
+                IconButton(
+                  icon: const Icon(Icons.reorder),
+                  onPressed: () => ShoppingItemsReorderModalRoute(
+                    shoppingListId: shoppingListId,
+                  ).go(context),
+                ),
                 if (!shoppingListAsyncValue.isLoading && shoppingList != null)
                   IconButton(
                     icon: const Icon(Icons.settings),
@@ -112,7 +106,9 @@ class ShoppingListScreen extends HookConsumerWidget {
                 Consumer(
                   builder: (context, ref, child) {
                     final hasAnyPurchasedShoppingItem = ref.watch(
-                      hasAnyPurchasedShoppingItemStreamProvider(shoppingListId),
+                      hasAnyPurchasedShoppingItemStreamProvider(
+                        shoppingListId,
+                      ),
                     );
                     final isShowing = !hasAnyPurchasedShoppingItem.isLoading &&
                         hasAnyPurchasedShoppingItem.hasValue &&
@@ -136,27 +132,8 @@ class ShoppingListScreen extends HookConsumerWidget {
               ],
             ),
             body: SafeArea(
-              child: Consumer(
-                builder: (context, ref, _) {
-                  final shoppingItemsAsyncValue = ref.watch(
-                    shoppingItemsStreamProvider(shoppingListId),
-                  );
-
-                  final shoppingItems = shoppingItemsAsyncValue.value ?? [];
-
-                  return LoadingWidget(
-                    isProcessing: shoppingItemsAsyncValue.isLoading,
-                    child: shoppingItems.isEmpty
-                        ? const Center(
-                            child: EmptyShoppingItemPlaceHolder(),
-                          )
-                        : ShoppingItemListView(
-                            shoppingItems: shoppingItems,
-                            onIsPurchasedChanged: updateIsPurchased,
-                            onEditShoppingItem: showShoppingItemForm,
-                          ),
-                  );
-                },
+              child: ShoppingListItemsView(
+                shoppingListId: shoppingListId,
               ),
             ),
           ),

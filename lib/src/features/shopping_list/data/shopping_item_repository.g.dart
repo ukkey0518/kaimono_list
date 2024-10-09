@@ -185,6 +185,147 @@ class _ShoppingItemsStreamProviderElement
       (origin as ShoppingItemsStreamProvider).shoppingListId;
 }
 
+String _$shoppingItemsFutureHash() =>
+    r'352227d464aa7e7637bade5a8ccf8a65d80e2010';
+
+/// See also [shoppingItemsFuture].
+@ProviderFor(shoppingItemsFuture)
+const shoppingItemsFutureProvider = ShoppingItemsFutureFamily();
+
+/// See also [shoppingItemsFuture].
+class ShoppingItemsFutureFamily extends Family<AsyncValue<List<ShoppingItem>>> {
+  /// See also [shoppingItemsFuture].
+  const ShoppingItemsFutureFamily();
+
+  /// See also [shoppingItemsFuture].
+  ShoppingItemsFutureProvider call(
+    String shoppingListId,
+  ) {
+    return ShoppingItemsFutureProvider(
+      shoppingListId,
+    );
+  }
+
+  @override
+  ShoppingItemsFutureProvider getProviderOverride(
+    covariant ShoppingItemsFutureProvider provider,
+  ) {
+    return call(
+      provider.shoppingListId,
+    );
+  }
+
+  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[
+    shoppingItemRepositoryProvider
+  ];
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
+      <ProviderOrFamily>{
+    shoppingItemRepositoryProvider,
+    ...?shoppingItemRepositoryProvider.allTransitiveDependencies
+  };
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'shoppingItemsFutureProvider';
+}
+
+/// See also [shoppingItemsFuture].
+class ShoppingItemsFutureProvider
+    extends AutoDisposeFutureProvider<List<ShoppingItem>> {
+  /// See also [shoppingItemsFuture].
+  ShoppingItemsFutureProvider(
+    String shoppingListId,
+  ) : this._internal(
+          (ref) => shoppingItemsFuture(
+            ref as ShoppingItemsFutureRef,
+            shoppingListId,
+          ),
+          from: shoppingItemsFutureProvider,
+          name: r'shoppingItemsFutureProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$shoppingItemsFutureHash,
+          dependencies: ShoppingItemsFutureFamily._dependencies,
+          allTransitiveDependencies:
+              ShoppingItemsFutureFamily._allTransitiveDependencies,
+          shoppingListId: shoppingListId,
+        );
+
+  ShoppingItemsFutureProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.shoppingListId,
+  }) : super.internal();
+
+  final String shoppingListId;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<ShoppingItem>> Function(ShoppingItemsFutureRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ShoppingItemsFutureProvider._internal(
+        (ref) => create(ref as ShoppingItemsFutureRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        shoppingListId: shoppingListId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<ShoppingItem>> createElement() {
+    return _ShoppingItemsFutureProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ShoppingItemsFutureProvider &&
+        other.shoppingListId == shoppingListId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, shoppingListId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin ShoppingItemsFutureRef
+    on AutoDisposeFutureProviderRef<List<ShoppingItem>> {
+  /// The parameter `shoppingListId` of this provider.
+  String get shoppingListId;
+}
+
+class _ShoppingItemsFutureProviderElement
+    extends AutoDisposeFutureProviderElement<List<ShoppingItem>>
+    with ShoppingItemsFutureRef {
+  _ShoppingItemsFutureProviderElement(super.provider);
+
+  @override
+  String get shoppingListId =>
+      (origin as ShoppingItemsFutureProvider).shoppingListId;
+}
+
 String _$hasAnyPurchasedShoppingItemStreamHash() =>
     r'162593ec12068e0b74c47d1f766c883cecb523b0';
 
