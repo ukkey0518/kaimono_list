@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
 import 'package:kaimono_list/src/features/home/presentation/home_screen.dart';
+import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_items_reorder/shopping_items_reorder_modal_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_add/shopping_list_add_screen.dart';
@@ -66,6 +70,15 @@ class ShoppingListRoute extends GoRouteData {
     return ShoppingListScreen(
       shoppingListId: shoppingListId,
     );
+  }
+
+  @override
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
+    final canAccess =
+        await ShoppingListRepository(FirebaseFirestore.instance).canAccess(
+      shoppingListId,
+    );
+    return canAccess ? null : const HomeRoute().location;
   }
 }
 
