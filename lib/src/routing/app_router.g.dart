@@ -6,7 +6,7 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appRouterHash() => r'fc53deb25b3efb0c860dafebe9d3dd077d5bbb2d';
+String _$appRouterHash() => r'a86c36779715fa10712ba20072673956a2514759';
 
 /// See also [appRouter].
 @ProviderFor(appRouter)
@@ -17,13 +17,16 @@ final appRouterProvider = AutoDisposeProvider<GoRouter>.internal(
       const bool.fromEnvironment('dart.vm.product') ? null : _$appRouterHash,
   dependencies: <ProviderOrFamily>[
     initialLocationControllerProvider,
-    authRepositoryProvider
+    authRepositoryProvider,
+    shoppingListRepositoryProvider
   ],
   allTransitiveDependencies: <ProviderOrFamily>{
     initialLocationControllerProvider,
     ...?initialLocationControllerProvider.allTransitiveDependencies,
     authRepositoryProvider,
-    ...?authRepositoryProvider.allTransitiveDependencies
+    ...?authRepositoryProvider.allTransitiveDependencies,
+    shoppingListRepositoryProvider,
+    ...?shoppingListRepositoryProvider.allTransitiveDependencies
   },
 );
 
