@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_item.dart';
 
-class ShoppingItemEditBottomSheet extends HookWidget {
-  const ShoppingItemEditBottomSheet._({
+class ShoppingItemFormBottomSheet extends HookWidget {
+  const ShoppingItemFormBottomSheet._({
     required super.key,
     required this.shoppingItem,
   });
@@ -21,7 +21,7 @@ class ShoppingItemEditBottomSheet extends HookWidget {
       barrierColor: Colors.transparent,
       enableDrag: false,
       isScrollControlled: true,
-      builder: (context) => ShoppingItemEditBottomSheet._(
+      builder: (context) => ShoppingItemFormBottomSheet._(
         key: key,
         shoppingItem: shoppingItem,
       ),

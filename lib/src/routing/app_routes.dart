@@ -6,8 +6,8 @@ import 'package:kaimono_list/src/features/authentication/data/auth_repository.da
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
 import 'package:kaimono_list/src/features/home/presentation/home_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_items_reorder/shopping_items_reorder_modal_screen.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_screen.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/reorder_shopping_items/reorder_shopping_items_screen.dart';
+import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_items_list/shopping_items_list_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_add/shopping_list_add_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_edit/shopping_list_edit_screen.dart';
 import 'package:kaimono_list/src/routing/app_router_ref_scope.dart';
@@ -97,7 +97,7 @@ class ShoppingListRoute extends GoRouteData {
           .setInitialLocation(location),
     );
 
-    return ShoppingListScreen(shoppingListId: shoppingListId);
+    return ShoppingItemsListScreen(shoppingListId: shoppingListId);
   }
 
   /// Redirects the user based on their access permissions to a shopping list.
@@ -152,7 +152,7 @@ class ShoppingItemsReorderModalRoute extends GoRouteData {
       context: context,
       state: state,
       fullscreenDialog: true,
-      child: ShoppingItemsReorderModalScreen(
+      child: ReorderShoppingItemsScreen(
         shoppingListId: shoppingListId,
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ShoppingItemAddFab extends StatelessWidget {
-  const ShoppingItemAddFab({
+class AddShoppingItemFab extends StatelessWidget {
+  const AddShoppingItemFab({
     required this.onPressed,
     super.key,
   });

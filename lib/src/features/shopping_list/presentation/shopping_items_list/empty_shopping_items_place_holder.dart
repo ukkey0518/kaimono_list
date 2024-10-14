@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kaimono_list/src/common_widgets/big_icon_with_label.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
-class EmptyShoppingItemPlaceHolder extends StatelessWidget {
-  const EmptyShoppingItemPlaceHolder({super.key});
+class EmptyShoppingItemsPlaceHolder extends StatelessWidget {
+  const EmptyShoppingItemsPlaceHolder({super.key});
 
   @override
   Widget build(BuildContext context) {

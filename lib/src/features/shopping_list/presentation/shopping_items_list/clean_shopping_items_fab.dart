@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
-class ShoppingItemCleanFab extends StatelessWidget {
-  const ShoppingItemCleanFab({
+class CleanShoppingItemsFab extends StatelessWidget {
+  const CleanShoppingItemsFab({
     required this.onPressed,
     super.key,
   });

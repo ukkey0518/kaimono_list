@@ -1,23 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'shopping_items_reorder_controller.dart';
+part of 'reorder_shopping_items_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$shoppingItemsReorderControllerHash() =>
-    r'3f4145ca95548de8f355d767045cd0b85ec6db55';
+String _$reorderShoppingItemsControllerHash() =>
+    r'6c52994fb79722dfb68e3d2e97cacc2678c7ff7c';
 
-/// See also [ShoppingItemsReorderController].
-@ProviderFor(ShoppingItemsReorderController)
-final shoppingItemsReorderControllerProvider = AutoDisposeAsyncNotifierProvider<
-    ShoppingItemsReorderController, void>.internal(
-  ShoppingItemsReorderController.new,
-  name: r'shoppingItemsReorderControllerProvider',
+/// See also [ReorderShoppingItemsController].
+@ProviderFor(ReorderShoppingItemsController)
+final reorderShoppingItemsControllerProvider = AutoDisposeAsyncNotifierProvider<
+    ReorderShoppingItemsController, void>.internal(
+  ReorderShoppingItemsController.new,
+  name: r'reorderShoppingItemsControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$shoppingItemsReorderControllerHash,
+      : _$reorderShoppingItemsControllerHash,
   dependencies: <ProviderOrFamily>[shoppingItemRepositoryProvider],
   allTransitiveDependencies: <ProviderOrFamily>{
     shoppingItemRepositoryProvider,
@@ -25,6 +25,6 @@ final shoppingItemsReorderControllerProvider = AutoDisposeAsyncNotifierProvider<
   },
 );
 
-typedef _$ShoppingItemsReorderController = AutoDisposeAsyncNotifier<void>;
+typedef _$ReorderShoppingItemsController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
