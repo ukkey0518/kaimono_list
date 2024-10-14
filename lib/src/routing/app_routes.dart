@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
 import 'package:kaimono_list/src/features/home/presentation/home_screen.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
@@ -27,6 +28,26 @@ class SignInRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const EmailPasswordSignInScreen();
+  }
+
+  /// Redirects the user based on their authentication status.
+  ///
+  /// If the user is signed in, they are redirected to the `from` location if it
+  /// exists, otherwise to the home route. If the user is not signed in, no
+  /// redirection occurs.
+  @override
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
+    final signedIn = AppRouterRefScope.refOf(context)
+        .read(authRepositoryProvider)
+        .isSignedIn;
+
+    if (signedIn) {
+      return from != null
+          ? Uri.decodeComponent(from!)
+          : const HomeRoute().location;
+    }
+
+    return null;
   }
 }
 
@@ -72,6 +93,12 @@ class ShoppingListRoute extends GoRouteData {
     );
   }
 
+  /// Redirects the user based on their access permissions to a shopping list.
+  ///
+  /// This method checks if the user has access to a specific shopping list by
+  /// querying the `shoppingListRepositoryProvider`. If the user has access,
+  /// the method returns `null`, allowing the user to proceed. If the user does
+  /// not have access, the method returns the location of the `HomeRoute`.
   @override
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
     final canAccess = await AppRouterRefScope.refOf(context)
