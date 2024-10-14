@@ -14,6 +14,8 @@ part 'app_router.g.dart';
     InitialLocationController,
     authRepository,
     // ignore: provider_dependencies
+    InitialLocationController,
+    // ignore: provider_dependencies
     shoppingListRepository,
   ],
 )

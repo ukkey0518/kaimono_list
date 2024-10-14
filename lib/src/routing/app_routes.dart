@@ -12,6 +12,7 @@ import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_li
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_edit/shopping_list_edit_screen.dart';
 import 'package:kaimono_list/src/routing/app_router_ref_scope.dart';
 import 'package:kaimono_list/src/routing/build_fade_transition_page.dart';
+import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 
 part 'app_routes.g.dart';
 
@@ -88,9 +89,15 @@ class ShoppingListRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ShoppingListScreen(
-      shoppingListId: shoppingListId,
+    /// Sets the initial location using the `initialLocationControllerProvider`
+    /// notifier. This operation is performed without awaiting its completion.
+    unawaited(
+      AppRouterRefScope.refOf(context)
+          .read(initialLocationControllerProvider.notifier)
+          .setInitialLocation(location),
     );
+
+    return ShoppingListScreen(shoppingListId: shoppingListId);
   }
 
   /// Redirects the user based on their access permissions to a shopping list.

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
@@ -15,11 +14,10 @@ import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_li
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_controller.dart';
 import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list/shopping_list_items_view.dart';
 import 'package:kaimono_list/src/routing/app_routes.dart';
-import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 import 'package:kaimono_list/src/utils/un_focus_all.dart';
 
-class ShoppingListScreen extends HookConsumerWidget {
+class ShoppingListScreen extends ConsumerWidget {
   const ShoppingListScreen({
     required this.shoppingListId,
     super.key,
@@ -29,16 +27,6 @@ class ShoppingListScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(
-      () {
-        ref.read(initialLocationControllerProvider.notifier).setInitialLocation(
-              ShoppingListRoute(shoppingListId: shoppingListId).location,
-            );
-        return null;
-      },
-      [shoppingListId],
-    );
-
     final shoppingListAsyncValue = ref.watch(
       shoppingListFutureProvider(shoppingListId),
     );
