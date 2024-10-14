@@ -27,15 +27,15 @@ export class ShoppingListService {
    * - The new shopping list is created with an order index that is one greater than the current maximum order index for the user.
    */
   async createUserShoppingList(userId: string, shoppingListId: string): Promise<void> {
-    const isAlreadyExists = await this.userShoppingListRepository.isExists(userId, shoppingListId)
-    if (isAlreadyExists) {
+    const isAlreadyCreated = await this.userShoppingListRepository.isExists(userId, shoppingListId)
+    if (isAlreadyCreated) {
       // TODO(Ukkey): Implement custom logger
       console.log(`User shopping list already exists: ${userId}, ${shoppingListId}`)
       return
     }
 
-    const shoppingList = await this.shoppingListRepository.fetch(shoppingListId)
-    if (!shoppingList) {
+    const newShoppingList = await this.shoppingListRepository.fetch(shoppingListId)
+    if (!newShoppingList) {
       // TODO(Ukkey): Implement custom logger
       console.error(`Shopping list not found: ${shoppingListId}`)
       return
@@ -43,7 +43,7 @@ export class ShoppingListService {
 
     const newUserShoppingList = await this.generateNewUserShoppingListFromShoppingList(
       userId,
-      shoppingList
+      newShoppingList
     )
     await this.userShoppingListRepository.create(userId, newUserShoppingList)
   }
