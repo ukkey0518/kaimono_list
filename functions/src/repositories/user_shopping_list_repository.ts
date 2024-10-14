@@ -66,10 +66,10 @@ export class UserShoppingListRepository
   // ----------------------------------------------------------------------- //
 
   /**
-   * Retrieves all user shopping lists associated with a specific shopping list ID.
+   * Retrieves a list of user IDs associated with the specified shopping list ID.
    *
-   * @param shoppingListId - The ID of the shopping list to query.
-   * @returns A promise that resolves to an array of objects, each containing a userId and the corresponding userShoppingList.
+   * @param {string} shoppingListId - The ID of the shopping list.
+   * @returns {Promise<string[]>} - A promise that resolves to an array of user IDs.
    */
   async listUserIdsByShoppingListId(shoppingListId: string): Promise<string[]> {
     const qs = await this.collectionGroupRef().where('id', '==', shoppingListId).get()
