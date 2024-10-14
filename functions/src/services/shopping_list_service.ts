@@ -93,6 +93,7 @@ export class ShoppingListService {
           // If the owner has not changed or the user is not the previous owner, the user shopping list is updated
           this.userShoppingListRepository.updateWithBatch(batch, userId, shoppingListId, {
             name: shoppingList.name,
+            ownerUserId: shoppingList.ownerUserId,
           })
         }
       }
@@ -162,6 +163,7 @@ export class ShoppingListService {
       id: shoppingList.id,
       orderIndex: newOrderIndex,
       name: shoppingList.name,
+      ownerUserId: shoppingList.ownerUserId,
     }
   }
 

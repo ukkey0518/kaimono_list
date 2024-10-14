@@ -7,6 +7,7 @@ export type UserShoppingList = Entity<UserShoppingListData>
  *
  * @property {number} orderIndex - The order index of the shopping list.
  * @property {string} name - The name of the shopping list.
+ * @property {string} ownerUserId - The user ID of the owner of the shopping list.
  *
  * * In order to realise an ID search using a CollectionGroup query,
  * * the `id` field is stored in the Document of the Firestore.
@@ -15,4 +16,5 @@ export type UserShoppingList = Entity<UserShoppingListData>
 export interface UserShoppingListData {
   orderIndex: number
   name: string
+  ownerUserId: string
 }
