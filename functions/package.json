@@ -9,7 +9,7 @@
     "serve": "npx firebase emulators:start",
     "shell": "npm run build && npx firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "npx firebase deploy --only functions:${name}",
+    "deploy": "npx firebase deploy --only functions:${npm_config_name}",
     "logs": "npx firebase functions:log",
     "test": "jest"
   },
