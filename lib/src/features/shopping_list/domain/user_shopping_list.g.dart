@@ -11,6 +11,7 @@ _$UserShoppingListImpl _$$UserShoppingListImplFromJson(
     _$UserShoppingListImpl(
       orderIndex: (json['orderIndex'] as num).toInt(),
       name: json['name'] as String?,
+      ownerUserId: json['ownerUserId'] as String?,
       id: json['id'] as String?,
       createdAt: FirestoreFieldConverter.nullableTimestampToDateTime(
           json['createdAt']),
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$UserShoppingListImplToJson(
   }
 
   writeNotNull('name', instance.name);
+  writeNotNull('ownerUserId', instance.ownerUserId);
   writeNotNull(
       'createdAt', FirestoreFieldConverter.createdAtToJson(instance.createdAt));
   writeNotNull(

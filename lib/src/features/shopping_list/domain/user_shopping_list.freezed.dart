@@ -22,6 +22,7 @@ UserShoppingList _$UserShoppingListFromJson(Map<String, dynamic> json) {
 mixin _$UserShoppingList {
   int get orderIndex => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  String? get ownerUserId => throw _privateConstructorUsedError;
   @firestoreId
   String? get id => throw _privateConstructorUsedError;
   @firestoreCreatedAt
@@ -48,6 +49,7 @@ abstract class $UserShoppingListCopyWith<$Res> {
   $Res call(
       {int orderIndex,
       String? name,
+      String? ownerUserId,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
       @firestoreUpdatedAt DateTime? updatedAt});
@@ -70,6 +72,7 @@ class _$UserShoppingListCopyWithImpl<$Res, $Val extends UserShoppingList>
   $Res call({
     Object? orderIndex = null,
     Object? name = freezed,
+    Object? ownerUserId = freezed,
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -82,6 +85,10 @@ class _$UserShoppingListCopyWithImpl<$Res, $Val extends UserShoppingList>
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerUserId: freezed == ownerUserId
+          ? _value.ownerUserId
+          : ownerUserId // ignore: cast_nullable_to_non_nullable
               as String?,
       id: freezed == id
           ? _value.id
@@ -110,6 +117,7 @@ abstract class _$$UserShoppingListImplCopyWith<$Res>
   $Res call(
       {int orderIndex,
       String? name,
+      String? ownerUserId,
       @firestoreId String? id,
       @firestoreCreatedAt DateTime? createdAt,
       @firestoreUpdatedAt DateTime? updatedAt});
@@ -130,6 +138,7 @@ class __$$UserShoppingListImplCopyWithImpl<$Res>
   $Res call({
     Object? orderIndex = null,
     Object? name = freezed,
+    Object? ownerUserId = freezed,
     Object? id = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -142,6 +151,10 @@ class __$$UserShoppingListImplCopyWithImpl<$Res>
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ownerUserId: freezed == ownerUserId
+          ? _value.ownerUserId
+          : ownerUserId // ignore: cast_nullable_to_non_nullable
               as String?,
       id: freezed == id
           ? _value.id
@@ -166,6 +179,7 @@ class _$UserShoppingListImpl extends _UserShoppingList {
   const _$UserShoppingListImpl(
       {required this.orderIndex,
       this.name,
+      this.ownerUserId,
       @firestoreId this.id,
       @firestoreCreatedAt this.createdAt,
       @firestoreUpdatedAt this.updatedAt})
@@ -179,6 +193,8 @@ class _$UserShoppingListImpl extends _UserShoppingList {
   @override
   final String? name;
   @override
+  final String? ownerUserId;
+  @override
   @firestoreId
   final String? id;
   @override
@@ -190,7 +206,7 @@ class _$UserShoppingListImpl extends _UserShoppingList {
 
   @override
   String toString() {
-    return 'UserShoppingList(orderIndex: $orderIndex, name: $name, id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserShoppingList(orderIndex: $orderIndex, name: $name, ownerUserId: $ownerUserId, id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -201,6 +217,8 @@ class _$UserShoppingListImpl extends _UserShoppingList {
             (identical(other.orderIndex, orderIndex) ||
                 other.orderIndex == orderIndex) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.ownerUserId, ownerUserId) ||
+                other.ownerUserId == ownerUserId) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -210,8 +228,8 @@ class _$UserShoppingListImpl extends _UserShoppingList {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, orderIndex, name, id, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType, orderIndex, name, ownerUserId, id, createdAt, updatedAt);
 
   /// Create a copy of UserShoppingList
   /// with the given fields replaced by the non-null parameter values.
@@ -234,6 +252,7 @@ abstract class _UserShoppingList extends UserShoppingList {
   const factory _UserShoppingList(
       {required final int orderIndex,
       final String? name,
+      final String? ownerUserId,
       @firestoreId final String? id,
       @firestoreCreatedAt final DateTime? createdAt,
       @firestoreUpdatedAt final DateTime? updatedAt}) = _$UserShoppingListImpl;
@@ -246,6 +265,8 @@ abstract class _UserShoppingList extends UserShoppingList {
   int get orderIndex;
   @override
   String? get name;
+  @override
+  String? get ownerUserId;
   @override
   @firestoreId
   String? get id;

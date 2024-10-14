@@ -10,6 +10,7 @@ class UserShoppingList with _$UserShoppingList {
   const factory UserShoppingList({
     required int orderIndex,
     String? name,
+    String? ownerUserId,
     @firestoreId String? id,
     @firestoreCreatedAt DateTime? createdAt,
     @firestoreUpdatedAt DateTime? updatedAt,
