@@ -1,6 +1,5 @@
 import * as functionsV2 from 'firebase-functions/v2'
 import { AppState } from '../../../app_state'
-import { ShoppingListData } from '../../../models/shopping_list'
 
 /**
  * Handles the creation of a new shopping list.
@@ -26,10 +25,8 @@ export async function onCreateShoppingListHandler(
       return
     }
 
-    const shoppingList = ds.data() as ShoppingListData
-
     // Create a user shopping list for the owner of the shopping list
-    await appState.shoppingListService.createUserShoppingList(shoppingList.ownerUserId, ds.id)
+    await appState.shoppingListService.createUserShoppingList(ds.id)
   } catch (error) {
     throw new functionsV2.https.HttpsError('internal', error.message)
   }
