@@ -1,4 +1,5 @@
 import { isNil } from 'lodash'
+import nid from 'nid'
 import { ShoppingList } from '../models/shopping_list'
 import { UserShoppingList } from '../models/user_shopping_list'
 import { BatchRepository } from '../repositories/batch_repository'
@@ -13,6 +14,22 @@ export class ShoppingListService {
     private shoppingListRepository: ShoppingListRepository,
     private userShoppingListRepository: UserShoppingListRepository
   ) {}
+
+  /**
+   * Creates a new shopping list.
+   *
+   * @param userId - The ID of the user creating the shopping list.
+   * @param name - The name of the shopping list.
+   * @returns A promise that resolves to the ID of the newly created shopping list.
+   */
+  async createShoppingList(userId: string, name: string): Promise<string> {
+    const code = await this.generateNewShoppingListCode()
+    return await this.shoppingListRepository.add({
+      code,
+      name,
+      ownerUserId: userId,
+    })
+  }
 
   /**
    * Creates a user shopping list if it does not already exist.
@@ -184,5 +201,21 @@ export class ShoppingListService {
   private async fetchNewShoppingListOrderIndex(userId: string): Promise<number> {
     const currentMaxOrderIndex = await this.userShoppingListRepository.fetchMaxOrderIndex(userId)
     return isNil(currentMaxOrderIndex) ? 0 : currentMaxOrderIndex + 1
+  }
+
+  /**
+   * Generates a new unique shopping list code.
+   * This method generates an 8-character code using the `nid` function.
+   * It checks if the generated code already exists in the repository.
+   * If the code exists, it recursively generates a new code until a unique one is found.
+   *
+   * @returns {Promise<string>} A promise that resolves to a unique shopping list code.
+   */
+  private async generateNewShoppingListCode(): Promise<string> {
+    const code = nid(8) as string
+    if (await this.shoppingListRepository.existsByCode(code)) {
+      return this.generateNewShoppingListCode()
+    }
+    return code
   }
 }

@@ -81,4 +81,28 @@ export class ShoppingListRepository
       ...(doc.data() as ShoppingListData),
     }))
   }
+
+  /**
+   * Adds a new shopping list item to the repository.
+   *
+   * @param data - The shopping list data to be added.
+   * @returns A promise that resolves to the ID of the added shopping list item.
+   */
+  async add(data: ShoppingListData): Promise<string> {
+    return this.addFromRef(this.collectionRef(), data)
+  }
+
+  /**
+   * Checks if a document with the specified code exists in the collection.
+   *
+   * @param code - The code to search for in the collection.
+   * @returns A promise that resolves to `true` if a document with the specified code exists, otherwise `false`.
+   */
+  async existsByCode(code: string): Promise<boolean> {
+    const qs = await this.firestore
+      .collection(this.collectionPath())
+      .where('code', '==', code)
+      .get()
+    return !qs.empty
+  }
 }
