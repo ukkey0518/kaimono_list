@@ -1,21 +1,19 @@
 import * as functionsV2 from 'firebase-functions/v2'
 import { AppState } from '../../../app_state'
+import { FirestoreSnapshotEvent } from '../../../constants/cloud_functions_types'
 
 /**
- * Handles the creation of a new shopping list.
+ * Handles the creation of a shopping list in Firestore.
  *
  * This function is triggered when a new shopping list document is created in Firestore.
  * It creates a user shopping list for the owner of the shopping list.
  *
- * @param appState - The current application state, which includes services and other utilities.
- * @param ds - The Firestore document snapshot of the newly created shopping list.
- * @returns A promise that resolves when the user shopping list has been successfully created.
+ * @param appState - The application state containing services and configurations.
+ * @param event - The Firestore event containing the snapshot of the created document.
  */
 export async function onCreateShoppingListHandler(
   appState: AppState,
-  event: functionsV2.firestore.FirestoreEvent<
-    functionsV2.firestore.QueryDocumentSnapshot | undefined
-  >
+  event: FirestoreSnapshotEvent
 ): Promise<void> {
   try {
     const ds = event.data

@@ -1,21 +1,20 @@
 import * as functionsV2 from 'firebase-functions'
 import { AppState } from '../../../app_state'
+import { FirestoreSnapshotEvent } from '../../../constants/cloud_functions_types'
 
 /**
- * Handles the deletion of a shopping list.
+ * Handles the deletion of a shopping list document from Firestore.
  *
  * This function is triggered when a shopping list document is deleted.
- * It ensures that the shopping list is removed from all users' data.
+ * It ensures that the shopping list is removed from all users' lists.
  *
- * @param appState - The current application state, which includes services and other app-wide data.
- * @param ds - The document snapshot of the shopping list that was deleted. If undefined, the function logs an error and returns.
- * @returns A promise that resolves when the shopping list has been successfully deleted from all users.
+ * @param appState - The application state containing services and configurations.
+ * @param event - The Firestore snapshot event containing the data of the deleted document.
+ * @returns A promise that resolves when the deletion process is complete.
  */
 export async function onDeleteShoppingListHandler(
   appState: AppState,
-  event: functionsV2.firestore.FirestoreEvent<
-    functionsV2.firestore.QueryDocumentSnapshot | undefined
-  >
+  event: FirestoreSnapshotEvent
 ): Promise<void> {
   try {
     if (!event.data) {

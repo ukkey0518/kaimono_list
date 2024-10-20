@@ -1,21 +1,17 @@
 import * as functionsV2 from 'firebase-functions/v2'
 import { AppState } from '../../../app_state'
+import { FirestoreChangeEvent } from '../../../constants/cloud_functions_types'
 import { ShoppingListData } from '../../../models/shopping_list'
 
 /**
- * Handles the update event for a shopping list.
- *
- * This function is triggered when a shopping list document is updated. It synchronizes the updated shopping list to all users.
+ * Handles the update event for a shopping list in Firestore.
  *
  * @param appState - The current application state.
- * @param ds - The document snapshot of the updated shopping list. If undefined, an error is logged.
- * @returns A promise that resolves when the synchronization is complete.
+ * @param event - The Firestore change event containing the before and after snapshots.
  */
 export async function onUpdateShoppingListHandler(
   appState: AppState,
-  event: functionsV2.firestore.FirestoreEvent<
-    functionsV2.Change<FirebaseFirestore.QueryDocumentSnapshot> | undefined
-  >
+  event: FirestoreChangeEvent
 ): Promise<void> {
   try {
     if (!event.data) {
