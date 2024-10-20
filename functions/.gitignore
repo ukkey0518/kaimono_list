@@ -8,3 +8,6 @@ typings/
 # Node.js dependency directory
 node_modules/
 lib/
+
+# Secure files
+service-account-key.json
