@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin'
 import * as functionsV1 from 'firebase-functions/v1'
 import * as functionsV2 from 'firebase-functions/v2'
+
 import { AppState } from './app_state'
 import { onCreateAuthUserHandler } from './handlers/auth/triggers/on_create_auth_user_handler'
 import { onDeleteAuthUserHandler } from './handlers/auth/triggers/on_delete_auth_user_handler'
@@ -11,7 +12,8 @@ import { onUpdateShoppingListHandler } from './handlers/shopping_list/triggers/o
 
 functionsV2.setGlobalOptions({ region: 'asia-northeast1' })
 
-const appState = new AppState(admin.initializeApp())
+const adminApp = admin.initializeApp()
+const appState = new AppState(adminApp)
 
 //
 // Functions
