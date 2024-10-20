@@ -7,8 +7,8 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // * Check if the user is the owner of the document
-    function isOwner(userId) {
+    // * Check if the user is logged in as the specified user
+    function isLoggedInAs(userId) {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
@@ -17,25 +17,25 @@ service cloud.firestore {
     }
 
     match /user_profiles/{userId} {
-      allow read, write: if isOwner(userId);
+      allow read, write: if isLoggedInAs(userId);
 
       match /user_shopping_lists/{shoppingListId} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if isLoggedInAs(userId);
       }
     }
 
     match /shopping_lists/{shoppingListId} {
       // * Check if the user is the owner of the shopping list
       function isShoppingListOwner() {
-        return isOwner(get(/databases/$(database)/documents/shopping_lists/$(shoppingListId)).data.ownerUserId);
+        return isLoggedInAs(get(/databases/$(database)/documents/shopping_lists/$(shoppingListId)).data.ownerUserId);
       }
 
       allow create: if isAuthenticated();
 
       // TODO(Ukkey): メンバー読み取り権限の付与（要: リスト共有機能）
-      allow read: if isOwner(resource.data.ownerUserId);
+      allow read: if isLoggedInAs(resource.data.ownerUserId);
 
-      allow update, delete: if isOwner(resource.data.ownerUserId);
+      allow update, delete: if isLoggedInAs(resource.data.ownerUserId);
 
       match /shopping_items/{shoppingItemId} {
         allow read, write: if isShoppingListOwner();
