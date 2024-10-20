@@ -15,56 +15,38 @@ functionsV2.setGlobalOptions({ region: 'asia-northeast1' })
 const adminApp = admin.initializeApp()
 const appState = new AppState(adminApp)
 
-//
-// Functions
-//
-
-const onCreateAuthUser = functionsV1
-  .region('asia-northeast1')
-  .auth.user()
-  .onCreate(async user => await onCreateAuthUserHandler(appState, user))
-
-const onDeleteAuthUser = functionsV1
-  .region('asia-northeast1')
-  .auth.user()
-  .onDelete(async user => await onDeleteAuthUserHandler(appState, user))
-
-const createShoppingList = functionsV2.https.onCall(async req => {
-  await createShoppingListHandler(appState, req)
-})
-
-const onCreateShoppingList = functionsV2.firestore.onDocumentCreated(
-  'shopping_lists/{shoppingListId}',
-  async event => await onCreateShoppingListHandler(appState, event)
-)
-
-const onUpdateShoppingList = functionsV2.firestore.onDocumentUpdated(
-  'shopping_lists/{shoppingListId}',
-  async event => await onUpdateShoppingListHandler(appState, event)
-)
-
-const onDeleteShoppingList = functionsV2.firestore.onDocumentDeleted(
-  'shopping_lists/{shoppingListId}',
-  async event => await onDeleteShoppingListHandler(appState, event)
-)
-
-// ----------------------------------------------------------------------------
-
 const auth = {
   triggers: {
-    onCreateAuthUser,
-    onDeleteAuthUser,
+    onCreateAuthUser: functionsV1
+      .region('asia-northeast1')
+      .auth.user()
+      .onCreate(async user => await onCreateAuthUserHandler(appState, user)),
+    onDeleteAuthUser: functionsV1
+      .region('asia-northeast1')
+      .auth.user()
+      .onDelete(async user => await onDeleteAuthUserHandler(appState, user)),
   },
 }
 
 const shoppingList = {
   apis: {
-    createShoppingList,
+    createShoppingList: functionsV2.https.onCall(
+      async req => await createShoppingListHandler(appState, req)
+    ),
   },
   triggers: {
-    onCreateShoppingList,
-    onUpdateShoppingList,
-    onDeleteShoppingList,
+    onCreateShoppingList: functionsV2.firestore.onDocumentCreated(
+      'shopping_lists/{shoppingListId}',
+      async event => await onCreateShoppingListHandler(appState, event)
+    ),
+    onUpdateShoppingList: functionsV2.firestore.onDocumentUpdated(
+      'shopping_lists/{shoppingListId}',
+      async event => await onUpdateShoppingListHandler(appState, event)
+    ),
+    onDeleteShoppingList: functionsV2.firestore.onDocumentDeleted(
+      'shopping_lists/{shoppingListId}',
+      async event => await onDeleteShoppingListHandler(appState, event)
+    ),
   },
 }
 
