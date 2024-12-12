@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/authentication/domain/app_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -61,7 +62,7 @@ class AuthRepository {
 }
 
 @Riverpod(keepAlive: true, dependencies: [])
-AuthRepository authRepository(AuthRepositoryRef ref) {
+AuthRepository authRepository(Ref ref) {
   return AuthRepository(FirebaseAuth.instance);
 }
 
@@ -71,7 +72,7 @@ AuthRepository authRepository(AuthRepositoryRef ref) {
     authRepository,
   ],
 )
-AppUser? currentUser(CurrentUserRef ref) {
+AppUser? currentUser(Ref ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.currentUser;
 }
@@ -82,7 +83,7 @@ AppUser? currentUser(CurrentUserRef ref) {
     authRepository,
   ],
 )
-Stream<AppUser?> currentUserStream(CurrentUserStreamRef ref) {
+Stream<AppUser?> currentUserStream(Ref ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.currentUserStream();
 }

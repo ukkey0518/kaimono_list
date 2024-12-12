@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kaimono_list/src/routing/app_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-/// A widget that provides access to an [AppRouterRef] within its subtree.
+/// A widget that provides access to an [Ref] within its subtree.
 ///
-/// The [AppRouterRefScope] widget is used to scope the [AppRouterRef] to a
+/// The [AppRouterRefScope] widget is used to scope the [Ref] to a
 /// specific part of the widget tree. It allows descendant widgets to access
-/// the [AppRouterRef] using the static methods [of], [maybeOf], and [refOf].
+/// the [Ref] using the static methods [of], [maybeOf], and [refOf].
 ///
 /// The [child] parameter is the widget that will be a descendant of this
 /// [AppRouterRefScope].
@@ -17,13 +17,13 @@ import 'package:kaimono_list/src/routing/app_router.dart';
 /// );
 /// ```
 ///
-/// To access the [AppRouterRef] from a descendant widget:
+/// To access the [Ref] from a descendant widget:
 /// ```dart
 /// final appRouterRef = AppRouterRefScope.refOf(context);
 /// ```
 ///
 /// See also:
-/// - [AppRouterRef]
+/// - [Ref]
 /// - [AppRouterRefScopeState]
 /// - [_InheritedAppRouterRef]
 class AppRouterRefScope extends StatefulWidget {
@@ -44,7 +44,7 @@ class AppRouterRefScope extends StatefulWidget {
         ?.data;
   }
 
-  static AppRouterRef refOf(BuildContext context) {
+  static Ref refOf(BuildContext context) {
     return of(context).ref;
   }
 
@@ -63,7 +63,7 @@ class AppRouterRefScope extends StatefulWidget {
 /// the child widget with `_InheritedAppRouterRef` to pass down the
 /// `AppRouterRef` data.
 class AppRouterRefScopeState extends State<AppRouterRefScope> {
-  late AppRouterRef ref;
+  late Ref ref;
 
   @override
   Widget build(BuildContext context) {

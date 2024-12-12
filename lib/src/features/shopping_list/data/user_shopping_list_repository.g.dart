@@ -7,7 +7,7 @@ part of 'user_shopping_list_repository.dart';
 // **************************************************************************
 
 String _$userShoppingListRepositoryHash() =>
-    r'a31e2f7210db1a47bd99ad51842025e9080a552e';
+    r'09ccad472c9b9f7c32546a5a8fb45378df003c93';
 
 /// See also [userShoppingListRepository].
 @ProviderFor(userShoppingListRepository)
@@ -22,10 +22,12 @@ final userShoppingListRepositoryProvider =
   allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef UserShoppingListRepositoryRef
     = AutoDisposeProviderRef<UserShoppingListRepository>;
 String _$userShoppingListsStreamHash() =>
-    r'72924434aa03162ef626a78c3e3281412a4935d0';
+    r'9f1549d6933e0bf6aae865fa4ede5201ab90a035';
 
 /// See also [userShoppingListsStream].
 @ProviderFor(userShoppingListsStream)
@@ -48,7 +50,9 @@ final userShoppingListsStreamProvider =
   },
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef UserShoppingListsStreamRef
     = AutoDisposeStreamProviderRef<List<UserShoppingList>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

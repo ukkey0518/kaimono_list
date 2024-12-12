@@ -6,7 +6,7 @@ part of 'auth_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authRepositoryHash() => r'6f448e06dec5cfeb2a2324480f7c6d03b5daa360';
+String _$authRepositoryHash() => r'8052236996976fa839cb458dcf05789ac61a0dcf';
 
 /// See also [authRepository].
 @ProviderFor(authRepository)
@@ -20,8 +20,10 @@ final authRepositoryProvider = Provider<AuthRepository>.internal(
   allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef AuthRepositoryRef = ProviderRef<AuthRepository>;
-String _$currentUserHash() => r'4a821299f94f2563e7541629a28e0fb736795183';
+String _$currentUserHash() => r'4f07d1c6a8aa7f6536294fd29a8e1ff18c162656';
 
 /// See also [currentUser].
 @ProviderFor(currentUser)
@@ -37,8 +39,10 @@ final currentUserProvider = Provider<AppUser?>.internal(
   },
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef CurrentUserRef = ProviderRef<AppUser?>;
-String _$currentUserStreamHash() => r'566967fa8d45e1f5fe4e38c00acfcb8b45e52ad5';
+String _$currentUserStreamHash() => r'8b40d62622e68e8c02c56384142c77063ae45be5';
 
 /// See also [currentUserStream].
 @ProviderFor(currentUserStream)
@@ -55,6 +59,8 @@ final currentUserStreamProvider = StreamProvider<AppUser?>.internal(
   },
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef CurrentUserStreamRef = StreamProviderRef<AppUser?>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

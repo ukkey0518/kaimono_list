@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/exceptions/model_validation_exception.dart';
 import 'package:kaimono_list/src/exceptions/permission_denied_exception.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
@@ -184,7 +185,7 @@ class ShoppingItemRepository {
 @Riverpod(
   dependencies: [],
 )
-ShoppingItemRepository shoppingItemRepository(ShoppingItemRepositoryRef ref) {
+ShoppingItemRepository shoppingItemRepository(Ref ref) {
   return ShoppingItemRepository(FirebaseFirestore.instance);
 }
 
@@ -194,7 +195,7 @@ ShoppingItemRepository shoppingItemRepository(ShoppingItemRepositoryRef ref) {
   ],
 )
 Stream<List<ShoppingItem>> shoppingItemsStream(
-  ShoppingItemsStreamRef ref,
+  Ref ref,
   String shoppingListId,
 ) {
   final shoppingItemRepository = ref.watch(shoppingItemRepositoryProvider);
@@ -209,7 +210,7 @@ Stream<List<ShoppingItem>> shoppingItemsStream(
   ],
 )
 Future<List<ShoppingItem>> shoppingItemsFuture(
-  ShoppingItemsFutureRef ref,
+  Ref ref,
   String shoppingListId,
 ) {
   final shoppingItemRepository = ref.watch(shoppingItemRepositoryProvider);
@@ -224,7 +225,7 @@ Future<List<ShoppingItem>> shoppingItemsFuture(
   ],
 )
 Stream<bool> hasAnyPurchasedShoppingItemStream(
-  HasAnyPurchasedShoppingItemStreamRef ref,
+  Ref ref,
   String shoppingListId,
 ) {
   final shoppingItemRepository = ref.watch(shoppingItemRepositoryProvider);
@@ -239,7 +240,7 @@ Stream<bool> hasAnyPurchasedShoppingItemStream(
   ],
 )
 Future<ShoppingItem?> shoppingItemFuture(
-  ShoppingItemFutureRef ref,
+  Ref ref,
   String shoppingListId,
   String shoppingItemId,
 ) async {

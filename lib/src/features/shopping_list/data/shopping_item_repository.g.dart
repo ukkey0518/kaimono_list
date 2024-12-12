@@ -7,7 +7,7 @@ part of 'shopping_item_repository.dart';
 // **************************************************************************
 
 String _$shoppingItemRepositoryHash() =>
-    r'7f41325df2aabf5392e0928267e02901e8e7073d';
+    r'78d6b2d570bccab49373699c70c29a559c1cfbe9';
 
 /// See also [shoppingItemRepository].
 @ProviderFor(shoppingItemRepository)
@@ -22,10 +22,12 @@ final shoppingItemRepositoryProvider =
   allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef ShoppingItemRepositoryRef
     = AutoDisposeProviderRef<ShoppingItemRepository>;
 String _$shoppingItemsStreamHash() =>
-    r'faf0eeb055c8f53cedfbe3376370b5f467284b21';
+    r'35c08df3f05e8cce2d140f6441db63335f7213ed';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -169,6 +171,8 @@ class ShoppingItemsStreamProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ShoppingItemsStreamRef
     on AutoDisposeStreamProviderRef<List<ShoppingItem>> {
   /// The parameter `shoppingListId` of this provider.
@@ -186,7 +190,7 @@ class _ShoppingItemsStreamProviderElement
 }
 
 String _$shoppingItemsFutureHash() =>
-    r'352227d464aa7e7637bade5a8ccf8a65d80e2010';
+    r'b7596b36110aeacaefe175136d1c62903706e48f';
 
 /// See also [shoppingItemsFuture].
 @ProviderFor(shoppingItemsFuture)
@@ -310,6 +314,8 @@ class ShoppingItemsFutureProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ShoppingItemsFutureRef
     on AutoDisposeFutureProviderRef<List<ShoppingItem>> {
   /// The parameter `shoppingListId` of this provider.
@@ -327,7 +333,7 @@ class _ShoppingItemsFutureProviderElement
 }
 
 String _$hasAnyPurchasedShoppingItemStreamHash() =>
-    r'162593ec12068e0b74c47d1f766c883cecb523b0';
+    r'91af4922febe4245a062a2a6bcc042da7f31a197';
 
 /// See also [hasAnyPurchasedShoppingItemStream].
 @ProviderFor(hasAnyPurchasedShoppingItemStream)
@@ -451,6 +457,8 @@ class HasAnyPurchasedShoppingItemStreamProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin HasAnyPurchasedShoppingItemStreamRef
     on AutoDisposeStreamProviderRef<bool> {
   /// The parameter `shoppingListId` of this provider.
@@ -468,7 +476,7 @@ class _HasAnyPurchasedShoppingItemStreamProviderElement
 }
 
 String _$shoppingItemFutureHash() =>
-    r'2e0a6b78fd624f84f5b48648b468f7be799bf69a';
+    r'201960ae62ddb334158bee927ff248c9750a581b';
 
 /// See also [shoppingItemFuture].
 @ProviderFor(shoppingItemFuture)
@@ -602,6 +610,8 @@ class ShoppingItemFutureProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ShoppingItemFutureRef on AutoDisposeFutureProviderRef<ShoppingItem?> {
   /// The parameter `shoppingListId` of this provider.
   String get shoppingListId;
@@ -623,4 +633,4 @@ class _ShoppingItemFutureProviderElement
       (origin as ShoppingItemFutureProvider).shoppingItemId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

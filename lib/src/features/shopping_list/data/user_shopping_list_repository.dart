@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/user_shopping_list.dart';
 import 'package:kaimono_list/src/utils/extensions/firestore_extensions.dart';
@@ -56,7 +57,7 @@ class UserShoppingListRepository {
   dependencies: [],
 )
 UserShoppingListRepository userShoppingListRepository(
-  UserShoppingListRepositoryRef ref,
+  Ref ref,
 ) {
   return UserShoppingListRepository(FirebaseFirestore.instance);
 }
@@ -68,7 +69,7 @@ UserShoppingListRepository userShoppingListRepository(
   ],
 )
 Stream<List<UserShoppingList>> userShoppingListsStream(
-  UserShoppingListsStreamRef ref,
+  Ref ref,
 ) {
   final appUser = ref.watch(currentUserStreamProvider).value;
   if (appUser == null) {

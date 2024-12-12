@@ -20,22 +20,15 @@ _$UserShoppingListImpl _$$UserShoppingListImplFromJson(
     );
 
 Map<String, dynamic> _$$UserShoppingListImplToJson(
-    _$UserShoppingListImpl instance) {
-  final val = <String, dynamic>{
-    'orderIndex': instance.orderIndex,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('ownerUserId', instance.ownerUserId);
-  writeNotNull(
-      'createdAt', FirestoreFieldConverter.createdAtToJson(instance.createdAt));
-  writeNotNull(
-      'updatedAt', FirestoreFieldConverter.updatedAtToJson(instance.updatedAt));
-  return val;
-}
+        _$UserShoppingListImpl instance) =>
+    <String, dynamic>{
+      'orderIndex': instance.orderIndex,
+      if (instance.name case final value?) 'name': value,
+      if (instance.ownerUserId case final value?) 'ownerUserId': value,
+      if (FirestoreFieldConverter.createdAtToJson(instance.createdAt)
+          case final value?)
+        'createdAt': value,
+      if (FirestoreFieldConverter.updatedAtToJson(instance.updatedAt)
+          case final value?)
+        'updatedAt': value,
+    };

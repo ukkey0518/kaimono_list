@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/exceptions/model_validation_exception.dart';
 import 'package:kaimono_list/src/exceptions/permission_denied_exception.dart';
 import 'package:kaimono_list/src/features/shopping_list/domain/shopping_list.dart';
@@ -81,7 +82,7 @@ class ShoppingListRepository {
 @Riverpod(
   dependencies: [],
 )
-ShoppingListRepository shoppingListRepository(ShoppingListRepositoryRef ref) {
+ShoppingListRepository shoppingListRepository(Ref ref) {
   return ShoppingListRepository(FirebaseFirestore.instance);
 }
 
@@ -91,7 +92,7 @@ ShoppingListRepository shoppingListRepository(ShoppingListRepositoryRef ref) {
   ],
 )
 Future<ShoppingList?> shoppingListFuture(
-  ShoppingListFutureRef ref,
+  Ref ref,
   String shoppingListId,
 ) async {
   final shoppingListRepository = ref.watch(shoppingListRepositoryProvider);

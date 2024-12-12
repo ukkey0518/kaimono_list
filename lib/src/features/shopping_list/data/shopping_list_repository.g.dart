@@ -7,7 +7,7 @@ part of 'shopping_list_repository.dart';
 // **************************************************************************
 
 String _$shoppingListRepositoryHash() =>
-    r'6b2b6d99fe539e6ecd65230ce324e4f967df7cbf';
+    r'7f6bb6cc83606d6f3e87f7da07854ec2501b5993';
 
 /// See also [shoppingListRepository].
 @ProviderFor(shoppingListRepository)
@@ -22,10 +22,12 @@ final shoppingListRepositoryProvider =
   allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef ShoppingListRepositoryRef
     = AutoDisposeProviderRef<ShoppingListRepository>;
 String _$shoppingListFutureHash() =>
-    r'7c58914417396e6b498ad424dc33e44d9c161fc3';
+    r'5c05a77307166e6622dd576e10e4a9dcb1e53d34';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -169,6 +171,8 @@ class ShoppingListFutureProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ShoppingListFutureRef on AutoDisposeFutureProviderRef<ShoppingList?> {
   /// The parameter `shoppingListId` of this provider.
   String get shoppingListId;
@@ -184,4 +188,4 @@ class _ShoppingListFutureProviderElement
       (origin as ShoppingListFutureProvider).shoppingListId;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
 import 'package:kaimono_list/src/routing/app_router_redirect.dart';
@@ -19,7 +20,7 @@ part 'app_router.g.dart';
     shoppingListRepository,
   ],
 )
-GoRouter appRouter(AppRouterRef ref) {
+GoRouter appRouter(Ref ref) {
   final initialLocation = ref.watch(initialLocationControllerProvider);
 
   return GoRouter(

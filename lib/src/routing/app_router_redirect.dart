@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/routing/app_router.dart';
 import 'package:kaimono_list/src/routing/app_router_ref_scope.dart';
@@ -11,7 +12,7 @@ import 'package:kaimono_list/src/routing/app_routes.dart';
 Future<String?> appRouterRedirect(
   BuildContext context,
   GoRouterState state,
-  AppRouterRef ref,
+  Ref ref,
 ) async {
   final matchedLocation = state.matchedLocation;
 
