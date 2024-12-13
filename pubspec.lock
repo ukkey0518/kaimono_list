@@ -38,14 +38,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.3"
-  animated_reorderable_list:
+  animated_list_plus:
     dependency: "direct main"
     description:
-      name: animated_reorderable_list
-      sha256: "6109197942c95d5e60bc9773e51ff2562c4aede5cfaec0b1cb73a0d51823763d"
+      name: animated_list_plus
+      sha256: fb3d7f1fbaf5af84907f3c739236bacda8bf32cbe1f118dd51510752883ff50c
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
+    version: "0.5.2"
   archive:
     dependency: transitive
     description:

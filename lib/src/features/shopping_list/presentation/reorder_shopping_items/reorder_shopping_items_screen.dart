@@ -1,4 +1,5 @@
-import 'package:animated_reorderable_list/animated_reorderable_list.dart';
+import 'package:animated_list_plus/animated_list_plus.dart';
+import 'package:animated_list_plus/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -40,13 +41,6 @@ class ReorderShoppingItemsScreen extends HookConsumerWidget {
       builder: (context) {
         final shoppingItems = useState(initialShoppingItems);
 
-        void reorder(int oldIndex, int newIndex) {
-          final newShoppingItems = [...shoppingItems.value];
-          final shoppingItem = newShoppingItems.removeAt(oldIndex);
-          newShoppingItems.insert(newIndex, shoppingItem);
-          shoppingItems.value = newShoppingItems;
-        }
-
         Future<void> submit() async {
           await ref
               .read(reorderShoppingItemsControllerProvider.notifier)
@@ -69,16 +63,29 @@ class ReorderShoppingItemsScreen extends HookConsumerWidget {
               ),
             ],
           ),
-          body: AnimatedReorderableListView(
+          body: ImplicitlyAnimatedReorderableList(
             items: shoppingItems.value,
-            onReorder: reorder,
-            longPressDraggable: false,
-            itemBuilder: (context, index) {
-              final shoppingItem = shoppingItems.value[index];
-              return ShoppingItemListTile(
+            areItemsTheSame: (oldItem, newItem) => oldItem.id == newItem.id,
+            onReorderFinished: (item, from, to, newItems) {
+              shoppingItems.value = newItems;
+            },
+            itemBuilder: (context, animation, shoppingItem, index) {
+              return Reorderable(
                 key: ValueKey(shoppingItem.id),
-                shoppingItem: shoppingItem,
-                trailing: const Icon(Icons.drag_handle),
+                child: SizeFadeTransition(
+                  animation: animation,
+                  curve: Curves.fastOutSlowIn,
+                  child: ShoppingItemListTile(
+                    shoppingItem: shoppingItem,
+                    trailing: const Handle(
+                      delay: Duration(milliseconds: 100),
+                      child: Icon(
+                        Icons.drag_handle,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
               );
             },
           ),
