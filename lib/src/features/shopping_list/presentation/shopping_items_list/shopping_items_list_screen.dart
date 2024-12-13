@@ -51,22 +51,6 @@ class ShoppingItemsListScreen extends ConsumerWidget {
       );
     }
 
-    Future<void> deleteShoppingItem(ShoppingItem shoppingItem) async {
-      final isConfirmed = await DeleteShoppingItemConfirmDialog.show(
-        context,
-        shoppingItem: shoppingItem,
-      );
-      if (!isConfirmed) {
-        return;
-      }
-      await ref
-          .read(shoppingItemsListControllerProvider.notifier)
-          .deleteShoppingItem(
-            shoppingListId,
-            shoppingItem.id!,
-          );
-    }
-
     Future<void> cleanShoppingItems() async {
       final isConfirmed = await CleanShoppingItemsConfirmDialog.show(context);
       if (!isConfirmed) {
