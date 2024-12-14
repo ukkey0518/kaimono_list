@@ -6,7 +6,7 @@ part of 'sign_out_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$signOutControllerHash() => r'ef47c212bcd92458c5212c099008b464c7f169a1';
+String _$signOutControllerHash() => r'6d6a597d7164a98c7e516aac761bf34833e4e8db';
 
 /// See also [SignOutController].
 @ProviderFor(SignOutController)
@@ -17,8 +17,11 @@ final signOutControllerProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$signOutControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[authRepositoryProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    authRepositoryProvider,
+    ...?authRepositoryProvider.allTransitiveDependencies
+  },
 );
 
 typedef _$SignOutController = AutoDisposeAsyncNotifier<void>;

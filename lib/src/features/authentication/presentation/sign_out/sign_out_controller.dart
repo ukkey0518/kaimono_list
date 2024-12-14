@@ -3,7 +3,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_out_controller.g.dart';
 
-@riverpod
+@Riverpod(
+  dependencies: [
+    authRepository,
+  ],
+)
 class SignOutController extends _$SignOutController {
   @override
   FutureOr<void> build() async => null;
