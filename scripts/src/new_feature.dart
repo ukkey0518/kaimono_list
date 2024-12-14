@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:recase/recase.dart';
 
-const _featuresDirectoryPath = 'lib/features';
+const _featuresDirectoryPath = 'lib/src/features';
 
 void main() {
   print('--- New Feature ---');
