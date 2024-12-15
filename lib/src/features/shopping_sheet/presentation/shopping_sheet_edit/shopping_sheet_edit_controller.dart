@@ -26,7 +26,9 @@ class ShoppingSheetEditController extends _$ShoppingSheetEditController {
             shoppingSheetId: shoppingSheetId,
             title: title,
           );
-      ref.invalidate(shoppingSheetFutureProvider(shoppingSheetId));
+      ref
+        ..invalidate(shoppingSheetFutureProvider(shoppingSheetId))
+        ..invalidate(shoppingSheetsByUserFutureProvider);
     });
   }
 
