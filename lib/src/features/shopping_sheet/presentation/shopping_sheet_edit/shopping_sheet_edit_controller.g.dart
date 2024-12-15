@@ -7,7 +7,7 @@ part of 'shopping_sheet_edit_controller.dart';
 // **************************************************************************
 
 String _$shoppingSheetEditControllerHash() =>
-    r'6149bb43ef6622cbe3ba3ac665cd07044bd51352';
+    r'f0d19917bddfbfac18cb762d4066b6e2e03ca3d5';
 
 /// See also [ShoppingSheetEditController].
 @ProviderFor(ShoppingSheetEditController)
@@ -18,18 +18,21 @@ final shoppingSheetEditControllerProvider = AutoDisposeAsyncNotifierProvider<
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$shoppingSheetEditControllerHash,
-  dependencies: <ProviderOrFamily>[
+  dependencies: <ProviderOrFamily>{
     shoppingSheetRepositoryProvider,
     shoppingItemRepositoryProvider,
-    shoppingSheetFutureProvider
-  ],
+    shoppingSheetFutureProvider,
+    shoppingSheetsByUserFutureProvider
+  },
   allTransitiveDependencies: <ProviderOrFamily>{
     shoppingSheetRepositoryProvider,
     ...?shoppingSheetRepositoryProvider.allTransitiveDependencies,
     shoppingItemRepositoryProvider,
     ...?shoppingItemRepositoryProvider.allTransitiveDependencies,
     shoppingSheetFutureProvider,
-    ...?shoppingSheetFutureProvider.allTransitiveDependencies
+    ...?shoppingSheetFutureProvider.allTransitiveDependencies,
+    shoppingSheetsByUserFutureProvider,
+    ...?shoppingSheetsByUserFutureProvider.allTransitiveDependencies
   },
 );
 

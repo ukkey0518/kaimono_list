@@ -9,6 +9,7 @@ part 'shopping_sheet_edit_controller.g.dart';
     shoppingSheetRepository,
     shoppingItemRepository,
     shoppingSheetFuture,
+    shoppingSheetsByUserFuture,
   ],
 )
 class ShoppingSheetEditController extends _$ShoppingSheetEditController {
@@ -40,6 +41,7 @@ class ShoppingSheetEditController extends _$ShoppingSheetEditController {
       await ref
           .read(shoppingSheetRepositoryProvider)
           .delete(shoppingSheetId: shoppingSheetId);
+      ref.invalidate(shoppingSheetsByUserFutureProvider);
     });
   }
 }
