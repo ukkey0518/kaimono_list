@@ -1,15 +1,29 @@
 {
   "indexes": [
     {
-      "collectionGroup": "user_shopping_lists",
-      "queryScope": "COLLECTION_GROUP",
+      "collectionGroup": "shopping_sheets",
+      "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "id",
-          "order": "DESCENDING"
+          "fieldPath": "memberUserIds",
+          "arrayConfig": "CONTAINS"
         },
         {
-          "fieldPath": "__name__",
+          "fieldPath": "updatedAt",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "shopping_sheets",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ownerUserId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "updatedAt",
           "order": "ASCENDING"
         }
       ]
