@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/common_widgets/async_value_builder.dart';
 import 'package:kaimono_list/src/common_widgets/dialogs.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
+import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
+import 'package:kaimono_list/src/features/authentication/presentation/sign_out/sign_out_icon_button.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_sheet_repository.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet_list/add_shopping_sheet_modal.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet_list/shopping_sheet_list_controller.dart';
@@ -37,13 +39,16 @@ class ShoppingSheetListScreen extends ConsumerWidget {
       if (newShoppingSheetId == null) {
         return;
       }
-
-      ref.invalidate(shoppingSheetsByUserFutureProvider);
     }
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('おかいものリスト'),
+        actions: [
+          SignOutIconButton(
+            onPressed: () => ref.read(authRepositoryProvider).signOut(),
+          ),
+        ],
       ),
       body: AsyncValueBuilder(
         asyncValue: ref.watch(shoppingSheetsByUserFutureProvider),
