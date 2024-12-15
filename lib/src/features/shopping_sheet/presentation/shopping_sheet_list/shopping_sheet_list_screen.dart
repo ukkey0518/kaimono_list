@@ -36,9 +36,11 @@ class ShoppingSheetListScreen extends ConsumerWidget {
       final newShoppingSheetId = await ref
           .read(shoppingSheetListControllerProvider.notifier)
           .createShoppingSheet(title: newSheetTitle);
-      if (newShoppingSheetId == null) {
+      if (newShoppingSheetId == null || !context.mounted) {
         return;
       }
+
+      ShoppingSheetRoute(shoppingSheetId: newShoppingSheetId).go(context);
     }
 
     return Scaffold(

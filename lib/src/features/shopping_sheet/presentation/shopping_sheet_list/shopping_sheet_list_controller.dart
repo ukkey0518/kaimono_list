@@ -35,6 +35,7 @@ class ShoppingSheetListController extends _$ShoppingSheetListController {
       newShoppingSheetId = await shoppingSheetRepository.create(
         shoppingSheet: newShoppingSheet,
       );
+      ref.invalidate(shoppingSheetsByUserFutureProvider);
     });
     return newShoppingSheetId;
   }
