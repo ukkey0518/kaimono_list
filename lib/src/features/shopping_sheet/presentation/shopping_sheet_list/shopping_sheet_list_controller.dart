@@ -9,6 +9,7 @@ part 'shopping_sheet_list_controller.g.dart';
   dependencies: [
     currentUserStream,
     shoppingSheetRepository,
+    shoppingSheetsByUserFuture,
   ],
 )
 class ShoppingSheetListController extends _$ShoppingSheetListController {

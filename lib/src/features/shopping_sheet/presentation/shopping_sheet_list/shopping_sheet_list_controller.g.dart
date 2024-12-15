@@ -7,7 +7,7 @@ part of 'shopping_sheet_list_controller.dart';
 // **************************************************************************
 
 String _$shoppingSheetListControllerHash() =>
-    r'b97bf4d1a345c0f95640051a2afacb6b21ba5f26';
+    r'c551ad7375abf2d877b6f13171fc3bc365da9449';
 
 /// See also [ShoppingSheetListController].
 @ProviderFor(ShoppingSheetListController)
@@ -20,13 +20,16 @@ final shoppingSheetListControllerProvider = AutoDisposeAsyncNotifierProvider<
       : _$shoppingSheetListControllerHash,
   dependencies: <ProviderOrFamily>[
     currentUserStreamProvider,
-    shoppingSheetRepositoryProvider
+    shoppingSheetRepositoryProvider,
+    shoppingSheetsByUserFutureProvider
   ],
   allTransitiveDependencies: <ProviderOrFamily>{
     currentUserStreamProvider,
     ...?currentUserStreamProvider.allTransitiveDependencies,
     shoppingSheetRepositoryProvider,
-    ...?shoppingSheetRepositoryProvider.allTransitiveDependencies
+    ...?shoppingSheetRepositoryProvider.allTransitiveDependencies,
+    shoppingSheetsByUserFutureProvider,
+    ...?shoppingSheetsByUserFutureProvider.allTransitiveDependencies
   },
 );
 
