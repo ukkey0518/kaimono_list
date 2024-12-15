@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kaimono_list/src/utils/json.dart';
 
-extension ModelDocumentSnapshotEx on DocumentSnapshot<Map<String, dynamic>> {
+extension ModelDocumentSnapshotEx on DocumentSnapshot<Json> {
   /// Convert the document snapshot to a model data.
-  Map<String, dynamic>? toModelData() {
+  Json? toModelJson() {
     final data = this.data();
     if (data == null) {
       return null;
@@ -11,23 +12,5 @@ extension ModelDocumentSnapshotEx on DocumentSnapshot<Map<String, dynamic>> {
       'id': id,
       ...data,
     };
-  }
-}
-
-extension ModelMapEx on Map<String, dynamic> {
-  /// Convert the model data to a document data.
-  Map<String, dynamic> toCreateData() {
-    return {
-      ...this,
-    }
-      ..['createdAt'] = FieldValue.serverTimestamp()
-      ..['updatedAt'] = FieldValue.serverTimestamp();
-  }
-
-  /// Convert the model data to a document data.
-  Map<String, dynamic> toUpdateData() {
-    return {
-      ...this,
-    }..['updatedAt'] = FieldValue.serverTimestamp();
   }
 }
