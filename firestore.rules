@@ -22,19 +22,33 @@ service cloud.firestore {
     }
     
     match /shopping_sheets/{shoppingSheetId} {
-      // * Check if the user is the owner of the shopping sheet
-      function isLoggedInAsShoppingSheetOwner() {
-        return isLoggedInAs(resource.data.ownerUserId);
+      // * Check if the user is the owner of the shopping sheet      
+      function isShoppingSheetOwner() {
+        return isLoggedInAs(get(/databases/$(database)/documents/shopping_sheets/$(shoppingSheetId)).data.ownerUserId);
       }
 
       // * Check if the user is a member of the shopping sheet
-      function isLoggedInAsShoppingSheetMember() {
+      function isShoppingSheetMember() {
+        return isAnyLoggedInAs(get(/databases/$(database)/documents/shopping_sheets/$(shoppingSheetId)).data.memberUserIds);
+      }
+
+      // * Check if the user is the owner of the shopping sheet from the resource
+      function isShoppingSheetOwnerFromResource() {
+        return isLoggedInAs(resource.data.ownerUserId);
+      }
+
+      // * Check if the user is a member of the shopping sheet from the resource
+      function isShoppingSheetMemberFromResource() {
         return isAnyLoggedInAs(resource.data.memberUserIds);
       }
 
       allow create: if isAuthenticated();
-      allow read, update: if isLoggedInAsShoppingSheetOwner() || isLoggedInAsShoppingSheetMember();
-      allow delete: if isLoggedInAsShoppingSheetOwner();
+      allow read, update: if isShoppingSheetOwnerFromResource() || isShoppingSheetMemberFromResource();
+      allow delete: if isShoppingSheetOwnerFromResource();
+
+      match /shopping_items/{shoppingItemId} {
+        allow read, write: if isShoppingSheetOwner() || isShoppingSheetMember();
+      }
     }
 
     match /items/{itemId} {

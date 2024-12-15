@@ -43,22 +43,18 @@ RouteBase get $homeRoute => GoRouteData.$route(
       factory: $HomeRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
-          path: 'shopping-list/:shoppingListId',
-          factory: $ShoppingListRouteExtension._fromState,
+          path: 'shopping-list/:shoppingSheetId',
+          factory: $ShoppingSheetRouteExtension._fromState,
           routes: [
             GoRouteData.$route(
               path: 'edit',
-              factory: $ShoppingListEditRouteExtension._fromState,
+              factory: $ShoppingSheetEditRouteExtension._fromState,
             ),
             GoRouteData.$route(
               path: 'reorder',
               factory: $ShoppingItemsReorderModalRouteExtension._fromState,
             ),
           ],
-        ),
-        GoRouteData.$route(
-          path: 'shopping-list-add',
-          factory: $ShoppingListAddRouteExtension._fromState,
         ),
       ],
     );
@@ -80,13 +76,14 @@ extension $HomeRouteExtension on HomeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ShoppingListRouteExtension on ShoppingListRoute {
-  static ShoppingListRoute _fromState(GoRouterState state) => ShoppingListRoute(
-        shoppingListId: state.pathParameters['shoppingListId']!,
+extension $ShoppingSheetRouteExtension on ShoppingSheetRoute {
+  static ShoppingSheetRoute _fromState(GoRouterState state) =>
+      ShoppingSheetRoute(
+        shoppingSheetId: state.pathParameters['shoppingSheetId']!,
       );
 
   String get location => GoRouteData.$location(
-        '/shopping-list/${Uri.encodeComponent(shoppingListId)}',
+        '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -99,14 +96,14 @@ extension $ShoppingListRouteExtension on ShoppingListRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ShoppingListEditRouteExtension on ShoppingListEditRoute {
-  static ShoppingListEditRoute _fromState(GoRouterState state) =>
-      ShoppingListEditRoute(
-        shoppingListId: state.pathParameters['shoppingListId']!,
+extension $ShoppingSheetEditRouteExtension on ShoppingSheetEditRoute {
+  static ShoppingSheetEditRoute _fromState(GoRouterState state) =>
+      ShoppingSheetEditRoute(
+        shoppingSheetId: state.pathParameters['shoppingSheetId']!,
       );
 
   String get location => GoRouteData.$location(
-        '/shopping-list/${Uri.encodeComponent(shoppingListId)}/edit',
+        '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}/edit',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -123,29 +120,11 @@ extension $ShoppingItemsReorderModalRouteExtension
     on ShoppingItemsReorderModalRoute {
   static ShoppingItemsReorderModalRoute _fromState(GoRouterState state) =>
       ShoppingItemsReorderModalRoute(
-        shoppingListId: state.pathParameters['shoppingListId']!,
+        shoppingSheetId: state.pathParameters['shoppingSheetId']!,
       );
 
   String get location => GoRouteData.$location(
-        '/shopping-list/${Uri.encodeComponent(shoppingListId)}/reorder',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $ShoppingListAddRouteExtension on ShoppingListAddRoute {
-  static ShoppingListAddRoute _fromState(GoRouterState state) =>
-      const ShoppingListAddRoute();
-
-  String get location => GoRouteData.$location(
-        '/shopping-list-add',
+        '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}/reorder',
       );
 
   void go(BuildContext context) => context.go(location);

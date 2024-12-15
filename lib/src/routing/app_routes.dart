@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
-import 'package:kaimono_list/src/features/home/presentation/home_screen.dart';
-import 'package:kaimono_list/src/features/shopping_list/data/shopping_list_repository.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/reorder_shopping_items/reorder_shopping_items_screen.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_items_list/shopping_items_list_screen.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_add/shopping_list_add_screen.dart';
-import 'package:kaimono_list/src/features/shopping_list/presentation/shopping_list_form/shopping_list_edit/shopping_list_edit_screen.dart';
+import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_sheet_repository.dart';
+import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet/reorder_shopping_items_screen.dart';
+import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet/shopping_items_list_screen.dart';
+import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet_edit/shopping_sheet_edit_screen.dart';
+import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet_list/shopping_sheet_list_screen.dart';
 import 'package:kaimono_list/src/routing/app_router_ref_scope.dart';
 import 'package:kaimono_list/src/routing/build_fade_transition_page.dart';
 import 'package:kaimono_list/src/routing/initial_location_controller.dart';
@@ -55,19 +54,16 @@ class SignInRoute extends GoRouteData {
 @TypedGoRoute<HomeRoute>(
   path: '/',
   routes: [
-    TypedGoRoute<ShoppingListRoute>(
-      path: 'shopping-list/:shoppingListId',
+    TypedGoRoute<ShoppingSheetRoute>(
+      path: 'shopping-list/:shoppingSheetId',
       routes: [
-        TypedGoRoute<ShoppingListEditRoute>(
+        TypedGoRoute<ShoppingSheetEditRoute>(
           path: 'edit',
         ),
         TypedGoRoute<ShoppingItemsReorderModalRoute>(
           path: 'reorder',
         ),
       ],
-    ),
-    TypedGoRoute<ShoppingListAddRoute>(
-      path: 'shopping-list-add',
     ),
   ],
 )
@@ -76,16 +72,16 @@ class HomeRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const HomeScreen();
+    return const ShoppingSheetListScreen();
   }
 }
 
-class ShoppingListRoute extends GoRouteData {
-  const ShoppingListRoute({
-    required this.shoppingListId,
+class ShoppingSheetRoute extends GoRouteData {
+  const ShoppingSheetRoute({
+    required this.shoppingSheetId,
   });
 
-  final String shoppingListId;
+  final String shoppingSheetId;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
@@ -97,54 +93,45 @@ class ShoppingListRoute extends GoRouteData {
           .setInitialLocation(location),
     );
 
-    return ShoppingItemsListScreen(shoppingListId: shoppingListId);
+    return ShoppingItemsListScreen(shoppingSheetId: shoppingSheetId);
   }
 
   /// Redirects the user based on their access permissions to a shopping list.
   ///
   /// This method checks if the user has access to a specific shopping list by
-  /// querying the `shoppingListRepositoryProvider`. If the user has access,
+  /// querying the `shoppingSheetRepositoryProvider`. If the user has access,
   /// the method returns `null`, allowing the user to proceed. If the user does
   /// not have access, the method returns the location of the `HomeRoute`.
   @override
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
     final canAccess = await AppRouterRefScope.refOf(context)
-        .read(shoppingListRepositoryProvider)
-        .canAccess(shoppingListId);
+        .read(shoppingSheetRepositoryProvider)
+        .canAccess(shoppingSheetId);
     return canAccess ? null : const HomeRoute().location;
   }
 }
 
-class ShoppingListEditRoute extends GoRouteData {
-  const ShoppingListEditRoute({
-    required this.shoppingListId,
+class ShoppingSheetEditRoute extends GoRouteData {
+  const ShoppingSheetEditRoute({
+    required this.shoppingSheetId,
   });
 
-  final String shoppingListId;
+  final String shoppingSheetId;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ShoppingListEditScreen(
-      shoppingListId: shoppingListId,
+    return ShoppingSheetEditScreen(
+      shoppingSheetId: shoppingSheetId,
     );
-  }
-}
-
-class ShoppingListAddRoute extends GoRouteData {
-  const ShoppingListAddRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const ShoppingListAddScreen();
   }
 }
 
 class ShoppingItemsReorderModalRoute extends GoRouteData {
   const ShoppingItemsReorderModalRoute({
-    required this.shoppingListId,
+    required this.shoppingSheetId,
   });
 
-  final String shoppingListId;
+  final String shoppingSheetId;
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -153,7 +140,7 @@ class ShoppingItemsReorderModalRoute extends GoRouteData {
       state: state,
       fullscreenDialog: true,
       child: ReorderShoppingItemsScreen(
-        shoppingListId: shoppingListId,
+        shoppingSheetId: shoppingSheetId,
       ),
     );
   }
