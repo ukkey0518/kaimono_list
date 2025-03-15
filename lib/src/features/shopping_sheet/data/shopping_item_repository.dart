@@ -162,16 +162,12 @@ class ShoppingItemRepository {
   }
 }
 
-@Riverpod(dependencies: [])
+@riverpod
 ShoppingItemRepository shoppingItemRepository(Ref ref) {
   return ShoppingItemRepository(FirebaseFirestore.instance);
 }
 
-@Riverpod(
-  dependencies: [
-    shoppingItemRepository,
-  ],
-)
+@riverpod
 Stream<List<ShoppingItem>> shoppingItemsStream(
   Ref ref,
   String shoppingSheetId,
@@ -180,11 +176,7 @@ Stream<List<ShoppingItem>> shoppingItemsStream(
   return repository.watchList(shoppingSheetId: shoppingSheetId);
 }
 
-@Riverpod(
-  dependencies: [
-    shoppingItemRepository,
-  ],
-)
+@riverpod
 Future<List<ShoppingItem>> shoppingItemsFuture(
   Ref ref,
   String shoppingSheetId,
@@ -193,11 +185,7 @@ Future<List<ShoppingItem>> shoppingItemsFuture(
   return repository.fetchList(shoppingSheetId: shoppingSheetId);
 }
 
-@Riverpod(
-  dependencies: [
-    shoppingItemRepository,
-  ],
-)
+@riverpod
 Stream<bool> isAnyCompletedShoppingItemExistsStream(
   Ref ref,
   String shoppingSheetId,

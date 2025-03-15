@@ -7,22 +7,22 @@ part of 'reorder_shopping_items_controller.dart';
 // **************************************************************************
 
 String _$reorderShoppingItemsControllerHash() =>
-    r'ba65ecf0bdebe0c613211d3dc254db8d1895e70d';
+    r'9c80aa3a361e80a56d5463882ab8d3ba52adba43';
 
 /// See also [ReorderShoppingItemsController].
 @ProviderFor(ReorderShoppingItemsController)
 final reorderShoppingItemsControllerProvider = AutoDisposeAsyncNotifierProvider<
-    ReorderShoppingItemsController, void>.internal(
+  ReorderShoppingItemsController,
+  void
+>.internal(
   ReorderShoppingItemsController.new,
   name: r'reorderShoppingItemsControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$reorderShoppingItemsControllerHash,
-  dependencies: <ProviderOrFamily>[shoppingItemRepositoryProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    shoppingItemRepositoryProvider,
-    ...?shoppingItemRepositoryProvider.allTransitiveDependencies
-  },
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$reorderShoppingItemsControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 typedef _$ReorderShoppingItemsController = AutoDisposeAsyncNotifier<void>;

@@ -7,22 +7,22 @@ part of 'email_password_sign_in_controller.dart';
 // **************************************************************************
 
 String _$emailPasswordSignInControllerHash() =>
-    r'7e8d75c3c52480e4d19206064ef8ab96bde9d4bd';
+    r'a9873034cbf3cc753e8fd167af310dae7b851d50';
 
 /// See also [EmailPasswordSignInController].
 @ProviderFor(EmailPasswordSignInController)
 final emailPasswordSignInControllerProvider = AutoDisposeAsyncNotifierProvider<
-    EmailPasswordSignInController, void>.internal(
+  EmailPasswordSignInController,
+  void
+>.internal(
   EmailPasswordSignInController.new,
   name: r'emailPasswordSignInControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$emailPasswordSignInControllerHash,
-  dependencies: <ProviderOrFamily>[authRepositoryProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    authRepositoryProvider,
-    ...?authRepositoryProvider.allTransitiveDependencies
-  },
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$emailPasswordSignInControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 typedef _$EmailPasswordSignInController = AutoDisposeAsyncNotifier<void>;

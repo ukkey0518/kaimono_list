@@ -7,27 +7,28 @@ part of 'shopping_item_repository.dart';
 // **************************************************************************
 
 String _$shoppingItemRepositoryHash() =>
-    r'78d6b2d570bccab49373699c70c29a559c1cfbe9';
+    r'1b0c6f398642f873104d2390454fcc5483a5e333';
 
 /// See also [shoppingItemRepository].
 @ProviderFor(shoppingItemRepository)
 final shoppingItemRepositoryProvider =
     AutoDisposeProvider<ShoppingItemRepository>.internal(
-  shoppingItemRepository,
-  name: r'shoppingItemRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$shoppingItemRepositoryHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
-);
+      shoppingItemRepository,
+      name: r'shoppingItemRepositoryProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$shoppingItemRepositoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef ShoppingItemRepositoryRef
-    = AutoDisposeProviderRef<ShoppingItemRepository>;
+typedef ShoppingItemRepositoryRef =
+    AutoDisposeProviderRef<ShoppingItemRepository>;
 String _$shoppingItemsStreamHash() =>
-    r'ccb6a5acca35aee81290c0b1be550e36fa5f221c';
+    r'63ff5c2478e1f03e3829a91ca3cbb0414b06b549';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -60,35 +61,23 @@ class ShoppingItemsStreamFamily extends Family<AsyncValue<List<ShoppingItem>>> {
   const ShoppingItemsStreamFamily();
 
   /// See also [shoppingItemsStream].
-  ShoppingItemsStreamProvider call(
-    String shoppingSheetId,
-  ) {
-    return ShoppingItemsStreamProvider(
-      shoppingSheetId,
-    );
+  ShoppingItemsStreamProvider call(String shoppingSheetId) {
+    return ShoppingItemsStreamProvider(shoppingSheetId);
   }
 
   @override
   ShoppingItemsStreamProvider getProviderOverride(
     covariant ShoppingItemsStreamProvider provider,
   ) {
-    return call(
-      provider.shoppingSheetId,
-    );
+    return call(provider.shoppingSheetId);
   }
 
-  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[
-    shoppingItemRepositoryProvider
-  ];
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get dependencies => _dependencies;
 
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      <ProviderOrFamily>{
-    shoppingItemRepositoryProvider,
-    ...?shoppingItemRepositoryProvider.allTransitiveDependencies
-  };
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
@@ -102,24 +91,21 @@ class ShoppingItemsStreamFamily extends Family<AsyncValue<List<ShoppingItem>>> {
 class ShoppingItemsStreamProvider
     extends AutoDisposeStreamProvider<List<ShoppingItem>> {
   /// See also [shoppingItemsStream].
-  ShoppingItemsStreamProvider(
-    String shoppingSheetId,
-  ) : this._internal(
-          (ref) => shoppingItemsStream(
-            ref as ShoppingItemsStreamRef,
-            shoppingSheetId,
-          ),
-          from: shoppingItemsStreamProvider,
-          name: r'shoppingItemsStreamProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$shoppingItemsStreamHash,
-          dependencies: ShoppingItemsStreamFamily._dependencies,
-          allTransitiveDependencies:
-              ShoppingItemsStreamFamily._allTransitiveDependencies,
-          shoppingSheetId: shoppingSheetId,
-        );
+  ShoppingItemsStreamProvider(String shoppingSheetId)
+    : this._internal(
+        (ref) =>
+            shoppingItemsStream(ref as ShoppingItemsStreamRef, shoppingSheetId),
+        from: shoppingItemsStreamProvider,
+        name: r'shoppingItemsStreamProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$shoppingItemsStreamHash,
+        dependencies: ShoppingItemsStreamFamily._dependencies,
+        allTransitiveDependencies:
+            ShoppingItemsStreamFamily._allTransitiveDependencies,
+        shoppingSheetId: shoppingSheetId,
+      );
 
   ShoppingItemsStreamProvider._internal(
     super._createNotifier, {
@@ -190,7 +176,7 @@ class _ShoppingItemsStreamProviderElement
 }
 
 String _$shoppingItemsFutureHash() =>
-    r'949738c265773ddbb780493c4e6eacbf9a114635';
+    r'5b67b53ffc827b1ed1434c2555b8fdf6a5e64c72';
 
 /// See also [shoppingItemsFuture].
 @ProviderFor(shoppingItemsFuture)
@@ -202,35 +188,23 @@ class ShoppingItemsFutureFamily extends Family<AsyncValue<List<ShoppingItem>>> {
   const ShoppingItemsFutureFamily();
 
   /// See also [shoppingItemsFuture].
-  ShoppingItemsFutureProvider call(
-    String shoppingSheetId,
-  ) {
-    return ShoppingItemsFutureProvider(
-      shoppingSheetId,
-    );
+  ShoppingItemsFutureProvider call(String shoppingSheetId) {
+    return ShoppingItemsFutureProvider(shoppingSheetId);
   }
 
   @override
   ShoppingItemsFutureProvider getProviderOverride(
     covariant ShoppingItemsFutureProvider provider,
   ) {
-    return call(
-      provider.shoppingSheetId,
-    );
+    return call(provider.shoppingSheetId);
   }
 
-  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[
-    shoppingItemRepositoryProvider
-  ];
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get dependencies => _dependencies;
 
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      <ProviderOrFamily>{
-    shoppingItemRepositoryProvider,
-    ...?shoppingItemRepositoryProvider.allTransitiveDependencies
-  };
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
@@ -244,24 +218,21 @@ class ShoppingItemsFutureFamily extends Family<AsyncValue<List<ShoppingItem>>> {
 class ShoppingItemsFutureProvider
     extends AutoDisposeFutureProvider<List<ShoppingItem>> {
   /// See also [shoppingItemsFuture].
-  ShoppingItemsFutureProvider(
-    String shoppingSheetId,
-  ) : this._internal(
-          (ref) => shoppingItemsFuture(
-            ref as ShoppingItemsFutureRef,
-            shoppingSheetId,
-          ),
-          from: shoppingItemsFutureProvider,
-          name: r'shoppingItemsFutureProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$shoppingItemsFutureHash,
-          dependencies: ShoppingItemsFutureFamily._dependencies,
-          allTransitiveDependencies:
-              ShoppingItemsFutureFamily._allTransitiveDependencies,
-          shoppingSheetId: shoppingSheetId,
-        );
+  ShoppingItemsFutureProvider(String shoppingSheetId)
+    : this._internal(
+        (ref) =>
+            shoppingItemsFuture(ref as ShoppingItemsFutureRef, shoppingSheetId),
+        from: shoppingItemsFutureProvider,
+        name: r'shoppingItemsFutureProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$shoppingItemsFutureHash,
+        dependencies: ShoppingItemsFutureFamily._dependencies,
+        allTransitiveDependencies:
+            ShoppingItemsFutureFamily._allTransitiveDependencies,
+        shoppingSheetId: shoppingSheetId,
+      );
 
   ShoppingItemsFutureProvider._internal(
     super._createNotifier, {
@@ -278,7 +249,7 @@ class ShoppingItemsFutureProvider
   @override
   Override overrideWith(
     FutureOr<List<ShoppingItem>> Function(ShoppingItemsFutureRef provider)
-        create,
+    create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -333,7 +304,7 @@ class _ShoppingItemsFutureProviderElement
 }
 
 String _$isAnyCompletedShoppingItemExistsStreamHash() =>
-    r'ca2b4d9fef54e5495e60ec1d09c45399f22d8a58';
+    r'a611e06b83a29f19f925e66e30780ff173286bf2';
 
 /// See also [isAnyCompletedShoppingItemExistsStream].
 @ProviderFor(isAnyCompletedShoppingItemExistsStream)
@@ -347,35 +318,23 @@ class IsAnyCompletedShoppingItemExistsStreamFamily
   const IsAnyCompletedShoppingItemExistsStreamFamily();
 
   /// See also [isAnyCompletedShoppingItemExistsStream].
-  IsAnyCompletedShoppingItemExistsStreamProvider call(
-    String shoppingSheetId,
-  ) {
-    return IsAnyCompletedShoppingItemExistsStreamProvider(
-      shoppingSheetId,
-    );
+  IsAnyCompletedShoppingItemExistsStreamProvider call(String shoppingSheetId) {
+    return IsAnyCompletedShoppingItemExistsStreamProvider(shoppingSheetId);
   }
 
   @override
   IsAnyCompletedShoppingItemExistsStreamProvider getProviderOverride(
     covariant IsAnyCompletedShoppingItemExistsStreamProvider provider,
   ) {
-    return call(
-      provider.shoppingSheetId,
-    );
+    return call(provider.shoppingSheetId);
   }
 
-  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[
-    shoppingItemRepositoryProvider
-  ];
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get dependencies => _dependencies;
 
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      <ProviderOrFamily>{
-    shoppingItemRepositoryProvider,
-    ...?shoppingItemRepositoryProvider.allTransitiveDependencies
-  };
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
@@ -389,26 +348,25 @@ class IsAnyCompletedShoppingItemExistsStreamFamily
 class IsAnyCompletedShoppingItemExistsStreamProvider
     extends AutoDisposeStreamProvider<bool> {
   /// See also [isAnyCompletedShoppingItemExistsStream].
-  IsAnyCompletedShoppingItemExistsStreamProvider(
-    String shoppingSheetId,
-  ) : this._internal(
-          (ref) => isAnyCompletedShoppingItemExistsStream(
-            ref as IsAnyCompletedShoppingItemExistsStreamRef,
-            shoppingSheetId,
-          ),
-          from: isAnyCompletedShoppingItemExistsStreamProvider,
-          name: r'isAnyCompletedShoppingItemExistsStreamProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$isAnyCompletedShoppingItemExistsStreamHash,
-          dependencies:
-              IsAnyCompletedShoppingItemExistsStreamFamily._dependencies,
-          allTransitiveDependencies:
-              IsAnyCompletedShoppingItemExistsStreamFamily
-                  ._allTransitiveDependencies,
-          shoppingSheetId: shoppingSheetId,
-        );
+  IsAnyCompletedShoppingItemExistsStreamProvider(String shoppingSheetId)
+    : this._internal(
+        (ref) => isAnyCompletedShoppingItemExistsStream(
+          ref as IsAnyCompletedShoppingItemExistsStreamRef,
+          shoppingSheetId,
+        ),
+        from: isAnyCompletedShoppingItemExistsStreamProvider,
+        name: r'isAnyCompletedShoppingItemExistsStreamProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$isAnyCompletedShoppingItemExistsStreamHash,
+        dependencies:
+            IsAnyCompletedShoppingItemExistsStreamFamily._dependencies,
+        allTransitiveDependencies:
+            IsAnyCompletedShoppingItemExistsStreamFamily
+                ._allTransitiveDependencies,
+        shoppingSheetId: shoppingSheetId,
+      );
 
   IsAnyCompletedShoppingItemExistsStreamProvider._internal(
     super._createNotifier, {
@@ -425,7 +383,7 @@ class IsAnyCompletedShoppingItemExistsStreamProvider
   @override
   Override overrideWith(
     Stream<bool> Function(IsAnyCompletedShoppingItemExistsStreamRef provider)
-        create,
+    create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -479,5 +437,6 @@ class _IsAnyCompletedShoppingItemExistsStreamProviderElement
       (origin as IsAnyCompletedShoppingItemExistsStreamProvider)
           .shoppingSheetId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

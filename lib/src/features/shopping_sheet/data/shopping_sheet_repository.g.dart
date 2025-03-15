@@ -7,55 +7,49 @@ part of 'shopping_sheet_repository.dart';
 // **************************************************************************
 
 String _$shoppingSheetRepositoryHash() =>
-    r'5ae7439d270a1e075983ebfb9fdada9a3cd888ce';
+    r'0bc0b777cc3b1b55ed691371e751aecbce71df86';
 
 /// See also [shoppingSheetRepository].
 @ProviderFor(shoppingSheetRepository)
 final shoppingSheetRepositoryProvider =
     AutoDisposeProvider<ShoppingSheetRepository>.internal(
-  shoppingSheetRepository,
-  name: r'shoppingSheetRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$shoppingSheetRepositoryHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
-);
+      shoppingSheetRepository,
+      name: r'shoppingSheetRepositoryProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$shoppingSheetRepositoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef ShoppingSheetRepositoryRef
-    = AutoDisposeProviderRef<ShoppingSheetRepository>;
+typedef ShoppingSheetRepositoryRef =
+    AutoDisposeProviderRef<ShoppingSheetRepository>;
 String _$shoppingSheetsByUserFutureHash() =>
-    r'8847bba3b855f316f7f8aba4b15a243871dd7cdd';
+    r'2f6128ae47e3213ba5bae8c529e368b3994a4507';
 
 /// See also [shoppingSheetsByUserFuture].
 @ProviderFor(shoppingSheetsByUserFuture)
 final shoppingSheetsByUserFutureProvider =
     AutoDisposeFutureProvider<List<ShoppingSheet>>.internal(
-  shoppingSheetsByUserFuture,
-  name: r'shoppingSheetsByUserFutureProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$shoppingSheetsByUserFutureHash,
-  dependencies: <ProviderOrFamily>[
-    currentUserStreamProvider,
-    shoppingSheetRepositoryProvider
-  ],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    currentUserStreamProvider,
-    ...?currentUserStreamProvider.allTransitiveDependencies,
-    shoppingSheetRepositoryProvider,
-    ...?shoppingSheetRepositoryProvider.allTransitiveDependencies
-  },
-);
+      shoppingSheetsByUserFuture,
+      name: r'shoppingSheetsByUserFutureProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$shoppingSheetsByUserFutureHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef ShoppingSheetsByUserFutureRef
-    = AutoDisposeFutureProviderRef<List<ShoppingSheet>>;
+typedef ShoppingSheetsByUserFutureRef =
+    AutoDisposeFutureProviderRef<List<ShoppingSheet>>;
 String _$shoppingSheetFutureHash() =>
-    r'd589dc551c3295cc1deacab1bbc29c97fa35c837';
+    r'51534673be4a021b4d022fbb0b5101e694c576c9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -88,35 +82,23 @@ class ShoppingSheetFutureFamily extends Family<AsyncValue<ShoppingSheet?>> {
   const ShoppingSheetFutureFamily();
 
   /// See also [shoppingSheetFuture].
-  ShoppingSheetFutureProvider call(
-    String shoppingSheetId,
-  ) {
-    return ShoppingSheetFutureProvider(
-      shoppingSheetId,
-    );
+  ShoppingSheetFutureProvider call(String shoppingSheetId) {
+    return ShoppingSheetFutureProvider(shoppingSheetId);
   }
 
   @override
   ShoppingSheetFutureProvider getProviderOverride(
     covariant ShoppingSheetFutureProvider provider,
   ) {
-    return call(
-      provider.shoppingSheetId,
-    );
+    return call(provider.shoppingSheetId);
   }
 
-  static final Iterable<ProviderOrFamily> _dependencies = <ProviderOrFamily>[
-    shoppingSheetRepositoryProvider
-  ];
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get dependencies => _dependencies;
 
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      <ProviderOrFamily>{
-    shoppingSheetRepositoryProvider,
-    ...?shoppingSheetRepositoryProvider.allTransitiveDependencies
-  };
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
 
   @override
   Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
@@ -130,24 +112,21 @@ class ShoppingSheetFutureFamily extends Family<AsyncValue<ShoppingSheet?>> {
 class ShoppingSheetFutureProvider
     extends AutoDisposeFutureProvider<ShoppingSheet?> {
   /// See also [shoppingSheetFuture].
-  ShoppingSheetFutureProvider(
-    String shoppingSheetId,
-  ) : this._internal(
-          (ref) => shoppingSheetFuture(
-            ref as ShoppingSheetFutureRef,
-            shoppingSheetId,
-          ),
-          from: shoppingSheetFutureProvider,
-          name: r'shoppingSheetFutureProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$shoppingSheetFutureHash,
-          dependencies: ShoppingSheetFutureFamily._dependencies,
-          allTransitiveDependencies:
-              ShoppingSheetFutureFamily._allTransitiveDependencies,
-          shoppingSheetId: shoppingSheetId,
-        );
+  ShoppingSheetFutureProvider(String shoppingSheetId)
+    : this._internal(
+        (ref) =>
+            shoppingSheetFuture(ref as ShoppingSheetFutureRef, shoppingSheetId),
+        from: shoppingSheetFutureProvider,
+        name: r'shoppingSheetFutureProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$shoppingSheetFutureHash,
+        dependencies: ShoppingSheetFutureFamily._dependencies,
+        allTransitiveDependencies:
+            ShoppingSheetFutureFamily._allTransitiveDependencies,
+        shoppingSheetId: shoppingSheetId,
+      );
 
   ShoppingSheetFutureProvider._internal(
     super._createNotifier, {
@@ -215,5 +194,6 @@ class _ShoppingSheetFutureProviderElement
   String get shoppingSheetId =>
       (origin as ShoppingSheetFutureProvider).shoppingSheetId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -13,17 +13,18 @@ String _$initialLocationControllerHash() =>
 @ProviderFor(InitialLocationController)
 final initialLocationControllerProvider =
     AutoDisposeNotifierProvider<InitialLocationController, String>.internal(
-  InitialLocationController.new,
-  name: r'initialLocationControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$initialLocationControllerHash,
-  dependencies: <ProviderOrFamily>[sharedPrefProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    sharedPrefProvider,
-    ...?sharedPrefProvider.allTransitiveDependencies
-  },
-);
+      InitialLocationController.new,
+      name: r'initialLocationControllerProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$initialLocationControllerHash,
+      dependencies: <ProviderOrFamily>[sharedPrefProvider],
+      allTransitiveDependencies: <ProviderOrFamily>{
+        sharedPrefProvider,
+        ...?sharedPrefProvider.allTransitiveDependencies,
+      },
+    );
 
 typedef _$InitialLocationController = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint

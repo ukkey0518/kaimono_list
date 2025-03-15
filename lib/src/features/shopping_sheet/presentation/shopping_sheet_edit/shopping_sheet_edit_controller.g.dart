@@ -7,33 +7,22 @@ part of 'shopping_sheet_edit_controller.dart';
 // **************************************************************************
 
 String _$shoppingSheetEditControllerHash() =>
-    r'537d1962a4eeaa0299683b77e1bfe4bd99b80d08';
+    r'eb4e715badf9619a546cc57b59c41dd0668f29b0';
 
 /// See also [ShoppingSheetEditController].
 @ProviderFor(ShoppingSheetEditController)
 final shoppingSheetEditControllerProvider = AutoDisposeAsyncNotifierProvider<
-    ShoppingSheetEditController, void>.internal(
+  ShoppingSheetEditController,
+  void
+>.internal(
   ShoppingSheetEditController.new,
   name: r'shoppingSheetEditControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$shoppingSheetEditControllerHash,
-  dependencies: <ProviderOrFamily>{
-    shoppingSheetRepositoryProvider,
-    shoppingItemRepositoryProvider,
-    shoppingSheetFutureProvider,
-    shoppingSheetsByUserFutureProvider
-  },
-  allTransitiveDependencies: <ProviderOrFamily>{
-    shoppingSheetRepositoryProvider,
-    ...?shoppingSheetRepositoryProvider.allTransitiveDependencies,
-    shoppingItemRepositoryProvider,
-    ...?shoppingItemRepositoryProvider.allTransitiveDependencies,
-    shoppingSheetFutureProvider,
-    ...?shoppingSheetFutureProvider.allTransitiveDependencies,
-    shoppingSheetsByUserFutureProvider,
-    ...?shoppingSheetsByUserFutureProvider.allTransitiveDependencies
-  },
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$shoppingSheetEditControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 typedef _$ShoppingSheetEditController = AutoDisposeAsyncNotifier<void>;

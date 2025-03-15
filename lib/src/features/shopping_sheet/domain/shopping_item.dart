@@ -5,7 +5,7 @@ part 'shopping_item.freezed.dart';
 part 'shopping_item.g.dart';
 
 @freezed
-class ShoppingItem with _$ShoppingItem {
+abstract class ShoppingItem with _$ShoppingItem {
   @firestoreModel
   const factory ShoppingItem({
     /// The name of the shopping item.
@@ -37,7 +37,7 @@ class ShoppingItem with _$ShoppingItem {
 }
 
 @freezed
-class ShoppingItemCreateUser with _$ShoppingItemCreateUser {
+abstract class ShoppingItemCreateUser with _$ShoppingItemCreateUser {
   @firestoreModel
   const factory ShoppingItemCreateUser({
     /// The ID of the user who created the shopping item.

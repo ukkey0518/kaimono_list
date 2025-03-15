@@ -6,23 +6,27 @@ part of 'shopping_item.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ShoppingItemImpl _$$ShoppingItemImplFromJson(Map<String, dynamic> json) =>
-    _$ShoppingItemImpl(
+_ShoppingItem _$ShoppingItemFromJson(Map<String, dynamic> json) =>
+    _ShoppingItem(
       name: json['name'] as String?,
-      createdBy: json['createdBy'] == null
-          ? const ShoppingItemCreateUser()
-          : ShoppingItemCreateUser.fromJson(
-              json['createdBy'] as Map<String, dynamic>),
+      createdBy:
+          json['createdBy'] == null
+              ? const ShoppingItemCreateUser()
+              : ShoppingItemCreateUser.fromJson(
+                json['createdBy'] as Map<String, dynamic>,
+              ),
       isCompleted: json['isCompleted'] as bool? ?? false,
       index: (json['index'] as num?)?.toInt(),
       id: json['id'] as String?,
       createdAt: FirestoreFieldConverter.nullableTimestampToDateTime(
-          json['createdAt']),
+        json['createdAt'],
+      ),
       updatedAt: FirestoreFieldConverter.nullableTimestampToDateTime(
-          json['updatedAt']),
+        json['updatedAt'],
+      ),
     );
 
-Map<String, dynamic> _$$ShoppingItemImplToJson(_$ShoppingItemImpl instance) =>
+Map<String, dynamic> _$ShoppingItemToJson(_ShoppingItem instance) =>
     <String, dynamic>{
       if (instance.name case final value?) 'name': value,
       'createdBy': instance.createdBy.toJson(),
@@ -36,16 +40,16 @@ Map<String, dynamic> _$$ShoppingItemImplToJson(_$ShoppingItemImpl instance) =>
         'updatedAt': value,
     };
 
-_$ShoppingItemCreateUserImpl _$$ShoppingItemCreateUserImplFromJson(
-        Map<String, dynamic> json) =>
-    _$ShoppingItemCreateUserImpl(
-      id: json['id'] as String?,
-      name: json['name'] as String?,
-    );
+_ShoppingItemCreateUser _$ShoppingItemCreateUserFromJson(
+  Map<String, dynamic> json,
+) => _ShoppingItemCreateUser(
+  id: json['id'] as String?,
+  name: json['name'] as String?,
+);
 
-Map<String, dynamic> _$$ShoppingItemCreateUserImplToJson(
-        _$ShoppingItemCreateUserImpl instance) =>
-    <String, dynamic>{
-      if (instance.id case final value?) 'id': value,
-      if (instance.name case final value?) 'name': value,
-    };
+Map<String, dynamic> _$ShoppingItemCreateUserToJson(
+  _ShoppingItemCreateUser instance,
+) => <String, dynamic>{
+  if (instance.id case final value?) 'id': value,
+  if (instance.name case final value?) 'name': value,
+};

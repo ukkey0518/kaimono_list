@@ -1,5 +1,3 @@
-// ignore_for_file: always_put_control_body_on_new_line
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/utils/app_logger.dart';
 import 'package:kaimono_list/src/utils/debug_log.dart';

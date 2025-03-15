@@ -3,11 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'reorder_shopping_items_controller.g.dart';
 
-@Riverpod(
-  dependencies: [
-    shoppingItemRepository,
-  ],
-)
+@riverpod
 class ReorderShoppingItemsController extends _$ReorderShoppingItemsController {
   @override
   FutureOr<void> build() async => null;

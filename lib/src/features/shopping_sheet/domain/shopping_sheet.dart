@@ -6,7 +6,7 @@ part 'shopping_sheet.g.dart';
 
 /// A class representing a shopping sheet.
 @freezed
-class ShoppingSheet with _$ShoppingSheet {
+abstract class ShoppingSheet with _$ShoppingSheet {
   @firestoreModel
   const factory ShoppingSheet({
     /// The title of the shopping sheet.

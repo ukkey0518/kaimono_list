@@ -6,22 +6,25 @@ part of 'shopping_sheet.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ShoppingSheetImpl _$$ShoppingSheetImplFromJson(Map<String, dynamic> json) =>
-    _$ShoppingSheetImpl(
+_ShoppingSheet _$ShoppingSheetFromJson(Map<String, dynamic> json) =>
+    _ShoppingSheet(
       title: json['title'] as String?,
       ownerUserId: json['ownerUserId'] as String?,
-      memberUserIds: (json['memberUserIds'] as List<dynamic>?)
+      memberUserIds:
+          (json['memberUserIds'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
       id: json['id'] as String?,
       createdAt: FirestoreFieldConverter.nullableTimestampToDateTime(
-          json['createdAt']),
+        json['createdAt'],
+      ),
       updatedAt: FirestoreFieldConverter.nullableTimestampToDateTime(
-          json['updatedAt']),
+        json['updatedAt'],
+      ),
     );
 
-Map<String, dynamic> _$$ShoppingSheetImplToJson(_$ShoppingSheetImpl instance) =>
+Map<String, dynamic> _$ShoppingSheetToJson(_ShoppingSheet instance) =>
     <String, dynamic>{
       if (instance.title case final value?) 'title': value,
       if (instance.ownerUserId case final value?) 'ownerUserId': value,

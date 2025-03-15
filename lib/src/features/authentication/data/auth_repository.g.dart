@@ -6,24 +6,25 @@ part of 'auth_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authRepositoryHash() => r'8052236996976fa839cb458dcf05789ac61a0dcf';
+String _$authRepositoryHash() => r'fa5b8337b7daf1a6e6ab14268c91ea9089629ec0';
 
 /// See also [authRepository].
 @ProviderFor(authRepository)
 final authRepositoryProvider = Provider<AuthRepository>.internal(
   authRepository,
   name: r'authRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$authRepositoryHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$authRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AuthRepositoryRef = ProviderRef<AuthRepository>;
-String _$currentUserHash() => r'4f07d1c6a8aa7f6536294fd29a8e1ff18c162656';
+String _$currentUserHash() => r'ee509e796a44e76b35ba6f66177df41a979ba8db';
 
 /// See also [currentUser].
 @ProviderFor(currentUser)
@@ -32,31 +33,26 @@ final currentUserProvider = Provider<AppUser?>.internal(
   name: r'currentUserProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$currentUserHash,
-  dependencies: <ProviderOrFamily>[authRepositoryProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    authRepositoryProvider,
-    ...?authRepositoryProvider.allTransitiveDependencies
-  },
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef CurrentUserRef = ProviderRef<AppUser?>;
-String _$currentUserStreamHash() => r'8b40d62622e68e8c02c56384142c77063ae45be5';
+String _$currentUserStreamHash() => r'f381d022251e2d0b4cc08fe35766deafee8aa788';
 
 /// See also [currentUserStream].
 @ProviderFor(currentUserStream)
 final currentUserStreamProvider = StreamProvider<AppUser?>.internal(
   currentUserStream,
   name: r'currentUserStreamProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentUserStreamHash,
-  dependencies: <ProviderOrFamily>[authRepositoryProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    authRepositoryProvider,
-    ...?authRepositoryProvider.allTransitiveDependencies
-  },
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$currentUserStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')

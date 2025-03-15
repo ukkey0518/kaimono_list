@@ -27,10 +27,7 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   /// Signs out the current user.
@@ -53,36 +50,22 @@ class AuthRepository {
     if (user == null) {
       return null;
     }
-    return AppUser(
-      id: user.uid,
-      email: user.email!,
-      name: user.displayName,
-    );
+    return AppUser(id: user.uid, email: user.email!, name: user.displayName);
   }
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true)
 AuthRepository authRepository(Ref ref) {
   return AuthRepository(FirebaseAuth.instance);
 }
 
-@Riverpod(
-  keepAlive: true,
-  dependencies: [
-    authRepository,
-  ],
-)
+@Riverpod(keepAlive: true)
 AppUser? currentUser(Ref ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.currentUser;
 }
 
-@Riverpod(
-  keepAlive: true,
-  dependencies: [
-    authRepository,
-  ],
-)
+@Riverpod(keepAlive: true)
 Stream<AppUser?> currentUserStream(Ref ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.currentUserStream();

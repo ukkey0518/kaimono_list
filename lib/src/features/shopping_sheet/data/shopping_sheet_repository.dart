@@ -21,24 +21,24 @@ class ShoppingSheetRepository {
   }
 
   CollectionReference<ShoppingSheet> collectionRef() {
-    return _firestore.collection(collectionPath()).withConverter(
+    return _firestore
+        .collection(collectionPath())
+        .withConverter(
           fromFirestore: (ds, _) => ShoppingSheet.fromJson(ds.toModelJson()!),
           toFirestore: (shoppingSheet, _) => shoppingSheet.toJson(),
         );
   }
 
-  DocumentReference<ShoppingSheet> documentRef(
-    String shoppingSheetId,
-  ) {
-    return _firestore.doc(documentPath(shoppingSheetId)).withConverter(
+  DocumentReference<ShoppingSheet> documentRef(String shoppingSheetId) {
+    return _firestore
+        .doc(documentPath(shoppingSheetId))
+        .withConverter(
           fromFirestore: (ds, _) => ShoppingSheet.fromJson(ds.toModelJson()!),
           toFirestore: (shoppingSheet, _) => shoppingSheet.toJson(),
         );
   }
 
-  Future<List<ShoppingSheet>> fetchListByUser({
-    required String userId,
-  }) async {
+  Future<List<ShoppingSheet>> fetchListByUser({required String userId}) async {
     final query = collectionRef()
         .where(
           Filter.or(
@@ -53,16 +53,12 @@ class ShoppingSheetRepository {
     return qs.docs.map((ds) => ds.data()).toList();
   }
 
-  Future<ShoppingSheet?> fetchById({
-    required String shoppingSheetId,
-  }) async {
+  Future<ShoppingSheet?> fetchById({required String shoppingSheetId}) async {
     final doc = await documentRef(shoppingSheetId).get();
     return doc.data();
   }
 
-  Future<String> create({
-    required ShoppingSheet shoppingSheet,
-  }) async {
+  Future<String> create({required ShoppingSheet shoppingSheet}) async {
     final doc = await collectionRef().add(shoppingSheet);
     return doc.id;
   }
@@ -74,9 +70,7 @@ class ShoppingSheetRepository {
     await documentRef(shoppingSheetId).update({'title': title});
   }
 
-  Future<void> delete({
-    required String shoppingSheetId,
-  }) async {
+  Future<void> delete({required String shoppingSheetId}) async {
     await documentRef(shoppingSheetId).delete();
   }
 
@@ -84,23 +78,18 @@ class ShoppingSheetRepository {
     try {
       final ds = await documentRef(shoppingSheetId).get();
       return ds.exists;
-    } catch (e) {
+    } on Object catch (_) {
       return false;
     }
   }
 }
 
-@Riverpod(dependencies: [])
+@riverpod
 ShoppingSheetRepository shoppingSheetRepository(Ref ref) {
   return ShoppingSheetRepository(FirebaseFirestore.instance);
 }
 
-@Riverpod(
-  dependencies: [
-    currentUserStream,
-    shoppingSheetRepository,
-  ],
-)
+@riverpod
 Future<List<ShoppingSheet>> shoppingSheetsByUserFuture(Ref ref) async {
   final currentUser = await ref.watch(currentUserStreamProvider.future);
   if (currentUser == null) {
@@ -111,17 +100,11 @@ Future<List<ShoppingSheet>> shoppingSheetsByUserFuture(Ref ref) async {
   return shoppingSheetRepository.fetchListByUser(userId: currentUser.id);
 }
 
-@Riverpod(
-  dependencies: [
-    shoppingSheetRepository,
-  ],
-)
+@riverpod
 Future<ShoppingSheet?> shoppingSheetFuture(
   Ref ref,
   String shoppingSheetId,
 ) async {
   final repository = ref.watch(shoppingSheetRepositoryProvider);
-  return repository.fetchById(
-    shoppingSheetId: shoppingSheetId,
-  );
+  return repository.fetchById(shoppingSheetId: shoppingSheetId);
 }

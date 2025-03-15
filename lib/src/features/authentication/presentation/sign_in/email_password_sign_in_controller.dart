@@ -4,11 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'email_password_sign_in_controller.g.dart';
 
-@Riverpod(
-  dependencies: [
-    authRepository,
-  ],
-)
+@riverpod
 class EmailPasswordSignInController extends _$EmailPasswordSignInController {
   @override
   FutureOr<void> build() => null;
@@ -23,11 +19,7 @@ class EmailPasswordSignInController extends _$EmailPasswordSignInController {
     state = const AsyncLoading();
 
     state = await AsyncValue.guard(() async {
-      await _authenticate(
-        type,
-        email,
-        password,
-      );
+      await _authenticate(type, email, password);
     });
 
     return !state.hasError;

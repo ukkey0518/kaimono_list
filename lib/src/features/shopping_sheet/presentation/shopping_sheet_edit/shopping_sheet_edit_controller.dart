@@ -4,14 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shopping_sheet_edit_controller.g.dart';
 
-@Riverpod(
-  dependencies: [
-    shoppingSheetRepository,
-    shoppingItemRepository,
-    shoppingSheetFuture,
-    shoppingSheetsByUserFuture,
-  ],
-)
+@riverpod
 class ShoppingSheetEditController extends _$ShoppingSheetEditController {
   @override
   FutureOr<void> build() async => null;
@@ -22,19 +15,16 @@ class ShoppingSheetEditController extends _$ShoppingSheetEditController {
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(shoppingSheetRepositoryProvider).updateTitle(
-            shoppingSheetId: shoppingSheetId,
-            title: title,
-          );
+      await ref
+          .read(shoppingSheetRepositoryProvider)
+          .updateTitle(shoppingSheetId: shoppingSheetId, title: title);
       ref
         ..invalidate(shoppingSheetFutureProvider(shoppingSheetId))
         ..invalidate(shoppingSheetsByUserFutureProvider);
     });
   }
 
-  Future<void> deleteShoppingSheet(
-    String shoppingSheetId,
-  ) async {
+  Future<void> deleteShoppingSheet(String shoppingSheetId) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await ref

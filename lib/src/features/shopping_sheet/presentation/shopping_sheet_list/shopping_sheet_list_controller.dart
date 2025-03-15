@@ -5,20 +5,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shopping_sheet_list_controller.g.dart';
 
-@Riverpod(
-  dependencies: [
-    currentUserStream,
-    shoppingSheetRepository,
-    shoppingSheetsByUserFuture,
-  ],
-)
+@riverpod
 class ShoppingSheetListController extends _$ShoppingSheetListController {
   @override
   FutureOr<void> build() async => null;
 
-  Future<String?> createShoppingSheet({
-    required String title,
-  }) async {
+  Future<String?> createShoppingSheet({required String title}) async {
     String? newShoppingSheetId;
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {

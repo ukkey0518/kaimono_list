@@ -6,27 +6,22 @@ part of 'app_routes.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<RouteBase> get $appRoutes => [
-      $signInRoute,
-      $homeRoute,
-    ];
+List<RouteBase> get $appRoutes => [$signInRoute, $homeRoute];
 
 RouteBase get $signInRoute => GoRouteData.$route(
-      path: '/sign-in',
-      factory: $SignInRouteExtension._fromState,
-    );
+  path: '/sign-in',
+
+  factory: $SignInRouteExtension._fromState,
+);
 
 extension $SignInRouteExtension on SignInRoute {
-  static SignInRoute _fromState(GoRouterState state) => SignInRoute(
-        from: state.uri.queryParameters['from'],
-      );
+  static SignInRoute _fromState(GoRouterState state) =>
+      SignInRoute(from: state.uri.queryParameters['from']);
 
   String get location => GoRouteData.$location(
-        '/sign-in',
-        queryParams: {
-          if (from != null) 'from': from,
-        },
-      );
+    '/sign-in',
+    queryParams: {if (from != null) 'from': from},
+  );
 
   void go(BuildContext context) => context.go(location);
 
@@ -39,32 +34,34 @@ extension $SignInRouteExtension on SignInRoute {
 }
 
 RouteBase get $homeRoute => GoRouteData.$route(
-      path: '/',
-      factory: $HomeRouteExtension._fromState,
+  path: '/',
+
+  factory: $HomeRouteExtension._fromState,
+  routes: [
+    GoRouteData.$route(
+      path: 'shopping-list/:shoppingSheetId',
+
+      factory: $ShoppingSheetRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
-          path: 'shopping-list/:shoppingSheetId',
-          factory: $ShoppingSheetRouteExtension._fromState,
-          routes: [
-            GoRouteData.$route(
-              path: 'edit',
-              factory: $ShoppingSheetEditRouteExtension._fromState,
-            ),
-            GoRouteData.$route(
-              path: 'reorder',
-              factory: $ShoppingItemsReorderModalRouteExtension._fromState,
-            ),
-          ],
+          path: 'edit',
+
+          factory: $ShoppingSheetEditRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: 'reorder',
+
+          factory: $ShoppingItemsReorderModalRouteExtension._fromState,
         ),
       ],
-    );
+    ),
+  ],
+);
 
 extension $HomeRouteExtension on HomeRoute {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
-  String get location => GoRouteData.$location(
-        '/',
-      );
+  String get location => GoRouteData.$location('/');
 
   void go(BuildContext context) => context.go(location);
 
@@ -83,8 +80,8 @@ extension $ShoppingSheetRouteExtension on ShoppingSheetRoute {
       );
 
   String get location => GoRouteData.$location(
-        '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}',
-      );
+    '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}',
+  );
 
   void go(BuildContext context) => context.go(location);
 
@@ -103,8 +100,8 @@ extension $ShoppingSheetEditRouteExtension on ShoppingSheetEditRoute {
       );
 
   String get location => GoRouteData.$location(
-        '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}/edit',
-      );
+    '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}/edit',
+  );
 
   void go(BuildContext context) => context.go(location);
 
@@ -124,8 +121,8 @@ extension $ShoppingItemsReorderModalRouteExtension
       );
 
   String get location => GoRouteData.$location(
-        '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}/reorder',
-      );
+    '/shopping-list/${Uri.encodeComponent(shoppingSheetId)}/reorder',
+  );
 
   void go(BuildContext context) => context.go(location);
 

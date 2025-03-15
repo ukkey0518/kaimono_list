@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
-import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_sheet_repository.dart';
 import 'package:kaimono_list/src/routing/app_router_redirect.dart';
 import 'package:kaimono_list/src/routing/app_routes.dart';
 import 'package:kaimono_list/src/routing/initial_location_controller.dart';
@@ -10,16 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
 
-@Riverpod(
-  dependencies: [
-    InitialLocationController,
-    authRepository,
-    // ignore: provider_dependencies
-    InitialLocationController,
-    // ignore: provider_dependencies
-    shoppingSheetRepository,
-  ],
-)
+@Riverpod(dependencies: [InitialLocationController])
 GoRouter appRouter(Ref ref) {
   final initialLocation = ref.watch(initialLocationControllerProvider);
 

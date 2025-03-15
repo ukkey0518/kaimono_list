@@ -7,30 +7,22 @@ part of 'shopping_sheet_list_controller.dart';
 // **************************************************************************
 
 String _$shoppingSheetListControllerHash() =>
-    r'c551ad7375abf2d877b6f13171fc3bc365da9449';
+    r'8c49964bc33e2230d1cdfffb63b47f72ecf00656';
 
 /// See also [ShoppingSheetListController].
 @ProviderFor(ShoppingSheetListController)
 final shoppingSheetListControllerProvider = AutoDisposeAsyncNotifierProvider<
-    ShoppingSheetListController, void>.internal(
+  ShoppingSheetListController,
+  void
+>.internal(
   ShoppingSheetListController.new,
   name: r'shoppingSheetListControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$shoppingSheetListControllerHash,
-  dependencies: <ProviderOrFamily>[
-    currentUserStreamProvider,
-    shoppingSheetRepositoryProvider,
-    shoppingSheetsByUserFutureProvider
-  ],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    currentUserStreamProvider,
-    ...?currentUserStreamProvider.allTransitiveDependencies,
-    shoppingSheetRepositoryProvider,
-    ...?shoppingSheetRepositoryProvider.allTransitiveDependencies,
-    shoppingSheetsByUserFutureProvider,
-    ...?shoppingSheetsByUserFutureProvider.allTransitiveDependencies
-  },
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$shoppingSheetListControllerHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 typedef _$ShoppingSheetListController = AutoDisposeAsyncNotifier<void>;

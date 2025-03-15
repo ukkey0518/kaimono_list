@@ -27,10 +27,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// - [AppRouterRefScopeState]
 /// - [_InheritedAppRouterRef]
 class AppRouterRefScope extends StatefulWidget {
-  const AppRouterRefScope({
-    required this.child,
-    super.key,
-  });
+  const AppRouterRefScope({required this.child, super.key});
 
   static AppRouterRefScopeState of(BuildContext context) {
     return context
@@ -67,28 +64,22 @@ class AppRouterRefScopeState extends State<AppRouterRefScope> {
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedAppRouterRef(
-      data: this,
-      child: widget.child,
-    );
+    return _InheritedAppRouterRef(data: this, child: widget.child);
   }
 }
 
 /// An inherited widget that holds a reference to the [AppRouterRefScopeState].
 ///
-/// This widget is used to provide the [AppRouterRefScopeState] to its descendants
-/// in the widget tree. It extends [InheritedWidget] and overrides the
-/// [updateShouldNotify] method to always return false, indicating that
+/// This widget is used to provide the [AppRouterRefScopeState] to its
+/// descendants in the widget tree. It extends [InheritedWidget] and overrides
+/// the [updateShouldNotify] method to always return false, indicating that
 /// dependents do not need to be rebuilt when the widget updates.
 ///
 /// The [data] parameter is required and holds the [AppRouterRefScopeState]
 /// instance, while the [child] parameter is the widget below this widget
 /// in the tree.
 class _InheritedAppRouterRef extends InheritedWidget {
-  const _InheritedAppRouterRef({
-    required this.data,
-    required super.child,
-  });
+  const _InheritedAppRouterRef({required this.data, required super.child});
 
   final AppRouterRefScopeState data;
 
