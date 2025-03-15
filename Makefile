@@ -4,12 +4,15 @@
 
 ## Run the app
 install:
-	flutter pub get
+	asdf install
+	asdf reshim
 	bundle install
-	cd ios; pod install
+	cd ios; bundle exec pod install
+	flutter pub get
+	cd scripts; flutter pub get
 
 clean_update:
-	rm -rf pubspec.lock Gemfile.lock vendor/bundle ios/Podfile.lock ios/Pods
+	rm -rf pubspec.lock Gemfile.lock vendor/bundle ios/Podfile.lock ios/Pods scripts/pubspec.lock
 	@make install
 
 ## Generate new feature directory

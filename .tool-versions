@@ -1,5 +1,4 @@
-flutter 3.27.0-stable
-dart 3.6.0
-nodejs 20.18.1
-firebase 13.28.0
-ruby 3.3.6
+flutter 3.29.2-stable
+nodejs 22.14.0
+firebase 13.34.0
+ruby 3.4.2
