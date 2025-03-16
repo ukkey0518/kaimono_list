@@ -7,7 +7,7 @@ install:
 	asdf install
 	asdf reshim
 	bundle install
-	cd ios; bundle exec pod install
+	cd ios; pod install
 	flutter pub get
 	cd scripts; flutter pub get
 
