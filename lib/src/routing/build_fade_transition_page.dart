@@ -18,10 +18,7 @@ Page<T> buildFadeTransitionPage<T>({
     transitionDuration: transitionDuration,
     reverseTransitionDuration: reverseTransitionDuration,
     transitionsBuilder: (context, animation, _, child) {
-      return FadeTransition(
-        opacity: animation,
-        child: child,
-      );
+      return FadeTransition(opacity: animation, child: child);
     },
     child: child,
   );

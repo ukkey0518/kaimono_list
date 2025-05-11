@@ -6,11 +6,7 @@ part 'initial_location_controller.g.dart';
 const _initialLocationKey = 'initialLocation';
 const _initialLocationDefaultValue = '/';
 
-@Riverpod(
-  dependencies: [
-    sharedPref,
-  ],
-)
+@Riverpod(dependencies: [sharedPref])
 class InitialLocationController extends _$InitialLocationController {
   @override
   String build() {

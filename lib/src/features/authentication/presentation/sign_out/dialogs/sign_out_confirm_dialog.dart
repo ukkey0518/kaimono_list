@@ -3,19 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class SignOutConfirmDialog extends StatelessWidget {
-  const SignOutConfirmDialog._({
-    super.key,
-  });
+  const SignOutConfirmDialog._({super.key});
 
-  static Future<bool> show(
-    BuildContext context, {
-    Key? key,
-  }) async {
+  static Future<bool> show(BuildContext context, {Key? key}) async {
     final isConfirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => SignOutConfirmDialog._(
-        key: key,
-      ),
+      builder: (context) => SignOutConfirmDialog._(key: key),
     );
     return isConfirmed ?? false;
   }

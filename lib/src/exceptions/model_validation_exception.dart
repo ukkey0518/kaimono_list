@@ -1,8 +1,5 @@
 class ModelValidationException implements Exception {
-  ModelValidationException(
-    this.message,
-    this.data,
-  );
+  ModelValidationException(this.message, this.data);
 
   final String message;
   final dynamic data;

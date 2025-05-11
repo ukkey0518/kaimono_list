@@ -21,10 +21,11 @@ class ShoppingItemFormBottomSheet extends HookWidget {
       barrierColor: Colors.transparent,
       enableDrag: false,
       isScrollControlled: true,
-      builder: (context) => ShoppingItemFormBottomSheet._(
-        key: key,
-        shoppingItem: shoppingItem,
-      ),
+      builder:
+          (context) => ShoppingItemFormBottomSheet._(
+            key: key,
+            shoppingItem: shoppingItem,
+          ),
     );
   }
 
@@ -32,18 +33,13 @@ class ShoppingItemFormBottomSheet extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nameController = useTextEditingController(
-      text: shoppingItem?.name,
-    );
+    final nameController = useTextEditingController(text: shoppingItem?.name);
 
     void submit() {
       HapticFeedback.mediumImpact();
-      final newShoppingItem = shoppingItem?.copyWith(
-            name: nameController.text,
-          ) ??
-          ShoppingItem(
-            name: nameController.text,
-          );
+      final newShoppingItem =
+          shoppingItem?.copyWith(name: nameController.text) ??
+          ShoppingItem(name: nameController.text);
       context.pop(newShoppingItem);
     }
 
@@ -53,11 +49,7 @@ class ShoppingItemFormBottomSheet extends HookWidget {
         Sizes.p16,
         Sizes.p24,
         Sizes.p32,
-      ).add(
-        EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-      ),
+      ).add(EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -70,9 +62,10 @@ class ShoppingItemFormBottomSheet extends HookWidget {
                   final isEmpty = nameController.text.trim().isEmpty;
                   return ElevatedButton(
                     onPressed: isEmpty ? context.pop : submit,
-                    child: isEmpty
-                        ? const Icon(Icons.close)
-                        : const Icon(Icons.check),
+                    child:
+                        isEmpty
+                            ? const Icon(Icons.close)
+                            : const Icon(Icons.check),
                   );
                 },
               ),

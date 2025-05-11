@@ -13,9 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Error Handler: 未キャッチエラー
   // https://firebase.google.com/docs/crashlytics/customize-crash-reports?hl=ja&platform=flutter#report-uncaught-exceptions
@@ -40,12 +38,8 @@ Future<void> main() async {
 
   runApp(
     ProviderScope(
-      observers: [
-        ProviderLogger(),
-      ],
-      overrides: [
-        sharedPrefProvider.overrideWithValue(sharedPreferences),
-      ],
+      observers: [ProviderLogger()],
+      overrides: [sharedPrefProvider.overrideWithValue(sharedPreferences)],
       child: const App(),
     ),
   );

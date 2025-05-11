@@ -22,8 +22,9 @@ Future<String?> appRouterRedirect(
   /// Redirects to the sign-in route if the user is not signed in
   /// and the current route is not the sign-in route.
   final signedIn = ref.read(authRepositoryProvider).isSignedIn;
-  final isSignInRoute =
-      matchedLocation.startsWith(const SignInRoute().location);
+  final isSignInRoute = matchedLocation.startsWith(
+    const SignInRoute().location,
+  );
   if (!signedIn && !isSignInRoute) {
     if (matchedLocation == '/') {
       // If the matched location is the root ('/'),
@@ -32,9 +33,7 @@ Future<String?> appRouterRedirect(
     } else {
       // Otherwise, it saves the current location in the `from` parameter
       // to redirect back after signing in.
-      return SignInRoute(
-        from: Uri.encodeComponent('${state.uri}'),
-      ).location;
+      return SignInRoute(from: Uri.encodeComponent('${state.uri}')).location;
     }
   }
 

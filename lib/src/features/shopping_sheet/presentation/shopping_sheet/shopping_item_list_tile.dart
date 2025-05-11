@@ -27,25 +27,27 @@ class ShoppingItemListTile extends StatelessWidget {
           opacity: isEnabledCheckbox ? 1.0 : 0.5,
           child: Checkbox(
             value: shoppingItem.isCompleted,
-            onChanged: isEnabledCheckbox
-                ? (value) {
-                    if (value == null) return;
-                    onPurchasedChanged!(value);
-                  }
-                : null,
+            onChanged:
+                isEnabledCheckbox
+                    ? (value) {
+                      if (value == null) return;
+                      onPurchasedChanged!(value);
+                    }
+                    : null,
           ),
         ),
         title: Text(
           shoppingItem.name ?? '',
-          style: isCompleted
-              ? const TextStyle(
-                  decoration: TextDecoration.lineThrough,
-                  color: Colors.grey,
-                )
-              : const TextStyle(
-                  decoration: TextDecoration.none,
-                  color: Colors.black,
-                ),
+          style:
+              isCompleted
+                  ? const TextStyle(
+                    decoration: TextDecoration.lineThrough,
+                    color: Colors.grey,
+                  )
+                  : const TextStyle(
+                    decoration: TextDecoration.none,
+                    color: Colors.black,
+                  ),
         ),
         onTap: onTap,
         trailing: trailing,

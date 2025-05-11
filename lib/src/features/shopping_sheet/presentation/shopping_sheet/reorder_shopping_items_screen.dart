@@ -15,10 +15,7 @@ import 'package:kaimono_list/src/utils/extensions/widget_ref_extensions.dart';
 import 'package:kaimono_list/src/utils/snackbar.dart';
 
 class ReorderShoppingItemsScreen extends HookConsumerWidget {
-  const ReorderShoppingItemsScreen({
-    required this.shoppingSheetId,
-    super.key,
-  });
+  const ReorderShoppingItemsScreen({required this.shoppingSheetId, super.key});
 
   final String shoppingSheetId;
 
@@ -32,13 +29,10 @@ class ReorderShoppingItemsScreen extends HookConsumerWidget {
 
     final initialValues = initialValuesAsyncValue.value ?? [];
 
-    useEffect(
-      () {
-        currentValues.value = initialValues;
-        return null;
-      },
-      initialValues,
-    );
+    useEffect(() {
+      currentValues.value = initialValues;
+      return null;
+    }, initialValues);
 
     ref
       ..listenAsyncError(
@@ -78,37 +72,38 @@ class ReorderShoppingItemsScreen extends HookConsumerWidget {
       ),
       body: ProgressWidget(
         isLoading: isProcessing,
-        child: hasError
-            ? RetryButton(
-                onPressed: () =>
-                    ref.refresh(shoppingItemsFutureProvider(shoppingSheetId)),
-              )
-            : ImplicitlyAnimatedReorderableList(
-                items: currentValues.value,
-                areItemsTheSame: (oldItem, newItem) => oldItem.id == newItem.id,
-                onReorderFinished: (item, from, to, newItems) {
-                  currentValues.value = newItems;
-                },
-                itemBuilder: (context, animation, shoppingItem, index) {
-                  return Reorderable(
-                    key: ValueKey(shoppingItem.id),
-                    child: SizeFadeTransition(
-                      animation: animation,
-                      curve: Curves.fastOutSlowIn,
-                      child: ShoppingItemListTile(
-                        shoppingItem: shoppingItem,
-                        trailing: const Handle(
-                          delay: Duration(milliseconds: 100),
-                          child: Icon(
-                            Icons.drag_handle,
-                            color: Colors.grey,
+        child:
+            hasError
+                ? RetryButton(
+                  onPressed:
+                      () => ref.refresh(
+                        shoppingItemsFutureProvider(shoppingSheetId),
+                      ),
+                )
+                : ImplicitlyAnimatedReorderableList(
+                  items: currentValues.value,
+                  areItemsTheSame:
+                      (oldItem, newItem) => oldItem.id == newItem.id,
+                  onReorderFinished: (item, from, to, newItems) {
+                    currentValues.value = newItems;
+                  },
+                  itemBuilder: (context, animation, shoppingItem, index) {
+                    return Reorderable(
+                      key: ValueKey(shoppingItem.id),
+                      child: SizeFadeTransition(
+                        animation: animation,
+                        curve: Curves.fastOutSlowIn,
+                        child: ShoppingItemListTile(
+                          shoppingItem: shoppingItem,
+                          trailing: const Handle(
+                            delay: Duration(milliseconds: 100),
+                            child: Icon(Icons.drag_handle, color: Colors.grey),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
+                    );
+                  },
+                ),
       ),
     );
   }

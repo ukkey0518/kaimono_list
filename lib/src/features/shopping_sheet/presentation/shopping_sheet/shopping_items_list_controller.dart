@@ -15,10 +15,9 @@ class ShoppingItemsListController extends _$ShoppingItemsListController {
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(shoppingItemRepositoryProvider).create(
-            shoppingSheetId: shoppingSheetId,
-            shoppingItem: shoppingItem,
-          );
+      await ref
+          .read(shoppingItemRepositoryProvider)
+          .create(shoppingSheetId: shoppingSheetId, shoppingItem: shoppingItem);
     });
   }
 
@@ -29,7 +28,9 @@ class ShoppingItemsListController extends _$ShoppingItemsListController {
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(shoppingItemRepositoryProvider).updateName(
+      await ref
+          .read(shoppingItemRepositoryProvider)
+          .updateName(
             shoppingSheetId: shoppingSheetId,
             shoppingItemId: shoppingItemId,
             name: name,
@@ -69,7 +70,9 @@ class ShoppingItemsListController extends _$ShoppingItemsListController {
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(shoppingItemRepositoryProvider).updateIsCompleted(
+      await ref
+          .read(shoppingItemRepositoryProvider)
+          .updateIsCompleted(
             shoppingSheetId: shoppingSheetId,
             shoppingItemId: shoppingItemId,
             isCompleted: isCompleted,
@@ -83,7 +86,9 @@ class ShoppingItemsListController extends _$ShoppingItemsListController {
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(shoppingItemRepositoryProvider).delete(
+      await ref
+          .read(shoppingItemRepositoryProvider)
+          .delete(
             shoppingSheetId: shoppingSheetId,
             shoppingItemId: shoppingItemId,
           );
@@ -93,9 +98,9 @@ class ShoppingItemsListController extends _$ShoppingItemsListController {
   Future<void> deleteAllPurchasedShoppingItems(String shoppingSheetId) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(shoppingItemRepositoryProvider).deleteListCompleted(
-            shoppingSheetId: shoppingSheetId,
-          );
+      await ref
+          .read(shoppingItemRepositoryProvider)
+          .deleteListCompleted(shoppingSheetId: shoppingSheetId);
     });
   }
 }

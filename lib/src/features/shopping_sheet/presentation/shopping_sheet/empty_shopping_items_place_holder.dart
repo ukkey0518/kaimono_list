@@ -8,15 +8,10 @@ class EmptyShoppingItemsPlaceHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BigIconWithLabel(
-      icon: const Icon(
-        Icons.insert_emoticon_outlined,
-        color: Colors.grey,
-      ),
+      icon: const Icon(Icons.insert_emoticon_outlined, color: Colors.grey),
       label: Text(
         'No shopping items yet'.hardcoded,
-        style: const TextStyle(
-          color: Colors.grey,
-        ),
+        style: const TextStyle(color: Colors.grey),
       ),
     );
   }

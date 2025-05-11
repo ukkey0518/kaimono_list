@@ -1,4 +1,1 @@
-enum EmailPasswordSignInType {
-  signIn,
-  register,
-}
+enum EmailPasswordSignInType { signIn, register }

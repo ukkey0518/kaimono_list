@@ -21,10 +21,10 @@ class ShoppingItemRepository {
     return '${collectionPath(shoppingSheetId)}/$shoppingItemId';
   }
 
-  CollectionReference<ShoppingItem> collectionRef(
-    String shoppingSheetId,
-  ) {
-    return _firestore.collection(collectionPath(shoppingSheetId)).withConverter(
+  CollectionReference<ShoppingItem> collectionRef(String shoppingSheetId) {
+    return _firestore
+        .collection(collectionPath(shoppingSheetId))
+        .withConverter(
           fromFirestore: (ds, _) => ShoppingItem.fromJson(ds.toModelJson()!),
           toFirestore: (shoppingItem, _) => shoppingItem.toJson(),
         );
@@ -42,21 +42,21 @@ class ShoppingItemRepository {
         );
   }
 
-  Stream<List<ShoppingItem>> watchList({
-    required String shoppingSheetId,
-  }) {
-    final query =
-        collectionRef(shoppingSheetId).orderBy('index', descending: true);
+  Stream<List<ShoppingItem>> watchList({required String shoppingSheetId}) {
+    final query = collectionRef(
+      shoppingSheetId,
+    ).orderBy('index', descending: true);
     return query.snapshots().map(
-          (qs) => qs.docs.map((ds) => ds.data()).toList(),
-        );
+      (qs) => qs.docs.map((ds) => ds.data()).toList(),
+    );
   }
 
   Future<List<ShoppingItem>> fetchList({
     required String shoppingSheetId,
   }) async {
-    final query =
-        collectionRef(shoppingSheetId).orderBy('index', descending: true);
+    final query = collectionRef(
+      shoppingSheetId,
+    ).orderBy('index', descending: true);
     final qs = await query.get();
     return qs.docs.map((ds) => ds.data()).toList();
   }
@@ -64,9 +64,9 @@ class ShoppingItemRepository {
   Stream<bool> watchIsAnyCompletedShoppingItemExists({
     required String shoppingSheetId,
   }) {
-    final query = collectionRef(shoppingSheetId)
-        .where('isCompleted', isEqualTo: true)
-        .limit(1);
+    final query = collectionRef(
+      shoppingSheetId,
+    ).where('isCompleted', isEqualTo: true).limit(1);
     return query.snapshots().map((qs) => qs.docs.isNotEmpty);
   }
 
@@ -85,13 +85,11 @@ class ShoppingItemRepository {
     return ref.id;
   }
 
-  Future<int?> _fetchMaxOrderIndex({
-    required String shoppingSheetId,
-  }) async {
-    final qs = await collectionRef(shoppingSheetId)
-        .orderBy('index', descending: true)
-        .limit(1)
-        .get();
+  Future<int?> _fetchMaxOrderIndex({required String shoppingSheetId}) async {
+    final qs =
+        await collectionRef(
+          shoppingSheetId,
+        ).orderBy('index', descending: true).limit(1).get();
     return qs.docs.firstOrNull?.data().index;
   }
 
@@ -100,9 +98,7 @@ class ShoppingItemRepository {
     required String shoppingItemId,
     required String name,
   }) async {
-    await documentRef(shoppingSheetId, shoppingItemId).update({
-      'name': name,
-    });
+    await documentRef(shoppingSheetId, shoppingItemId).update({'name': name});
   }
 
   Future<void> updateIsCompleted({
@@ -110,9 +106,10 @@ class ShoppingItemRepository {
     required String shoppingItemId,
     required bool isCompleted,
   }) async {
-    await documentRef(shoppingSheetId, shoppingItemId).update({
-      'isCompleted': isCompleted,
-    });
+    await documentRef(
+      shoppingSheetId,
+      shoppingItemId,
+    ).update({'isCompleted': isCompleted});
   }
 
   Future<void> updateIndexes({
@@ -122,10 +119,9 @@ class ShoppingItemRepository {
     final batch = _firestore.batch();
     for (final (index, shoppingItemId)
         in sortedShoppingItemIds.reversed.indexed) {
-      batch.update(
-        documentRef(shoppingSheetId, shoppingItemId),
-        {'index': index},
-      );
+      batch.update(documentRef(shoppingSheetId, shoppingItemId), {
+        'index': index,
+      });
     }
     await batch.commit();
   }
@@ -137,22 +133,19 @@ class ShoppingItemRepository {
     await documentRef(shoppingSheetId, shoppingItemId).delete();
   }
 
-  Future<void> deleteListCompleted({
-    required String shoppingSheetId,
-  }) async {
+  Future<void> deleteListCompleted({required String shoppingSheetId}) async {
     final batch = _firestore.batch();
-    final qs = await collectionRef(shoppingSheetId)
-        .where('isCompleted', isEqualTo: true)
-        .get();
+    final qs =
+        await collectionRef(
+          shoppingSheetId,
+        ).where('isCompleted', isEqualTo: true).get();
     for (final ds in qs.docs) {
       batch.delete(ds.reference);
     }
     await batch.commit();
   }
 
-  Future<void> deleteAll({
-    required String shoppingSheetId,
-  }) async {
+  Future<void> deleteAll({required String shoppingSheetId}) async {
     final batch = _firestore.batch();
     final qs = await collectionRef(shoppingSheetId).get();
     for (final ds in qs.docs) {

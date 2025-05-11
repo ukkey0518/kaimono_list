@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddShoppingItemFab extends StatelessWidget {
-  const AddShoppingItemFab({
-    required this.onPressed,
-    super.key,
-  });
+  const AddShoppingItemFab({required this.onPressed, super.key});
 
   final VoidCallback? onPressed;
 

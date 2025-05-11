@@ -15,10 +15,7 @@ class AppLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.square(
       dimension: dimension,
-      child: CircularProgressIndicator(
-        color: color,
-        strokeWidth: 0.5,
-      ),
+      child: CircularProgressIndicator(color: color, strokeWidth: 0.5),
     );
   }
 }

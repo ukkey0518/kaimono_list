@@ -29,9 +29,10 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
     );
 
     void toggleType() {
-      type.value = type.value == EmailPasswordSignInType.signIn
-          ? EmailPasswordSignInType.register
-          : EmailPasswordSignInType.signIn;
+      type.value =
+          type.value == EmailPasswordSignInType.signIn
+              ? EmailPasswordSignInType.register
+              : EmailPasswordSignInType.signIn;
     }
 
     Future<void> submit() async {
@@ -42,12 +43,9 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
       }
 
       // Perform sign in logic.
-      final isSuccessful =
-          await ref.read(emailPasswordSignInControllerProvider.notifier).submit(
-                type.value,
-                emailController.text,
-                passwordController.text,
-              );
+      final isSuccessful = await ref
+          .read(emailPasswordSignInControllerProvider.notifier)
+          .submit(type.value, emailController.text, passwordController.text);
       if (!isSuccessful) {
         return;
       }
@@ -88,13 +86,14 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
                   const Gap(Sizes.p24),
                   ElevatedButton(
                     onPressed: isLoading ? null : submit,
-                    child: isLoading
-                        ? const AppLoadingIndicator()
-                        : Text(
-                            type.value == EmailPasswordSignInType.signIn
-                                ? 'Sign In'.hardcoded
-                                : 'Register'.hardcoded,
-                          ),
+                    child:
+                        isLoading
+                            ? const AppLoadingIndicator()
+                            : Text(
+                              type.value == EmailPasswordSignInType.signIn
+                                  ? 'Sign In'.hardcoded
+                                  : 'Register'.hardcoded,
+                            ),
                   ),
                   const Gap(Sizes.p8),
                   TextButton(
@@ -116,10 +115,7 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
 }
 
 class _EmailFormField extends StatelessWidget {
-  const _EmailFormField({
-    required this.controller,
-    required this.enabled,
-  });
+  const _EmailFormField({required this.controller, required this.enabled});
 
   final TextEditingController controller;
   final bool enabled;
@@ -132,12 +128,8 @@ class _EmailFormField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       enabled: enabled,
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: 'わすれとるで'.hardcoded,
-        ),
-        FormBuilderValidators.email(
-          errorText: 'アドレス間違えてない？'.hardcoded,
-        ),
+        FormBuilderValidators.required(errorText: 'わすれとるで'.hardcoded),
+        FormBuilderValidators.email(errorText: 'アドレス間違えてない？'.hardcoded),
       ]),
       decoration: InputDecoration(
         labelText: 'Email'.hardcoded,
@@ -148,10 +140,7 @@ class _EmailFormField extends StatelessWidget {
 }
 
 class _PasswordFormField extends HookWidget {
-  const _PasswordFormField({
-    required this.controller,
-    required this.enabled,
-  });
+  const _PasswordFormField({required this.controller, required this.enabled});
 
   final TextEditingController controller;
   final bool enabled;
@@ -167,13 +156,8 @@ class _PasswordFormField extends HookWidget {
       textInputAction: TextInputAction.done,
       enabled: enabled,
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: 'わすれとるで'.hardcoded,
-        ),
-        FormBuilderValidators.minLength(
-          8,
-          errorText: 'ちょっと短すぎるね〜'.hardcoded,
-        ),
+        FormBuilderValidators.required(errorText: 'わすれとるで'.hardcoded),
+        FormBuilderValidators.minLength(8, errorText: 'ちょっと短すぎるね〜'.hardcoded),
       ]),
       decoration: InputDecoration(
         labelText: 'Password'.hardcoded,

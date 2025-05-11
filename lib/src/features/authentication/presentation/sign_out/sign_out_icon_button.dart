@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SignOutIconButton extends ConsumerWidget {
-  const SignOutIconButton({
-    required this.onPressed,
-    super.key,
-  });
+  const SignOutIconButton({required this.onPressed, super.key});
 
   final VoidCallback? onPressed;
 

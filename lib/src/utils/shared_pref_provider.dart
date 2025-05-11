@@ -4,10 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'shared_pref_provider.g.dart';
 
-@Riverpod(
-  dependencies: [],
-  keepAlive: true,
-)
+@Riverpod(dependencies: [], keepAlive: true)
 SharedPreferencesWithCache sharedPref(Ref ref) {
   throw UnimplementedError();
 }

@@ -5,9 +5,7 @@ import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class AppErrorDialog extends StatelessWidget {
-  const AppErrorDialog._({
-    required this.error,
-  });
+  const AppErrorDialog._({required this.error});
 
   static Future<void> show(BuildContext context, dynamic error) {
     return showDialog<void>(
@@ -24,16 +22,13 @@ class AppErrorDialog extends StatelessWidget {
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.error,
-            color: Theme.of(context).colorScheme.error,
-          ),
+          Icon(Icons.error, color: Theme.of(context).colorScheme.error),
           const Gap(Sizes.p8),
           Text(
             'Error'.hardcoded,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Theme.of(context).colorScheme.error,
-                ),
+              color: Theme.of(context).colorScheme.error,
+            ),
           ),
         ],
       ),

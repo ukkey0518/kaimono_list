@@ -15,13 +15,9 @@ import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 
 part 'app_routes.g.dart';
 
-@TypedGoRoute<SignInRoute>(
-  path: '/sign-in',
-)
+@TypedGoRoute<SignInRoute>(path: '/sign-in')
 class SignInRoute extends GoRouteData {
-  const SignInRoute({
-    this.from,
-  });
+  const SignInRoute({this.from});
 
   final String? from;
 
@@ -37,9 +33,10 @@ class SignInRoute extends GoRouteData {
   /// redirection occurs.
   @override
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
-    final signedIn = AppRouterRefScope.refOf(context)
-        .read(authRepositoryProvider)
-        .isSignedIn;
+    final signedIn =
+        AppRouterRefScope.refOf(
+          context,
+        ).read(authRepositoryProvider).isSignedIn;
 
     if (signedIn) {
       return from != null
@@ -57,12 +54,8 @@ class SignInRoute extends GoRouteData {
     TypedGoRoute<ShoppingSheetRoute>(
       path: 'shopping-list/:shoppingSheetId',
       routes: [
-        TypedGoRoute<ShoppingSheetEditRoute>(
-          path: 'edit',
-        ),
-        TypedGoRoute<ShoppingItemsReorderModalRoute>(
-          path: 'reorder',
-        ),
+        TypedGoRoute<ShoppingSheetEditRoute>(path: 'edit'),
+        TypedGoRoute<ShoppingItemsReorderModalRoute>(path: 'reorder'),
       ],
     ),
   ],
@@ -77,9 +70,7 @@ class HomeRoute extends GoRouteData {
 }
 
 class ShoppingSheetRoute extends GoRouteData {
-  const ShoppingSheetRoute({
-    required this.shoppingSheetId,
-  });
+  const ShoppingSheetRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;
 
@@ -104,32 +95,26 @@ class ShoppingSheetRoute extends GoRouteData {
   /// not have access, the method returns the location of the `HomeRoute`.
   @override
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
-    final canAccess = await AppRouterRefScope.refOf(context)
-        .read(shoppingSheetRepositoryProvider)
-        .canAccess(shoppingSheetId);
+    final canAccess = await AppRouterRefScope.refOf(
+      context,
+    ).read(shoppingSheetRepositoryProvider).canAccess(shoppingSheetId);
     return canAccess ? null : const HomeRoute().location;
   }
 }
 
 class ShoppingSheetEditRoute extends GoRouteData {
-  const ShoppingSheetEditRoute({
-    required this.shoppingSheetId,
-  });
+  const ShoppingSheetEditRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ShoppingSheetEditScreen(
-      shoppingSheetId: shoppingSheetId,
-    );
+    return ShoppingSheetEditScreen(shoppingSheetId: shoppingSheetId);
   }
 }
 
 class ShoppingItemsReorderModalRoute extends GoRouteData {
-  const ShoppingItemsReorderModalRoute({
-    required this.shoppingSheetId,
-  });
+  const ShoppingItemsReorderModalRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;
 
@@ -139,9 +124,7 @@ class ShoppingItemsReorderModalRoute extends GoRouteData {
       context: context,
       state: state,
       fullscreenDialog: true,
-      child: ReorderShoppingItemsScreen(
-        shoppingSheetId: shoppingSheetId,
-      ),
+      child: ReorderShoppingItemsScreen(shoppingSheetId: shoppingSheetId),
     );
   }
 }

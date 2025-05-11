@@ -72,5 +72,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'kaimono-list-7174f.appspot.com',
     iosBundleId: 'com.ukihome.kaimonoList',
   );
-
 }

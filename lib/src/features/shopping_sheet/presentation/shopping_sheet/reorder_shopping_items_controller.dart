@@ -14,7 +14,9 @@ class ReorderShoppingItemsController extends _$ReorderShoppingItemsController {
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await ref.read(shoppingItemRepositoryProvider).updateIndexes(
+      await ref
+          .read(shoppingItemRepositoryProvider)
+          .updateIndexes(
             shoppingSheetId: shoppingSheetId,
             sortedShoppingItemIds: sortedShoppingItemIds,
           );

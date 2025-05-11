@@ -8,9 +8,7 @@ const firestoreModel = JsonSerializable(
 );
 
 /// Json key for Firestore document ID.
-const firestoreId = JsonKey(
-  includeToJson: false,
-);
+const firestoreId = JsonKey(includeToJson: false);
 
 /// Json key for Firestore created at timestamp.
 const firestoreCreatedAt = JsonKey(

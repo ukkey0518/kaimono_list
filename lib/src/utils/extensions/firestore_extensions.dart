@@ -8,9 +8,6 @@ extension ModelDocumentSnapshotEx on DocumentSnapshot<Json> {
     if (data == null) {
       return null;
     }
-    return {
-      'id': id,
-      ...data,
-    };
+    return {'id': id, ...data};
   }
 }

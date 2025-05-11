@@ -25,10 +25,7 @@ import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 import 'package:kaimono_list/src/utils/un_focus_all.dart';
 
 class ShoppingItemsListScreen extends ConsumerWidget {
-  const ShoppingItemsListScreen({
-    required this.shoppingSheetId,
-    super.key,
-  });
+  const ShoppingItemsListScreen({required this.shoppingSheetId, super.key});
 
   final String shoppingSheetId;
 
@@ -90,15 +87,17 @@ class ShoppingItemsListScreen extends ConsumerWidget {
           actions: [
             IconButton(
               icon: const Icon(Icons.reorder),
-              onPressed: () => ShoppingItemsReorderModalRoute(
-                shoppingSheetId: shoppingSheetId,
-              ).go(context),
+              onPressed:
+                  () => ShoppingItemsReorderModalRoute(
+                    shoppingSheetId: shoppingSheetId,
+                  ).go(context),
             ),
             IconButton(
               icon: const Icon(Icons.settings),
-              onPressed: () => ShoppingSheetEditRoute(
-                shoppingSheetId: shoppingSheetId,
-              ).go(context),
+              onPressed:
+                  () => ShoppingSheetEditRoute(
+                    shoppingSheetId: shoppingSheetId,
+                  ).go(context),
             ),
           ],
         ),
@@ -115,24 +114,20 @@ class ShoppingItemsListScreen extends ConsumerWidget {
                 );
                 final isShowing =
                     !hasAnyCompletedShoppingItemAsyncValue.isLoading &&
-                        hasAnyCompletedShoppingItemAsyncValue.hasValue &&
-                        hasAnyCompletedShoppingItemAsyncValue.value!;
+                    hasAnyCompletedShoppingItemAsyncValue.hasValue &&
+                    hasAnyCompletedShoppingItemAsyncValue.value!;
                 return AnimatedOpacity(
                   duration: const Duration(milliseconds: 200),
                   opacity: isShowing ? 1 : 0,
                   child: IgnorePointer(
                     ignoring: !isShowing,
-                    child: CleanShoppingItemsFab(
-                      onPressed: cleanShoppingItems,
-                    ),
+                    child: CleanShoppingItemsFab(onPressed: cleanShoppingItems),
                   ),
                 );
               },
             ),
             const Gap(Sizes.p16),
-            AddShoppingItemFab(
-              onPressed: showShoppingItemForm,
-            ),
+            AddShoppingItemFab(onPressed: showShoppingItemForm),
           ],
         ),
         body: SafeArea(
@@ -147,15 +142,13 @@ class ShoppingItemsListScreen extends ConsumerWidget {
                 isLoading: shoppingItemsAsyncValue.isLoading,
                 builder: (context) {
                   if (shoppingItems.isEmpty) {
-                    return const Center(
-                      child: EmptyShoppingItemsPlaceHolder(),
-                    );
+                    return const Center(child: EmptyShoppingItemsPlaceHolder());
                   }
 
                   return ImplicitlyAnimatedList(
                     items: shoppingItems,
-                    areItemsTheSame: (oldItem, newItem) =>
-                        oldItem.id == newItem.id,
+                    areItemsTheSame:
+                        (oldItem, newItem) => oldItem.id == newItem.id,
                     itemBuilder: (context, animation, shoppingItem, index) {
                       Future<void> updateIsCompleted(bool newValue) async {
                         unawaited(HapticFeedback.selectionClick());
@@ -171,9 +164,9 @@ class ShoppingItemsListScreen extends ConsumerWidget {
                       Future<void> deleteShoppingItem() async {
                         final isConfirmed =
                             await DeleteShoppingItemConfirmDialog.show(
-                          context,
-                          shoppingItem: shoppingItem,
-                        );
+                              context,
+                              shoppingItem: shoppingItem,
+                            );
                         if (!isConfirmed) {
                           return;
                         }

@@ -15,10 +15,11 @@ class DeleteShoppingItemConfirmDialog extends StatelessWidget {
   }) async {
     final isConfirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => DeleteShoppingItemConfirmDialog._(
-        shoppingItem: shoppingItem,
-        key: key,
-      ),
+      builder:
+          (context) => DeleteShoppingItemConfirmDialog._(
+            shoppingItem: shoppingItem,
+            key: key,
+          ),
     );
     return isConfirmed ?? false;
   }
@@ -31,10 +32,7 @@ class DeleteShoppingItemConfirmDialog extends StatelessWidget {
       title: const Text('買い物アイテムの削除'),
       content: Text('「${shoppingItem.name}」を削除しますか？'),
       actions: [
-        ElevatedButton(
-          onPressed: context.pop,
-          child: const Text('キャンセル'),
-        ),
+        ElevatedButton(onPressed: context.pop, child: const Text('キャンセル')),
         ElevatedButton(
           onPressed: () => context.pop(true),
           child: const Text('削除'),

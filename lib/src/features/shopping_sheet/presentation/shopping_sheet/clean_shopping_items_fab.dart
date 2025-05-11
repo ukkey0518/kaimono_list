@@ -3,10 +3,7 @@ import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
 class CleanShoppingItemsFab extends StatelessWidget {
-  const CleanShoppingItemsFab({
-    required this.onPressed,
-    super.key,
-  });
+  const CleanShoppingItemsFab({required this.onPressed, super.key});
 
   final VoidCallback? onPressed;
 

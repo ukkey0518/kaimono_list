@@ -13,10 +13,7 @@ import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 import 'package:kaimono_list/src/utils/un_focus_all.dart';
 
 class ShoppingSheetEditScreen extends HookConsumerWidget {
-  const ShoppingSheetEditScreen({
-    required this.shoppingSheetId,
-    super.key,
-  });
+  const ShoppingSheetEditScreen({required this.shoppingSheetId, super.key});
 
   final String shoppingSheetId;
 
@@ -72,21 +69,14 @@ class ShoppingSheetEditScreen extends HookConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('買い物リストの編集'.hardcoded),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.check),
-              onPressed: save,
-            ),
-          ],
+          actions: [IconButton(icon: const Icon(Icons.check), onPressed: save)],
         ),
         body: Form(
           key: formKey,
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
-              ShoppingSheetFormNameTextField(
-                controller: titleController,
-              ),
+              ShoppingSheetFormNameTextField(controller: titleController),
               const Gap(Sizes.p16),
               Center(
                 child: ElevatedButton(

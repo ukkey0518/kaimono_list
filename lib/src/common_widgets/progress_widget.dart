@@ -13,12 +13,7 @@ class ProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        child,
-        if (isLoading) const _Wrapper(),
-      ],
-    );
+    return Stack(children: [child, if (isLoading) const _Wrapper()]);
   }
 }
 
@@ -35,10 +30,7 @@ class ProgressBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
-        Builder(builder: builder),
-        if (isLoading) const _Wrapper(),
-      ],
+      children: [Builder(builder: builder), if (isLoading) const _Wrapper()],
     );
   }
 }
@@ -51,9 +43,7 @@ class _Wrapper extends StatelessWidget {
     return const Positioned.fill(
       child: ColoredBox(
         color: Colors.white30,
-        child: Center(
-          child: AppLoadingIndicator(),
-        ),
+        child: Center(child: AppLoadingIndicator()),
       ),
     );
   }

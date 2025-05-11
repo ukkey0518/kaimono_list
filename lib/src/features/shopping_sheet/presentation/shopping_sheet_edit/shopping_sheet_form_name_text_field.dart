@@ -19,9 +19,7 @@ class ShoppingSheetFormNameTextField extends StatelessWidget {
       controller: controller,
       maxLength: ShoppingSheet.maxTitleLength,
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: '必須入力です'.hardcoded,
-        ),
+        FormBuilderValidators.required(errorText: '必須入力です'.hardcoded),
         FormBuilderValidators.maxLength(
           ShoppingSheet.maxTitleLength,
           errorText: '${ShoppingSheet.maxTitleLength}文字以内で入力してください'.hardcoded,
