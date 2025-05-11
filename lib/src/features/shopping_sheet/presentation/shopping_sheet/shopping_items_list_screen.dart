@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kaimono_list/src/common_widgets/dismissible.dart';
-import 'package:kaimono_list/src/common_widgets/progress_widget.dart';
+import 'package:kaimono_list/src/common_widgets/app_dismissible.dart';
+import 'package:kaimono_list/src/common_widgets/loading_builder.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_item_repository.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_sheet_repository.dart';
@@ -138,7 +138,7 @@ class ShoppingItemsListScreen extends ConsumerWidget {
               );
               final shoppingItems = shoppingItemsAsyncValue.value ?? [];
 
-              return ProgressBuilder(
+              return LoadingBuilder(
                 isLoading: shoppingItemsAsyncValue.isLoading,
                 builder: (context) {
                   if (shoppingItems.isEmpty) {

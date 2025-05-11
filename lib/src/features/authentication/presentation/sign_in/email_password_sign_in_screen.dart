@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kaimono_list/src/common_widgets/progress_indicator.dart';
+import 'package:kaimono_list/src/common_widgets/loading_indicator.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_controller.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_type.dart';
@@ -88,7 +88,7 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
                     onPressed: isLoading ? null : submit,
                     child:
                         isLoading
-                            ? const AppLoadingIndicator()
+                            ? const LoadingIndicator()
                             : Text(
                               type.value == EmailPasswordSignInType.signIn
                                   ? 'Sign In'.hardcoded

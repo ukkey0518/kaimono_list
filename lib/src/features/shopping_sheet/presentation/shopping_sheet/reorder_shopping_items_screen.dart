@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/common_widgets/app_error_dialog.dart';
-import 'package:kaimono_list/src/common_widgets/progress_widget.dart';
+import 'package:kaimono_list/src/common_widgets/loading_builder.dart';
 import 'package:kaimono_list/src/common_widgets/retry_button.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_item_repository.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/domain/shopping_item.dart';
@@ -70,40 +70,41 @@ class ReorderShoppingItemsScreen extends HookConsumerWidget {
           ),
         ],
       ),
-      body: ProgressWidget(
+      body: LoadingBuilder(
         isLoading: isProcessing,
-        child:
-            hasError
-                ? RetryButton(
-                  onPressed:
-                      () => ref.refresh(
-                        shoppingItemsFutureProvider(shoppingSheetId),
-                      ),
-                )
-                : ImplicitlyAnimatedReorderableList(
-                  items: currentValues.value,
-                  areItemsTheSame:
-                      (oldItem, newItem) => oldItem.id == newItem.id,
-                  onReorderFinished: (item, from, to, newItems) {
-                    currentValues.value = newItems;
-                  },
-                  itemBuilder: (context, animation, shoppingItem, index) {
-                    return Reorderable(
-                      key: ValueKey(shoppingItem.id),
-                      child: SizeFadeTransition(
-                        animation: animation,
-                        curve: Curves.fastOutSlowIn,
-                        child: ShoppingItemListTile(
-                          shoppingItem: shoppingItem,
-                          trailing: const Handle(
-                            delay: Duration(milliseconds: 100),
-                            child: Icon(Icons.drag_handle, color: Colors.grey),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
+        builder: (context) {
+          if (hasError) {
+            return RetryButton(
+              onPressed:
+                  () => ref.invalidate(
+                    shoppingItemsFutureProvider(shoppingSheetId),
+                  ),
+            );
+          }
+          return ImplicitlyAnimatedReorderableList(
+            items: currentValues.value,
+            areItemsTheSame: (oldItem, newItem) => oldItem.id == newItem.id,
+            onReorderFinished: (item, from, to, newItems) {
+              currentValues.value = newItems;
+            },
+            itemBuilder: (context, animation, shoppingItem, index) {
+              return Reorderable(
+                key: ValueKey(shoppingItem.id),
+                child: SizeFadeTransition(
+                  animation: animation,
+                  curve: Curves.fastOutSlowIn,
+                  child: ShoppingItemListTile(
+                    shoppingItem: shoppingItem,
+                    trailing: const Handle(
+                      delay: Duration(milliseconds: 100),
+                      child: Icon(Icons.drag_handle, color: Colors.grey),
+                    ),
+                  ),
                 ),
+              );
+            },
+          );
+        },
       ),
     );
   }

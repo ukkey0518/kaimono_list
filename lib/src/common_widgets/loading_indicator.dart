@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 
-class AppLoadingIndicator extends StatelessWidget {
-  const AppLoadingIndicator({
-    super.key,
-    this.dimension = Sizes.p16,
-    this.color,
-  });
+class LoadingIndicator extends StatelessWidget {
+  const LoadingIndicator({super.key, this.dimension = Sizes.p16, this.color});
 
   final double dimension;
   final Color? color;
