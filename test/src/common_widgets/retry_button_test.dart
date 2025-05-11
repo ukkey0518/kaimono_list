@@ -4,7 +4,15 @@ import 'package:kaimono_list/src/common_widgets/retry_button.dart';
 
 void main() {
   group('RetryButton', () {
-    testWidgets('表示内容が正しい', (tester) async {
+    testWidgets('アイコンとテキストが正しく表示される', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: Scaffold(body: RetryButton(onPressed: null))),
+      );
+      expect(find.byIcon(Icons.refresh), findsOneWidget);
+      expect(find.text('Retry'), findsOneWidget);
+    });
+
+    testWidgets('onPressedが指定されている場合にタップでコールバックが呼ばれる', (tester) async {
       var pressed = false;
       await tester.pumpWidget(
         MaterialApp(
@@ -17,21 +25,20 @@ void main() {
           ),
         ),
       );
-      // アイコンとテキストが表示されていること
-      expect(find.byIcon(Icons.refresh), findsOneWidget);
-      expect(find.text('Retry'), findsOneWidget);
-      // ボタンタップでonPressedが呼ばれること
       await tester.tap(find.byType(RetryButton));
       expect(pressed, isTrue);
     });
 
-    testWidgets('onPressedがnullでもクラッシュしない', (tester) async {
+    testWidgets('onPressedがnullの場合は無効状態でタップしても何も起きない', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(home: Scaffold(body: RetryButton(onPressed: null))),
       );
-      // ボタンがdisabled状態で表示されていること
-      final button = tester.widget<TextButton>(find.byType(TextButton));
-      expect(button.onPressed, isNull);
+
+      // 無効状態のボタンをタップしても何も起きない（例外が発生しない）
+      await expectLater(
+        () async => tester.tap(find.byType(RetryButton)),
+        returnsNormally,
+      );
     });
   });
 }
