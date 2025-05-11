@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kaimono_list/src/common_widgets/dialogs.dart';
+import 'package:kaimono_list/src/common_widgets/app_error_dialog.dart';
 import 'package:kaimono_list/src/utils/snackbar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

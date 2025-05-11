@@ -19,6 +19,10 @@ clean_update:
 new_feature:
 	@dart scripts/src/new_feature.dart
 
+## Run import_path_converter
+sort_imports:
+	@flutter pub run import_path_converter:main
+
 #
 # --- Generator --- #
 #

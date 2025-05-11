@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kaimono_list/src/common_widgets/dialogs.dart';
+import 'package:kaimono_list/src/common_widgets/app_error_dialog.dart';
 import 'package:kaimono_list/src/common_widgets/progress_widget.dart';
 import 'package:kaimono_list/src/common_widgets/retry_button.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_item_repository.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kaimono_list/src/common_widgets/app_error_dialog.dart';
 import 'package:kaimono_list/src/common_widgets/async_value_builder.dart';
-import 'package:kaimono_list/src/common_widgets/dialogs.dart';
 import 'package:kaimono_list/src/constants/sizes.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_out/sign_out_icon_button.dart';
@@ -62,9 +62,10 @@ class ShoppingSheetListScreen extends ConsumerWidget {
               for (final shoppingSheet in shoppingSheets)
                 ListTile(
                   title: Text(shoppingSheet.title ?? ''),
-                  onTap: () => ShoppingSheetRoute(
-                    shoppingSheetId: shoppingSheet.id!,
-                  ).go(context),
+                  onTap:
+                      () => ShoppingSheetRoute(
+                        shoppingSheetId: shoppingSheet.id!,
+                      ).go(context),
                 ),
               ListTile(
                 leading: const Icon(Icons.add),
