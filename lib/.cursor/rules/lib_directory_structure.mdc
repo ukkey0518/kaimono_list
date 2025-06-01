@@ -1,0 +1,37 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# libディレクトリ構成ルール
+
+## 1. ルート直下（lib/）
+- `main.dart`：アプリのエントリーポイント
+- `firebase_options.dart`：Firebase設定
+- `src/`：実装の大部分を格納するメインディレクトリ
+
+## 2. `lib/src/`配下のディレクトリ構成と役割
+- `app.dart`：アプリ全体のエントリーポイント的なWidget
+- `common_widgets/`：複数画面で使い回す汎用Widget群
+- `constants/`：定数定義
+- `exceptions/`：独自例外クラス
+- `features/`：ドメイン・機能単位でまとめた実装のメイン。各機能ごとに4層構造（presentation / application / domain / data）で管理する。
+- `routing/`：ルーティング関連（ルーター、ルート定義、遷移制御など）
+- `utils/`：ユーティリティ群。さらに細分化（extensions, hooks, types, annotations など）
+
+## 3. `features/`配下のルール
+- 各機能ごとにディレクトリを作成する（例：shopping_sheet, authentication, error など）
+- 各機能ディレクトリ内は以下の4層構造とする：
+    - `presentation/`：画面・UI・コントローラー・ダイアログ等
+    - `application/`：サービス・ユースケース
+    - `domain/`：モデル・エンティティ・ビジネスロジック
+    - `data/`：リポジトリ・データ取得・保存処理
+- `presentation/`配下は必要に応じて画面単位や機能単位で細分化する
+
+## 4. `utils/`配下のルール
+- `extensions/`：拡張メソッド群
+- `hooks/`：カスタムHook群
+- `types/`：型定義やコールバック型、ValueWidgetBuilder等
+- `annotations/`：アノテーション定義
+- その他、ユーティリティ関数やプロバイダー、ロガー等のファイルを直下に配置する
+
