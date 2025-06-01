@@ -25,7 +25,7 @@ class ShoppingItemRepository {
     return _firestore
         .collection(collectionPath(shoppingSheetId))
         .withConverter(
-          fromFirestore: (ds, _) => ShoppingItem.fromJson(ds.toModelJson()!),
+          fromFirestore: (ds, _) => ShoppingItem.fromJson(ds.dataWithId()!),
           toFirestore: (shoppingItem, _) => shoppingItem.toJson(),
         );
   }
@@ -37,7 +37,7 @@ class ShoppingItemRepository {
     return _firestore
         .doc(documentPath(shoppingSheetId, shoppingItemId))
         .withConverter(
-          fromFirestore: (ds, _) => ShoppingItem.fromJson(ds.toModelJson()!),
+          fromFirestore: (ds, _) => ShoppingItem.fromJson(ds.dataWithId()!),
           toFirestore: (shoppingItem, _) => shoppingItem.toJson(),
         );
   }

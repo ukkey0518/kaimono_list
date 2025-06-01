@@ -24,7 +24,7 @@ class ShoppingSheetRepository {
     return _firestore
         .collection(collectionPath())
         .withConverter(
-          fromFirestore: (ds, _) => ShoppingSheet.fromJson(ds.toModelJson()!),
+          fromFirestore: (ds, _) => ShoppingSheet.fromJson(ds.dataWithId()!),
           toFirestore: (shoppingSheet, _) => shoppingSheet.toJson(),
         );
   }
@@ -33,7 +33,7 @@ class ShoppingSheetRepository {
     return _firestore
         .doc(documentPath(shoppingSheetId))
         .withConverter(
-          fromFirestore: (ds, _) => ShoppingSheet.fromJson(ds.toModelJson()!),
+          fromFirestore: (ds, _) => ShoppingSheet.fromJson(ds.dataWithId()!),
           toFirestore: (shoppingSheet, _) => shoppingSheet.toJson(),
         );
   }
