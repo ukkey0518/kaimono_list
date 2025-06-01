@@ -11,7 +11,7 @@ install:
 	cd ios; pod install
 	cd scripts; flutter pub get
 
-clean_update:
+clean_install:
 	rm -rf pubspec.lock Gemfile.lock vendor/bundle ios/Podfile.lock ios/Pods scripts/pubspec.lock
 	@make install
 

@@ -5,17 +5,14 @@ publish_to: "none"
 
 version: 0.0.9+14
 
-environment: { sdk: ^3.7.2 }
+environment: { sdk: ^3.8.1 }
 
 dependencies:
   animated_list_plus: ^0.5.2
-  cloud_firestore: ^5.6.7
-  # Dependencies cannot be resolved in the latest version.
-  # latest [collection 1.19.1]
-  #   but [Flutter 3.27.0] > [collection 1.19.0]
+  cloud_firestore: ^5.6.8
   collection: ^1.19.1
-  firebase_auth: ^5.5.3
-  firebase_core: 3.13.0
+  firebase_auth: ^5.5.4
+  firebase_core: 3.13.1
   flutter: { sdk: flutter }
   flutter_hooks: ^0.21.2
   flutter_slidable: ^4.0.0
@@ -44,7 +41,7 @@ dev_dependencies:
   json_serializable: ^6.9.5
   riverpod_generator: ^2.6.5
   riverpod_lint: ^2.6.5
-  very_good_analysis: ^7.0.0
+  very_good_analysis: ^8.0.0
 
 flutter:
   uses-material-design: true

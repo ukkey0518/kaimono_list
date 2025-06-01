@@ -1,11 +1,11 @@
 name: "scripts"
 description: "A collection of scripts for the Flutter project"
 
-environment: { sdk: ^3.7.2 }
+environment: { sdk: ^3.8.1 }
 
 dependencies:
   collection: ^1.19.1
   recase: ^4.1.0
 
 dev_dependencies:
-  very_good_analysis: ^7.0.0
+  very_good_analysis: ^8.0.0

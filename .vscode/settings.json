@@ -1,5 +1,5 @@
 {
-    "dart.flutterSdkPath": "~/.asdf/installs/flutter/3.29.2-stable",
+    "dart.flutterSdkPath": "~/.asdf/installs/flutter/3.32.1-stable",
     "cSpell.words": [
         "kaimono",
         "recase"
