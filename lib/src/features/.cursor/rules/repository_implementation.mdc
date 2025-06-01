@@ -1,6 +1,6 @@
 ---
 description: 
-globs: 
+globs: lib/src/features/**/data/*.dart
 alwaysApply: false
 ---
 # lib/src/features Repository実装ルール

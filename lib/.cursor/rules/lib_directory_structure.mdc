@@ -1,7 +1,7 @@
 ---
 description: 
-globs: 
-alwaysApply: true
+globs: lib/**/*.dart
+alwaysApply: false
 ---
 # libディレクトリ構成ルール
 
