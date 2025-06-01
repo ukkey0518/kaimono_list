@@ -15,10 +15,9 @@ final initialLocationControllerProvider =
     AutoDisposeNotifierProvider<InitialLocationController, String>.internal(
       InitialLocationController.new,
       name: r'initialLocationControllerProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$initialLocationControllerHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$initialLocationControllerHash,
       dependencies: <ProviderOrFamily>[sharedPrefProvider],
       allTransitiveDependencies: <ProviderOrFamily>{
         sharedPrefProvider,

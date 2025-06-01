@@ -15,10 +15,9 @@ final shoppingItemRepositoryProvider =
     AutoDisposeProvider<ShoppingItemRepository>.internal(
       shoppingItemRepository,
       name: r'shoppingItemRepositoryProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$shoppingItemRepositoryHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$shoppingItemRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -97,10 +96,9 @@ class ShoppingItemsStreamProvider
             shoppingItemsStream(ref as ShoppingItemsStreamRef, shoppingSheetId),
         from: shoppingItemsStreamProvider,
         name: r'shoppingItemsStreamProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$shoppingItemsStreamHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$shoppingItemsStreamHash,
         dependencies: ShoppingItemsStreamFamily._dependencies,
         allTransitiveDependencies:
             ShoppingItemsStreamFamily._allTransitiveDependencies,
@@ -224,10 +222,9 @@ class ShoppingItemsFutureProvider
             shoppingItemsFuture(ref as ShoppingItemsFutureRef, shoppingSheetId),
         from: shoppingItemsFutureProvider,
         name: r'shoppingItemsFutureProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$shoppingItemsFutureHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$shoppingItemsFutureHash,
         dependencies: ShoppingItemsFutureFamily._dependencies,
         allTransitiveDependencies:
             ShoppingItemsFutureFamily._allTransitiveDependencies,
@@ -356,15 +353,13 @@ class IsAnyCompletedShoppingItemExistsStreamProvider
         ),
         from: isAnyCompletedShoppingItemExistsStreamProvider,
         name: r'isAnyCompletedShoppingItemExistsStreamProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$isAnyCompletedShoppingItemExistsStreamHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$isAnyCompletedShoppingItemExistsStreamHash,
         dependencies:
             IsAnyCompletedShoppingItemExistsStreamFamily._dependencies,
-        allTransitiveDependencies:
-            IsAnyCompletedShoppingItemExistsStreamFamily
-                ._allTransitiveDependencies,
+        allTransitiveDependencies: IsAnyCompletedShoppingItemExistsStreamFamily
+            ._allTransitiveDependencies,
         shoppingSheetId: shoppingSheetId,
       );
 

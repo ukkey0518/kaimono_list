@@ -9,12 +9,11 @@ part of 'shopping_item.dart';
 _ShoppingItem _$ShoppingItemFromJson(Map<String, dynamic> json) =>
     _ShoppingItem(
       name: json['name'] as String?,
-      createdBy:
-          json['createdBy'] == null
-              ? const ShoppingItemCreateUser()
-              : ShoppingItemCreateUser.fromJson(
-                json['createdBy'] as Map<String, dynamic>,
-              ),
+      createdBy: json['createdBy'] == null
+          ? const ShoppingItemCreateUser()
+          : ShoppingItemCreateUser.fromJson(
+              json['createdBy'] as Map<String, dynamic>,
+            ),
       isCompleted: json['isCompleted'] as bool? ?? false,
       index: (json['index'] as num?)?.toInt(),
       id: json['id'] as String?,

@@ -11,19 +11,19 @@ String _$emailPasswordSignInControllerHash() =>
 
 /// See also [EmailPasswordSignInController].
 @ProviderFor(EmailPasswordSignInController)
-final emailPasswordSignInControllerProvider = AutoDisposeAsyncNotifierProvider<
-  EmailPasswordSignInController,
-  void
->.internal(
-  EmailPasswordSignInController.new,
-  name: r'emailPasswordSignInControllerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
+final emailPasswordSignInControllerProvider =
+    AutoDisposeAsyncNotifierProvider<
+      EmailPasswordSignInController,
+      void
+    >.internal(
+      EmailPasswordSignInController.new,
+      name: r'emailPasswordSignInControllerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
           : _$emailPasswordSignInControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$EmailPasswordSignInController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint

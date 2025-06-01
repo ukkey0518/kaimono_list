@@ -13,8 +13,9 @@ String _$sharedPrefHash() => r'1f10387c17c725edd18ef378242c7e85c432cf5d';
 final sharedPrefProvider = Provider<SharedPreferencesWithCache>.internal(
   sharedPref,
   name: r'sharedPrefProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$sharedPrefHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$sharedPrefHash,
   dependencies: const <ProviderOrFamily>[],
   allTransitiveDependencies: const <ProviderOrFamily>{},
 );

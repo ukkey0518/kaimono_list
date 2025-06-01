@@ -13,10 +13,9 @@ String _$authRepositoryHash() => r'fa5b8337b7daf1a6e6ab14268c91ea9089629ec0';
 final authRepositoryProvider = Provider<AuthRepository>.internal(
   authRepository,
   name: r'authRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$authRepositoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$authRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -31,8 +30,9 @@ String _$currentUserHash() => r'ee509e796a44e76b35ba6f66177df41a979ba8db';
 final currentUserProvider = Provider<AppUser?>.internal(
   currentUser,
   name: r'currentUserProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$currentUserHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentUserHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -47,10 +47,9 @@ String _$currentUserStreamHash() => r'f381d022251e2d0b4cc08fe35766deafee8aa788';
 final currentUserStreamProvider = StreamProvider<AppUser?>.internal(
   currentUserStream,
   name: r'currentUserStreamProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$currentUserStreamHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentUserStreamHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

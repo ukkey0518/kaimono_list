@@ -14,10 +14,9 @@ final signOutControllerProvider =
     AutoDisposeAsyncNotifierProvider<SignOutController, void>.internal(
       SignOutController.new,
       name: r'signOutControllerProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$signOutControllerHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$signOutControllerHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

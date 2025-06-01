@@ -11,19 +11,19 @@ String _$shoppingItemsListControllerHash() =>
 
 /// See also [ShoppingItemsListController].
 @ProviderFor(ShoppingItemsListController)
-final shoppingItemsListControllerProvider = AutoDisposeAsyncNotifierProvider<
-  ShoppingItemsListController,
-  void
->.internal(
-  ShoppingItemsListController.new,
-  name: r'shoppingItemsListControllerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
+final shoppingItemsListControllerProvider =
+    AutoDisposeAsyncNotifierProvider<
+      ShoppingItemsListController,
+      void
+    >.internal(
+      ShoppingItemsListController.new,
+      name: r'shoppingItemsListControllerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
           : _$shoppingItemsListControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ShoppingItemsListController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint

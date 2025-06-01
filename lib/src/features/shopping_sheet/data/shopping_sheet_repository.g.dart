@@ -15,10 +15,9 @@ final shoppingSheetRepositoryProvider =
     AutoDisposeProvider<ShoppingSheetRepository>.internal(
       shoppingSheetRepository,
       name: r'shoppingSheetRepositoryProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$shoppingSheetRepositoryHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$shoppingSheetRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -36,10 +35,9 @@ final shoppingSheetsByUserFutureProvider =
     AutoDisposeFutureProvider<List<ShoppingSheet>>.internal(
       shoppingSheetsByUserFuture,
       name: r'shoppingSheetsByUserFutureProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$shoppingSheetsByUserFutureHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$shoppingSheetsByUserFutureHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -118,10 +116,9 @@ class ShoppingSheetFutureProvider
             shoppingSheetFuture(ref as ShoppingSheetFutureRef, shoppingSheetId),
         from: shoppingSheetFutureProvider,
         name: r'shoppingSheetFutureProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$shoppingSheetFutureHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$shoppingSheetFutureHash,
         dependencies: ShoppingSheetFutureFamily._dependencies,
         allTransitiveDependencies:
             ShoppingSheetFutureFamily._allTransitiveDependencies,
