@@ -12,7 +12,7 @@ dependencies:
   cloud_firestore: ^5.6.8
   collection: ^1.19.1
   firebase_auth: ^5.5.4
-  firebase_core: 3.13.1
+  firebase_core: 3.14.0
   flutter: { sdk: flutter }
   flutter_hooks: ^0.21.2
   flutter_slidable: ^4.0.0
@@ -36,12 +36,12 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.3
   flutter_test: { sdk: flutter }
   freezed: ^3.0.6
-  go_router_builder: ^2.9.0
+  go_router_builder: ^3.0.0
   import_path_converter: ^1.0.1
   json_serializable: ^6.9.5
   riverpod_generator: ^2.6.5
   riverpod_lint: ^2.6.5
-  very_good_analysis: ^8.0.0
+  very_good_analysis: ^9.0.0
 
 flutter:
   uses-material-design: true

@@ -16,7 +16,7 @@ import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 part 'app_routes.g.dart';
 
 @TypedGoRoute<SignInRoute>(path: '/sign-in')
-class SignInRoute extends GoRouteData {
+class SignInRoute extends GoRouteData with _$SignInRoute {
   const SignInRoute({this.from});
 
   final String? from;
@@ -33,10 +33,9 @@ class SignInRoute extends GoRouteData {
   /// redirection occurs.
   @override
   Future<String?> redirect(BuildContext context, GoRouterState state) async {
-    final signedIn =
-        AppRouterRefScope.refOf(
-          context,
-        ).read(authRepositoryProvider).isSignedIn;
+    final signedIn = AppRouterRefScope.refOf(
+      context,
+    ).read(authRepositoryProvider).isSignedIn;
 
     if (signedIn) {
       return from != null
@@ -60,7 +59,7 @@ class SignInRoute extends GoRouteData {
     ),
   ],
 )
-class HomeRoute extends GoRouteData {
+class HomeRoute extends GoRouteData with _$HomeRoute {
   const HomeRoute();
 
   @override
@@ -69,7 +68,7 @@ class HomeRoute extends GoRouteData {
   }
 }
 
-class ShoppingSheetRoute extends GoRouteData {
+class ShoppingSheetRoute extends GoRouteData with _$ShoppingSheetRoute {
   const ShoppingSheetRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;
@@ -102,7 +101,7 @@ class ShoppingSheetRoute extends GoRouteData {
   }
 }
 
-class ShoppingSheetEditRoute extends GoRouteData {
+class ShoppingSheetEditRoute extends GoRouteData with _$ShoppingSheetEditRoute {
   const ShoppingSheetEditRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;
@@ -113,7 +112,8 @@ class ShoppingSheetEditRoute extends GoRouteData {
   }
 }
 
-class ShoppingItemsReorderModalRoute extends GoRouteData {
+class ShoppingItemsReorderModalRoute extends GoRouteData
+    with _$ShoppingItemsReorderModalRoute {
   const ShoppingItemsReorderModalRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;
