@@ -6,21 +6,50 @@ part of 'sign_out_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(SignOutController)
+const signOutControllerProvider = SignOutControllerProvider._();
+
+final class SignOutControllerProvider
+    extends $AsyncNotifierProvider<SignOutController, void> {
+  const SignOutControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'signOutControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$signOutControllerHash();
+
+  @$internal
+  @override
+  SignOutController create() => SignOutController();
+}
+
 String _$signOutControllerHash() => r'ef47c212bcd92458c5212c099008b464c7f169a1';
 
-/// See also [SignOutController].
-@ProviderFor(SignOutController)
-final signOutControllerProvider =
-    AutoDisposeAsyncNotifierProvider<SignOutController, void>.internal(
-      SignOutController.new,
-      name: r'signOutControllerProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$signOutControllerHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$SignOutController = AutoDisposeAsyncNotifier<void>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$SignOutController extends $AsyncNotifier<void> {
+  FutureOr<void> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    build();
+    final ref = this.ref as $Ref<AsyncValue<void>, void>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<void>, void>,
+              AsyncValue<void>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, null);
+  }
+}

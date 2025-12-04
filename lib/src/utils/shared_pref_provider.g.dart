@@ -6,22 +6,52 @@ part of 'shared_pref_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedPrefHash() => r'1f10387c17c725edd18ef378242c7e85c432cf5d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [sharedPref].
 @ProviderFor(sharedPref)
-final sharedPrefProvider = Provider<SharedPreferencesWithCache>.internal(
-  sharedPref,
-  name: r'sharedPrefProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$sharedPrefHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
-);
+const sharedPrefProvider = SharedPrefProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SharedPrefRef = ProviderRef<SharedPreferencesWithCache>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class SharedPrefProvider
+    extends
+        $FunctionalProvider<
+          SharedPreferencesWithCache,
+          SharedPreferencesWithCache,
+          SharedPreferencesWithCache
+        >
+    with $Provider<SharedPreferencesWithCache> {
+  const SharedPrefProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'sharedPrefProvider',
+        isAutoDispose: false,
+        dependencies: const <ProviderOrFamily>[],
+        $allTransitiveDependencies: const <ProviderOrFamily>[],
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$sharedPrefHash();
+
+  @$internal
+  @override
+  $ProviderElement<SharedPreferencesWithCache> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  SharedPreferencesWithCache create(Ref ref) {
+    return sharedPref(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SharedPreferencesWithCache value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SharedPreferencesWithCache>(value),
+    );
+  }
+}
+
+String _$sharedPrefHash() => r'1f10387c17c725edd18ef378242c7e85c432cf5d';

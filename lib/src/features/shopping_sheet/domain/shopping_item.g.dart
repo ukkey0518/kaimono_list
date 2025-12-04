@@ -27,16 +27,12 @@ _ShoppingItem _$ShoppingItemFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ShoppingItemToJson(_ShoppingItem instance) =>
     <String, dynamic>{
-      if (instance.name case final value?) 'name': value,
+      'name': ?instance.name,
       'createdBy': instance.createdBy.toJson(),
       'isCompleted': instance.isCompleted,
-      if (instance.index case final value?) 'index': value,
-      if (FirestoreFieldConverter.createdAtToJson(instance.createdAt)
-          case final value?)
-        'createdAt': value,
-      if (FirestoreFieldConverter.updatedAtToJson(instance.updatedAt)
-          case final value?)
-        'updatedAt': value,
+      'index': ?instance.index,
+      'createdAt': ?FirestoreFieldConverter.createdAtToJson(instance.createdAt),
+      'updatedAt': ?FirestoreFieldConverter.updatedAtToJson(instance.updatedAt),
     };
 
 _ShoppingItemCreateUser _$ShoppingItemCreateUserFromJson(
@@ -48,7 +44,4 @@ _ShoppingItemCreateUser _$ShoppingItemCreateUserFromJson(
 
 Map<String, dynamic> _$ShoppingItemCreateUserToJson(
   _ShoppingItemCreateUser instance,
-) => <String, dynamic>{
-  if (instance.id case final value?) 'id': value,
-  if (instance.name case final value?) 'name': value,
-};
+) => <String, dynamic>{'id': ?instance.id, 'name': ?instance.name};

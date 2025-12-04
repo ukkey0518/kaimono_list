@@ -3,7 +3,7 @@ import 'package:kaimono_list/src/utils/app_logger.dart';
 import 'package:kaimono_list/src/utils/debug_log.dart';
 import 'package:kaimono_list/src/utils/extensions/string_extensions.dart';
 
-class ProviderLogger extends ProviderObserver {
+final class ProviderLogger extends ProviderObserver {
   static bool disabled = false;
   static bool namedOnly = true;
   static int maxStateLength = 500;
@@ -46,44 +46,39 @@ class ProviderLogger extends ProviderObserver {
   }
 
   @override
-  void didAddProvider(
-    ProviderBase<Object?> provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
-    final name = provider.name;
+  void didAddProvider(ProviderObserverContext context, Object? value) {
+    final name = context.provider.name;
     if (namedOnly && name == null) return;
-    logInit('${name ?? provider.runtimeType}', value);
+    logInit('${name ?? context.provider.runtimeType}', value);
   }
 
   @override
   void didUpdateProvider(
-    ProviderBase<Object?> provider,
+    ProviderObserverContext context,
     Object? previousValue,
     Object? newValue,
-    ProviderContainer container,
   ) {
-    final name = provider.name;
-    if (namedOnly && provider.name == null) return;
-    logUpdate('${name ?? provider.runtimeType}', previousValue, newValue);
+    final name = context.provider.name;
+    if (namedOnly && context.provider.name == null) return;
+    logUpdate(
+      '${name ?? context.provider.runtimeType}',
+      previousValue,
+      newValue,
+    );
   }
 
   @override
-  void didDisposeProvider(
-    ProviderBase<Object?> provider,
-    ProviderContainer container,
-  ) {
-    final name = provider.name;
-    if (namedOnly && name == null) return;
-    logDispose('${name ?? provider.runtimeType}');
+  void didDisposeProvider(ProviderObserverContext context) {
+    final name = context.provider.name;
+    if (namedOnly && context.provider.name == null) return;
+    logDispose('${name ?? context.provider.runtimeType}');
   }
 
   @override
   void providerDidFail(
-    ProviderBase<Object?> provider,
+    ProviderObserverContext context,
     Object error,
     StackTrace stackTrace,
-    ProviderContainer container,
   ) {
     AppLogger().captureException(error, stackTrace);
   }

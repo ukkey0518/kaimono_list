@@ -26,13 +26,9 @@ _ShoppingSheet _$ShoppingSheetFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ShoppingSheetToJson(_ShoppingSheet instance) =>
     <String, dynamic>{
-      if (instance.title case final value?) 'title': value,
-      if (instance.ownerUserId case final value?) 'ownerUserId': value,
+      'title': ?instance.title,
+      'ownerUserId': ?instance.ownerUserId,
       'memberUserIds': instance.memberUserIds,
-      if (FirestoreFieldConverter.createdAtToJson(instance.createdAt)
-          case final value?)
-        'createdAt': value,
-      if (FirestoreFieldConverter.updatedAtToJson(instance.updatedAt)
-          case final value?)
-        'updatedAt': value,
+      'createdAt': ?FirestoreFieldConverter.createdAtToJson(instance.createdAt),
+      'updatedAt': ?FirestoreFieldConverter.updatedAtToJson(instance.updatedAt),
     };

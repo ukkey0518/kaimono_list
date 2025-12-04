@@ -9,9 +9,9 @@ part of 'app_routes.dart';
 List<RouteBase> get $appRoutes => [$signInRoute, $homeRoute];
 
 RouteBase get $signInRoute =>
-    GoRouteData.$route(path: '/sign-in', factory: _$SignInRoute._fromState);
+    GoRouteData.$route(path: '/sign-in', factory: $SignInRoute._fromState);
 
-mixin _$SignInRoute on GoRouteData {
+mixin $SignInRoute on GoRouteData {
   static SignInRoute _fromState(GoRouterState state) =>
       SignInRoute(from: state.uri.queryParameters['from']);
 
@@ -39,25 +39,22 @@ mixin _$SignInRoute on GoRouteData {
 
 RouteBase get $homeRoute => GoRouteData.$route(
   path: '/',
-
-  factory: _$HomeRoute._fromState,
+  factory: $HomeRoute._fromState,
   routes: [
     GoRouteData.$route(
       path: 'shopping-list/:shoppingSheetId',
-
-      factory: _$ShoppingSheetRoute._fromState,
+      factory: $ShoppingSheetRoute._fromState,
       routes: [
         GoRouteData.$route(
           path: 'edit',
-
-          factory: _$ShoppingSheetEditRoute._fromState,
+          factory: $ShoppingSheetEditRoute._fromState,
         ),
       ],
     ),
   ],
 );
 
-mixin _$HomeRoute on GoRouteData {
+mixin $HomeRoute on GoRouteData {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
   @override
@@ -77,7 +74,7 @@ mixin _$HomeRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ShoppingSheetRoute on GoRouteData {
+mixin $ShoppingSheetRoute on GoRouteData {
   static ShoppingSheetRoute _fromState(GoRouterState state) =>
       ShoppingSheetRoute(
         shoppingSheetId: state.pathParameters['shoppingSheetId']!,
@@ -104,7 +101,7 @@ mixin _$ShoppingSheetRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ShoppingSheetEditRoute on GoRouteData {
+mixin $ShoppingSheetEditRoute on GoRouteData {
   static ShoppingSheetEditRoute _fromState(GoRouterState state) =>
       ShoppingSheetEditRoute(
         shoppingSheetId: state.pathParameters['shoppingSheetId']!,

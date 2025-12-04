@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -35,7 +37,7 @@ class ShoppingItemFormBottomSheet extends HookWidget {
     final nameController = useTextEditingController(text: shoppingItem?.name);
 
     void submit() {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       final newShoppingItem =
           shoppingItem?.copyWith(name: nameController.text) ??
           ShoppingItem(name: nameController.text);

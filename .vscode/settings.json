@@ -2,6 +2,7 @@
     "dart.flutterSdkPath": "~/.asdf/installs/flutter/3.38.3-stable",
     "cSpell.words": [
         "kaimono",
+        "mocktail",
         "recase"
     ],
 }

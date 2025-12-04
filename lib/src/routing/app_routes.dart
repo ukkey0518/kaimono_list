@@ -14,7 +14,7 @@ import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 part 'app_routes.g.dart';
 
 @TypedGoRoute<SignInRoute>(path: '/sign-in')
-class SignInRoute extends GoRouteData with _$SignInRoute {
+class SignInRoute extends GoRouteData with $SignInRoute {
   const SignInRoute({this.from});
 
   final String? from;
@@ -56,7 +56,7 @@ class SignInRoute extends GoRouteData with _$SignInRoute {
     ),
   ],
 )
-class HomeRoute extends GoRouteData with _$HomeRoute {
+class HomeRoute extends GoRouteData with $HomeRoute {
   const HomeRoute();
 
   @override
@@ -65,7 +65,7 @@ class HomeRoute extends GoRouteData with _$HomeRoute {
   }
 }
 
-class ShoppingSheetRoute extends GoRouteData with _$ShoppingSheetRoute {
+class ShoppingSheetRoute extends GoRouteData with $ShoppingSheetRoute {
   const ShoppingSheetRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;
@@ -98,7 +98,7 @@ class ShoppingSheetRoute extends GoRouteData with _$ShoppingSheetRoute {
   }
 }
 
-class ShoppingSheetEditRoute extends GoRouteData with _$ShoppingSheetEditRoute {
+class ShoppingSheetEditRoute extends GoRouteData with $ShoppingSheetEditRoute {
   const ShoppingSheetEditRoute({required this.shoppingSheetId});
 
   final String shoppingSheetId;

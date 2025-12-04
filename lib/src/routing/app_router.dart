@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/routing/app_router_redirect.dart';
 import 'package:kaimono_list/src/routing/app_routes.dart';

@@ -20,7 +20,6 @@ class AsyncValueBuilder<T> extends StatelessWidget {
       AsyncLoading() => const Center(child: CircularProgressIndicator()),
       AsyncError() => RetryButton(onPressed: onRetry),
       AsyncData(:final value) => builder(context, value),
-      _ => const SizedBox(),
     };
   }
 }

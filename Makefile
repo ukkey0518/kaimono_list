@@ -8,7 +8,7 @@ install:
 	asdf reshim
 	bundle install
 	flutter pub get
-	cd ios; pod install
+	cd ios; rm -rf Podfile.lock Pods; pod install
 	cd scripts; flutter pub get
 
 clean_install:

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 class RouterRefreshStreamNotifier extends ChangeNotifier {
@@ -13,7 +14,7 @@ class RouterRefreshStreamNotifier extends ChangeNotifier {
 
   @override
   void dispose() {
-    _subscription.cancel();
+    unawaited(_subscription.cancel());
     super.dispose();
   }
 }

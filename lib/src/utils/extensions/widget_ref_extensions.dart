@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 extension WidgetRefEx on WidgetRef {
   void listenAsyncError<T>(

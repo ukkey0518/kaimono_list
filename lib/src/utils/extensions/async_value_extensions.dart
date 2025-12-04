@@ -10,24 +10,33 @@ extension AsyncValueUI<T> on AsyncValue<T> {
     switch (this) {
       case AsyncError(:final error, :final stackTrace):
         onError(error, stackTrace);
+      case AsyncLoading():
+      case AsyncData():
+        break;
     }
   }
 
-  void showDialogOnError(BuildContext context) {
+  Future<void> showDialogOnError(BuildContext context) async {
     switch (this) {
       case AsyncError(:final error):
         if (context.mounted) {
-          AppErrorDialog.show(context, error);
+          await AppErrorDialog.show(context, error);
         }
+      case AsyncLoading():
+      case AsyncData():
+        break;
     }
   }
 
-  void showSnackbarOnError(BuildContext context) {
+  Future<void> showSnackbarOnError(BuildContext context) async {
     switch (this) {
       case AsyncError(:final error):
         if (context.mounted) {
-          AppSnackbar.showError(context, error);
+          await AppSnackbar.showError(context, error);
         }
+      case AsyncLoading():
+      case AsyncData():
+        break;
     }
   }
 }

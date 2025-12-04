@@ -6,25 +6,63 @@ part of 'initial_location_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(InitialLocationController)
+const initialLocationControllerProvider = InitialLocationControllerProvider._();
+
+final class InitialLocationControllerProvider
+    extends $NotifierProvider<InitialLocationController, String> {
+  const InitialLocationControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'initialLocationControllerProvider',
+        isAutoDispose: true,
+        dependencies: const <ProviderOrFamily>[sharedPrefProvider],
+        $allTransitiveDependencies: const <ProviderOrFamily>[
+          InitialLocationControllerProvider.$allTransitiveDependencies0,
+        ],
+      );
+
+  static const $allTransitiveDependencies0 = sharedPrefProvider;
+
+  @override
+  String debugGetCreateSourceHash() => _$initialLocationControllerHash();
+
+  @$internal
+  @override
+  InitialLocationController create() => InitialLocationController();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
 String _$initialLocationControllerHash() =>
     r'b3e0593d4f12342a2987a11ad83a800fcc6b6086';
 
-/// See also [InitialLocationController].
-@ProviderFor(InitialLocationController)
-final initialLocationControllerProvider =
-    AutoDisposeNotifierProvider<InitialLocationController, String>.internal(
-      InitialLocationController.new,
-      name: r'initialLocationControllerProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$initialLocationControllerHash,
-      dependencies: <ProviderOrFamily>[sharedPrefProvider],
-      allTransitiveDependencies: <ProviderOrFamily>{
-        sharedPrefProvider,
-        ...?sharedPrefProvider.allTransitiveDependencies,
-      },
-    );
-
-typedef _$InitialLocationController = AutoDisposeNotifier<String>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$InitialLocationController extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

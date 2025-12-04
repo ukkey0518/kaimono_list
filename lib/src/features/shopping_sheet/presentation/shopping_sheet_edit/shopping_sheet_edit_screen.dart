@@ -20,7 +20,7 @@ class ShoppingSheetEditScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final shoppingSheetAsyncValue = ref.watch(
-      ShoppingSheetFutureProvider(shoppingSheetId),
+      shoppingSheetFutureProvider(shoppingSheetId),
     );
 
     final formKey = useMemoized(GlobalKey<FormState>.new);

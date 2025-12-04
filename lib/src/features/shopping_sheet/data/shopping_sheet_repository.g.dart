@@ -6,191 +6,172 @@ part of 'shopping_sheet_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(shoppingSheetRepository)
+const shoppingSheetRepositoryProvider = ShoppingSheetRepositoryProvider._();
+
+final class ShoppingSheetRepositoryProvider
+    extends
+        $FunctionalProvider<
+          ShoppingSheetRepository,
+          ShoppingSheetRepository,
+          ShoppingSheetRepository
+        >
+    with $Provider<ShoppingSheetRepository> {
+  const ShoppingSheetRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'shoppingSheetRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$shoppingSheetRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<ShoppingSheetRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  ShoppingSheetRepository create(Ref ref) {
+    return shoppingSheetRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ShoppingSheetRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ShoppingSheetRepository>(value),
+    );
+  }
+}
+
 String _$shoppingSheetRepositoryHash() =>
     r'0bc0b777cc3b1b55ed691371e751aecbce71df86';
 
-/// See also [shoppingSheetRepository].
-@ProviderFor(shoppingSheetRepository)
-final shoppingSheetRepositoryProvider =
-    AutoDisposeProvider<ShoppingSheetRepository>.internal(
-      shoppingSheetRepository,
-      name: r'shoppingSheetRepositoryProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$shoppingSheetRepositoryHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+@ProviderFor(shoppingSheetsByUserFuture)
+const shoppingSheetsByUserFutureProvider =
+    ShoppingSheetsByUserFutureProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ShoppingSheetRepositoryRef =
-    AutoDisposeProviderRef<ShoppingSheetRepository>;
+final class ShoppingSheetsByUserFutureProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<ShoppingSheet>>,
+          List<ShoppingSheet>,
+          FutureOr<List<ShoppingSheet>>
+        >
+    with
+        $FutureModifier<List<ShoppingSheet>>,
+        $FutureProvider<List<ShoppingSheet>> {
+  const ShoppingSheetsByUserFutureProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'shoppingSheetsByUserFutureProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$shoppingSheetsByUserFutureHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<ShoppingSheet>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<ShoppingSheet>> create(Ref ref) {
+    return shoppingSheetsByUserFuture(ref);
+  }
+}
+
 String _$shoppingSheetsByUserFutureHash() =>
     r'2f6128ae47e3213ba5bae8c529e368b3994a4507';
 
-/// See also [shoppingSheetsByUserFuture].
-@ProviderFor(shoppingSheetsByUserFuture)
-final shoppingSheetsByUserFutureProvider =
-    AutoDisposeFutureProvider<List<ShoppingSheet>>.internal(
-      shoppingSheetsByUserFuture,
-      name: r'shoppingSheetsByUserFutureProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$shoppingSheetsByUserFutureHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef ShoppingSheetsByUserFutureRef =
-    AutoDisposeFutureProviderRef<List<ShoppingSheet>>;
-String _$shoppingSheetFutureHash() =>
-    r'51534673be4a021b4d022fbb0b5101e694c576c9';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [shoppingSheetFuture].
 @ProviderFor(shoppingSheetFuture)
-const shoppingSheetFutureProvider = ShoppingSheetFutureFamily();
+const shoppingSheetFutureProvider = ShoppingSheetFutureFamily._();
 
-/// See also [shoppingSheetFuture].
-class ShoppingSheetFutureFamily extends Family<AsyncValue<ShoppingSheet?>> {
-  /// See also [shoppingSheetFuture].
-  const ShoppingSheetFutureFamily();
+final class ShoppingSheetFutureProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<ShoppingSheet?>,
+          ShoppingSheet?,
+          FutureOr<ShoppingSheet?>
+        >
+    with $FutureModifier<ShoppingSheet?>, $FutureProvider<ShoppingSheet?> {
+  const ShoppingSheetFutureProvider._({
+    required ShoppingSheetFutureFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'shoppingSheetFutureProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [shoppingSheetFuture].
-  ShoppingSheetFutureProvider call(String shoppingSheetId) {
-    return ShoppingSheetFutureProvider(shoppingSheetId);
+  @override
+  String debugGetCreateSourceHash() => _$shoppingSheetFutureHash();
+
+  @override
+  String toString() {
+    return r'shoppingSheetFutureProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  ShoppingSheetFutureProvider getProviderOverride(
-    covariant ShoppingSheetFutureProvider provider,
-  ) {
-    return call(provider.shoppingSheetId);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<ShoppingSheet?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'shoppingSheetFutureProvider';
-}
-
-/// See also [shoppingSheetFuture].
-class ShoppingSheetFutureProvider
-    extends AutoDisposeFutureProvider<ShoppingSheet?> {
-  /// See also [shoppingSheetFuture].
-  ShoppingSheetFutureProvider(String shoppingSheetId)
-    : this._internal(
-        (ref) =>
-            shoppingSheetFuture(ref as ShoppingSheetFutureRef, shoppingSheetId),
-        from: shoppingSheetFutureProvider,
-        name: r'shoppingSheetFutureProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$shoppingSheetFutureHash,
-        dependencies: ShoppingSheetFutureFamily._dependencies,
-        allTransitiveDependencies:
-            ShoppingSheetFutureFamily._allTransitiveDependencies,
-        shoppingSheetId: shoppingSheetId,
-      );
-
-  ShoppingSheetFutureProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.shoppingSheetId,
-  }) : super.internal();
-
-  final String shoppingSheetId;
-
-  @override
-  Override overrideWith(
-    FutureOr<ShoppingSheet?> Function(ShoppingSheetFutureRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ShoppingSheetFutureProvider._internal(
-        (ref) => create(ref as ShoppingSheetFutureRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        shoppingSheetId: shoppingSheetId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<ShoppingSheet?> createElement() {
-    return _ShoppingSheetFutureProviderElement(this);
+  FutureOr<ShoppingSheet?> create(Ref ref) {
+    final argument = this.argument as String;
+    return shoppingSheetFuture(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ShoppingSheetFutureProvider &&
-        other.shoppingSheetId == shoppingSheetId;
+    return other is ShoppingSheetFutureProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, shoppingSheetId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ShoppingSheetFutureRef on AutoDisposeFutureProviderRef<ShoppingSheet?> {
-  /// The parameter `shoppingSheetId` of this provider.
-  String get shoppingSheetId;
-}
+String _$shoppingSheetFutureHash() =>
+    r'51534673be4a021b4d022fbb0b5101e694c576c9';
 
-class _ShoppingSheetFutureProviderElement
-    extends AutoDisposeFutureProviderElement<ShoppingSheet?>
-    with ShoppingSheetFutureRef {
-  _ShoppingSheetFutureProviderElement(super.provider);
+final class ShoppingSheetFutureFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<ShoppingSheet?>, String> {
+  const ShoppingSheetFutureFamily._()
+    : super(
+        retry: null,
+        name: r'shoppingSheetFutureProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  ShoppingSheetFutureProvider call(String shoppingSheetId) =>
+      ShoppingSheetFutureProvider._(argument: shoppingSheetId, from: this);
 
   @override
-  String get shoppingSheetId =>
-      (origin as ShoppingSheetFutureProvider).shoppingSheetId;
+  String toString() => r'shoppingSheetFutureProvider';
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
