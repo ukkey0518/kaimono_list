@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/routing/app_router_redirect.dart';
@@ -20,5 +21,8 @@ GoRouter appRouter(Ref ref) {
     ),
     routes: $appRoutes,
     redirect: (context, state) => appRouterRedirect(context, state, ref),
+    observers: [
+      FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+    ]
   );
 }
