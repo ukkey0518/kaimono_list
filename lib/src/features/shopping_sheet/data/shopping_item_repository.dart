@@ -45,7 +45,7 @@ class ShoppingItemRepository {
   Stream<List<ShoppingItem>> watchList({required String shoppingSheetId}) {
     final query = collectionRef(
       shoppingSheetId,
-    ).orderBy('index', descending: true);
+    ).orderBy('index', descending: false);
     return query.snapshots().map(
       (qs) => qs.docs.map((ds) => ds.data()).toList(),
     );
@@ -56,7 +56,7 @@ class ShoppingItemRepository {
   }) async {
     final query = collectionRef(
       shoppingSheetId,
-    ).orderBy('index', descending: true);
+    ).orderBy('index', descending: false);
     final qs = await query.get();
     return qs.docs.map((ds) => ds.data()).toList();
   }

@@ -4,6 +4,7 @@ import 'package:animated_list_plus/animated_list_plus.dart';
 import 'package:animated_list_plus/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kaimono_list/src/common_widgets/app_dismissible.dart';
@@ -24,13 +25,15 @@ import 'package:kaimono_list/src/routing/app_routes.dart';
 import 'package:kaimono_list/src/utils/extensions/async_value_extensions.dart';
 import 'package:kaimono_list/src/utils/un_focus_all.dart';
 
-class ShoppingItemsListScreen extends ConsumerWidget {
+class ShoppingItemsListScreen extends HookConsumerWidget {
   const ShoppingItemsListScreen({required this.shoppingSheetId, super.key});
 
   final String shoppingSheetId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final scrollController = useScrollController();
+
     ref.listen(
       shoppingItemsListControllerProvider,
       (_, state) => state.showSnackbarOnError(context),
@@ -56,6 +59,11 @@ class ShoppingItemsListScreen extends ConsumerWidget {
         await controller.createShoppingItem(
           shoppingSheetId: shoppingSheetId,
           shoppingItem: newShoppingItem,
+        );
+        await scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.fastOutSlowIn,
         );
       }
     }
@@ -152,6 +160,7 @@ class ShoppingItemsListScreen extends ConsumerWidget {
 
                   return ImplicitlyAnimatedReorderableList(
                     items: shoppingItems,
+                    controller: scrollController,
                     areItemsTheSame: (oldItem, newItem) =>
                         oldItem.id == newItem.id,
                     onReorderFinished: (_, _, _, newItems) =>
