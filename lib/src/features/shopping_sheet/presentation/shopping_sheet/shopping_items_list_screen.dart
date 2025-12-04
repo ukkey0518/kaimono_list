@@ -196,7 +196,8 @@ class ShoppingItemsListScreen extends ConsumerWidget {
                             child: ShoppingItemListTile(
                               shoppingItem: shoppingItem,
                               onPurchasedChanged: updateIsCompleted,
-                              onTap: () => showShoppingItemForm(shoppingItem),
+                              onLongPress: () =>
+                                  showShoppingItemForm(shoppingItem),
                               trailing: const Handle(
                                 delay: Duration(milliseconds: 100),
                                 child: Icon(

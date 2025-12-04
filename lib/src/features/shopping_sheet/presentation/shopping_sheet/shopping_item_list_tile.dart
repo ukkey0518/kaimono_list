@@ -6,6 +6,7 @@ class ShoppingItemListTile extends StatelessWidget {
     required this.shoppingItem,
     this.onPurchasedChanged,
     this.onTap,
+    this.onLongPress,
     this.trailing,
     super.key,
   });
@@ -13,6 +14,7 @@ class ShoppingItemListTile extends StatelessWidget {
   final ShoppingItem shoppingItem;
   final ValueChanged<bool>? onPurchasedChanged;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final Widget? trailing;
 
   @override
@@ -48,6 +50,7 @@ class ShoppingItemListTile extends StatelessWidget {
                 ),
         ),
         onTap: onTap,
+        onLongPress: onLongPress,
         trailing: trailing,
       ),
     );
