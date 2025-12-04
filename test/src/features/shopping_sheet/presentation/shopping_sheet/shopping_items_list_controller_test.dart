@@ -5,7 +5,7 @@ import 'package:kaimono_list/src/features/shopping_sheet/domain/shopping_item.da
 import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet/shopping_items_list_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../data/shopping_item_repository_test.dart';
+import '/Users/ukkey/Projects/ukkey0518/kaimono_list/test/src/features/shopping_sheet/data/shopping_item_repository_test.dart';
 
 void main() {
   setUpAll(() {

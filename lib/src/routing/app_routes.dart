@@ -5,12 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:kaimono_list/src/features/authentication/data/auth_repository.dart';
 import 'package:kaimono_list/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/data/shopping_sheet_repository.dart';
-import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet/reorder_shopping_items_screen.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet/shopping_items_list_screen.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet_edit/shopping_sheet_edit_screen.dart';
 import 'package:kaimono_list/src/features/shopping_sheet/presentation/shopping_sheet_list/shopping_sheet_list_screen.dart';
 import 'package:kaimono_list/src/routing/app_router_ref_scope.dart';
-import 'package:kaimono_list/src/routing/build_fade_transition_page.dart';
 import 'package:kaimono_list/src/routing/initial_location_controller.dart';
 
 part 'app_routes.g.dart';
@@ -54,7 +52,6 @@ class SignInRoute extends GoRouteData with _$SignInRoute {
       path: 'shopping-list/:shoppingSheetId',
       routes: [
         TypedGoRoute<ShoppingSheetEditRoute>(path: 'edit'),
-        TypedGoRoute<ShoppingItemsReorderModalRoute>(path: 'reorder'),
       ],
     ),
   ],
@@ -109,22 +106,5 @@ class ShoppingSheetEditRoute extends GoRouteData with _$ShoppingSheetEditRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return ShoppingSheetEditScreen(shoppingSheetId: shoppingSheetId);
-  }
-}
-
-class ShoppingItemsReorderModalRoute extends GoRouteData
-    with _$ShoppingItemsReorderModalRoute {
-  const ShoppingItemsReorderModalRoute({required this.shoppingSheetId});
-
-  final String shoppingSheetId;
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return buildFadeTransitionPage(
-      context: context,
-      state: state,
-      fullscreenDialog: true,
-      child: ReorderShoppingItemsScreen(shoppingSheetId: shoppingSheetId),
-    );
   }
 }

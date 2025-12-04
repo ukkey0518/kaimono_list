@@ -29,10 +29,9 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
     );
 
     void toggleType() {
-      type.value =
-          type.value == EmailPasswordSignInType.signIn
-              ? EmailPasswordSignInType.register
-              : EmailPasswordSignInType.signIn;
+      type.value = type.value == EmailPasswordSignInType.signIn
+          ? EmailPasswordSignInType.register
+          : EmailPasswordSignInType.signIn;
     }
 
     Future<void> submit() async {
@@ -62,8 +61,9 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
           padding: const EdgeInsets.all(Sizes.p16),
           child: Consumer(
             builder: (context, ref, _) {
-              final isLoading =
-                  ref.watch(emailPasswordSignInControllerProvider).isLoading;
+              final isLoading = ref
+                  .watch(emailPasswordSignInControllerProvider)
+                  .isLoading;
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -86,14 +86,13 @@ class EmailPasswordSignInScreen extends HookConsumerWidget {
                   const Gap(Sizes.p24),
                   ElevatedButton(
                     onPressed: isLoading ? null : submit,
-                    child:
-                        isLoading
-                            ? const LoadingIndicator()
-                            : Text(
-                              type.value == EmailPasswordSignInType.signIn
-                                  ? 'Sign In'.hardcoded
-                                  : 'Register'.hardcoded,
-                            ),
+                    child: isLoading
+                        ? const LoadingIndicator()
+                        : Text(
+                            type.value == EmailPasswordSignInType.signIn
+                                ? 'Sign In'.hardcoded
+                                : 'Register'.hardcoded,
+                          ),
                   ),
                   const Gap(Sizes.p8),
                   TextButton(

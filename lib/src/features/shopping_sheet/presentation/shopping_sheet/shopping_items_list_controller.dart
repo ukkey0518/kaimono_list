@@ -38,6 +38,21 @@ class ShoppingItemsListController extends _$ShoppingItemsListController {
     });
   }
 
+  Future<void> reorderShoppingItems({
+    required String shoppingSheetId,
+    required List<String> sortedShoppingItemIds,
+  }) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await ref
+          .read(shoppingItemRepositoryProvider)
+          .updateIndexes(
+            shoppingSheetId: shoppingSheetId,
+            sortedShoppingItemIds: sortedShoppingItemIds,
+          );
+    });
+  }
+
   Future<void> saveShoppingItem({
     required String shoppingSheetId,
     required ShoppingItem shoppingItem,

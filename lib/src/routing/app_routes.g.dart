@@ -52,11 +52,6 @@ RouteBase get $homeRoute => GoRouteData.$route(
 
           factory: _$ShoppingSheetEditRoute._fromState,
         ),
-        GoRouteData.$route(
-          path: 'reorder',
-
-          factory: _$ShoppingItemsReorderModalRoute._fromState,
-        ),
       ],
     ),
   ],
@@ -120,34 +115,6 @@ mixin _$ShoppingSheetEditRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
     '/shopping-list/${Uri.encodeComponent(_self.shoppingSheetId)}/edit',
-  );
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin _$ShoppingItemsReorderModalRoute on GoRouteData {
-  static ShoppingItemsReorderModalRoute _fromState(GoRouterState state) =>
-      ShoppingItemsReorderModalRoute(
-        shoppingSheetId: state.pathParameters['shoppingSheetId']!,
-      );
-
-  ShoppingItemsReorderModalRoute get _self =>
-      this as ShoppingItemsReorderModalRoute;
-
-  @override
-  String get location => GoRouteData.$location(
-    '/shopping-list/${Uri.encodeComponent(_self.shoppingSheetId)}/reorder',
   );
 
   @override

@@ -86,18 +86,10 @@ class ShoppingItemsListScreen extends ConsumerWidget {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.reorder),
-              onPressed:
-                  () => ShoppingItemsReorderModalRoute(
-                    shoppingSheetId: shoppingSheetId,
-                  ).go(context),
-            ),
-            IconButton(
               icon: const Icon(Icons.settings),
-              onPressed:
-                  () => ShoppingSheetEditRoute(
-                    shoppingSheetId: shoppingSheetId,
-                  ).go(context),
+              onPressed: () => ShoppingSheetEditRoute(
+                shoppingSheetId: shoppingSheetId,
+              ).go(context),
             ),
           ],
         ),
@@ -145,10 +137,25 @@ class ShoppingItemsListScreen extends ConsumerWidget {
                     return const Center(child: EmptyShoppingItemsPlaceHolder());
                   }
 
-                  return ImplicitlyAnimatedList(
+                  Future<void> reorderShoppingItems(
+                    List<ShoppingItem> newItems,
+                  ) async {
+                    await ref
+                        .read(shoppingItemsListControllerProvider.notifier)
+                        .reorderShoppingItems(
+                          shoppingSheetId: shoppingSheetId,
+                          sortedShoppingItemIds: newItems
+                              .map((e) => e.id!)
+                              .toList(),
+                        );
+                  }
+
+                  return ImplicitlyAnimatedReorderableList(
                     items: shoppingItems,
-                    areItemsTheSame:
-                        (oldItem, newItem) => oldItem.id == newItem.id,
+                    areItemsTheSame: (oldItem, newItem) =>
+                        oldItem.id == newItem.id,
+                    onReorderFinished: (_, _, _, newItems) =>
+                        reorderShoppingItems(newItems),
                     itemBuilder: (context, animation, shoppingItem, index) {
                       Future<void> updateIsCompleted(bool newValue) async {
                         unawaited(HapticFeedback.selectionClick());
@@ -178,16 +185,26 @@ class ShoppingItemsListScreen extends ConsumerWidget {
                             );
                       }
 
-                      return SizeFadeTransition(
-                        curve: Curves.fastOutSlowIn,
-                        animation: animation,
-                        child: AppDismissible(
-                          key: ValueKey(shoppingItem.id),
-                          onDismiss: deleteShoppingItem,
-                          child: ShoppingItemListTile(
-                            shoppingItem: shoppingItem,
-                            onPurchasedChanged: updateIsCompleted,
-                            onTap: () => showShoppingItemForm(shoppingItem),
+                      return Reorderable(
+                        key: ValueKey(shoppingItem.id),
+                        child: SizeFadeTransition(
+                          curve: Curves.fastOutSlowIn,
+                          animation: animation,
+                          child: AppDismissible(
+                            key: ValueKey(shoppingItem.id),
+                            onDismiss: deleteShoppingItem,
+                            child: ShoppingItemListTile(
+                              shoppingItem: shoppingItem,
+                              onPurchasedChanged: updateIsCompleted,
+                              onTap: () => showShoppingItemForm(shoppingItem),
+                              trailing: const Handle(
+                                delay: Duration(milliseconds: 100),
+                                child: Icon(
+                                  Icons.drag_handle,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       );

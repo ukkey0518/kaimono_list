@@ -15,11 +15,10 @@ class DeleteShoppingItemConfirmDialog extends StatelessWidget {
   }) async {
     final isConfirmed = await showDialog<bool>(
       context: context,
-      builder:
-          (context) => DeleteShoppingItemConfirmDialog._(
-            shoppingItem: shoppingItem,
-            key: key,
-          ),
+      builder: (context) => DeleteShoppingItemConfirmDialog._(
+        shoppingItem: shoppingItem,
+        key: key,
+      ),
     );
     return isConfirmed ?? false;
   }

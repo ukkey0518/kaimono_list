@@ -21,11 +21,10 @@ class ShoppingItemFormBottomSheet extends HookWidget {
       barrierColor: Colors.transparent,
       enableDrag: false,
       isScrollControlled: true,
-      builder:
-          (context) => ShoppingItemFormBottomSheet._(
-            key: key,
-            shoppingItem: shoppingItem,
-          ),
+      builder: (context) => ShoppingItemFormBottomSheet._(
+        key: key,
+        shoppingItem: shoppingItem,
+      ),
     );
   }
 
@@ -62,10 +61,9 @@ class ShoppingItemFormBottomSheet extends HookWidget {
                   final isEmpty = nameController.text.trim().isEmpty;
                   return ElevatedButton(
                     onPressed: isEmpty ? context.pop : submit,
-                    child:
-                        isEmpty
-                            ? const Icon(Icons.close)
-                            : const Icon(Icons.check),
+                    child: isEmpty
+                        ? const Icon(Icons.close)
+                        : const Icon(Icons.check),
                   );
                 },
               ),

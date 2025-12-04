@@ -86,10 +86,9 @@ class ShoppingItemRepository {
   }
 
   Future<int?> _fetchMaxOrderIndex({required String shoppingSheetId}) async {
-    final qs =
-        await collectionRef(
-          shoppingSheetId,
-        ).orderBy('index', descending: true).limit(1).get();
+    final qs = await collectionRef(
+      shoppingSheetId,
+    ).orderBy('index', descending: true).limit(1).get();
     return qs.docs.firstOrNull?.data().index;
   }
 
@@ -135,10 +134,9 @@ class ShoppingItemRepository {
 
   Future<void> deleteListCompleted({required String shoppingSheetId}) async {
     final batch = _firestore.batch();
-    final qs =
-        await collectionRef(
-          shoppingSheetId,
-        ).where('isCompleted', isEqualTo: true).get();
+    final qs = await collectionRef(
+      shoppingSheetId,
+    ).where('isCompleted', isEqualTo: true).get();
     for (final ds in qs.docs) {
       batch.delete(ds.reference);
     }

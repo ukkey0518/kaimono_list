@@ -62,10 +62,9 @@ class ShoppingSheetListScreen extends ConsumerWidget {
               for (final shoppingSheet in shoppingSheets)
                 ListTile(
                   title: Text(shoppingSheet.title ?? ''),
-                  onTap:
-                      () => ShoppingSheetRoute(
-                        shoppingSheetId: shoppingSheet.id!,
-                      ).go(context),
+                  onTap: () => ShoppingSheetRoute(
+                    shoppingSheetId: shoppingSheet.id!,
+                  ).go(context),
                 ),
               ListTile(
                 leading: const Icon(Icons.add),
