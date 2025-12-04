@@ -116,8 +116,7 @@ class ShoppingItemRepository {
     required List<String> sortedShoppingItemIds,
   }) async {
     final batch = _firestore.batch();
-    for (final (index, shoppingItemId)
-        in sortedShoppingItemIds.reversed.indexed) {
+    for (final (index, shoppingItemId) in sortedShoppingItemIds.indexed) {
       batch.update(documentRef(shoppingSheetId, shoppingItemId), {
         'index': index,
       });
