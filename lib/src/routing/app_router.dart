@@ -23,6 +23,6 @@ GoRouter appRouter(Ref ref) {
     redirect: (context, state) => appRouterRedirect(context, state, ref),
     observers: [
       FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
-    ]
+    ],
   );
 }
