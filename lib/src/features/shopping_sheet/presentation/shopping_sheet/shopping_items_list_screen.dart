@@ -161,6 +161,7 @@ class ShoppingItemsListScreen extends HookConsumerWidget {
                   return ImplicitlyAnimatedReorderableList(
                     items: shoppingItems,
                     controller: scrollController,
+                    padding: const EdgeInsets.only(bottom: Sizes.p96),
                     areItemsTheSame: (oldItem, newItem) =>
                         oldItem.id == newItem.id,
                     onReorderFinished: (_, _, _, newItems) =>
