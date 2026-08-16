@@ -59,3 +59,10 @@ bump_minor:
 
 bump_major:
 	flutter pub run cider bump major --bump-build
+
+#
+# --- Build --- #
+#
+
+build_ios:
+	flutter build ipa
